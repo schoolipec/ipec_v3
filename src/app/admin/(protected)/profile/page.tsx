@@ -9,7 +9,10 @@ export default async function ProfilePage() {
       initial={{
         name: user!.name,
         email: user!.email,
-        adminLocale: user!.adminLocale,
+        role: user!.role,
+        phone: user!.phone ?? '',
+        whatsapp: user!.whatsapp ?? '',
+        telegramChatId: user!.telegramChatId ?? '',
         notifyTelegram: user!.notifyTelegram,
         notifyEmail: user!.notifyEmail,
       }}

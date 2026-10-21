@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       ok: true,
-      user: { id: user.id, name: user.name, email: user.email, role: user.role, adminLocale: user.adminLocale },
+      user: { id: user.id, name: user.name, email: user.email, role: user.role },
     });
   } catch {
     return NextResponse.json({ error: 'server_error' }, { status: 500 });

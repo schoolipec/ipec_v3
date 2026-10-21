@@ -1,7 +1,9 @@
 'use client';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import {
   LayoutDashboard, FileText, HandHeart, Users, UserCircle,
   Shield, ExternalLink, PanelLeftClose, PanelLeftOpen, X,
@@ -36,7 +38,11 @@ interface Props {
 export default function AdminSidebar({ role, collapsed, mobileOpen, onToggleCollapse, onCloseMobile }: Props) {
   const path = usePathname();
   const { t } = useAdminLang();
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
+  const logoSrc = mounted && resolvedTheme === 'light' ? '/assets/logo-transparent.png' : '/assets/logo-white.png';
   const items = NAV.filter(item => !item.roles || item.roles.includes(role));
 
   const isActive = (href: string) =>
@@ -52,41 +58,36 @@ export default function AdminSidebar({ role, collapsed, mobileOpen, onToggleColl
       />
 
       <aside className={`admin-sidebar${collapsed ? ' collapsed' : ''}${mobileOpen ? ' mobile-open' : ''}`}>
-        {/* Logo + toggle */}
-        <div className="flex items-center justify-between px-4 py-3.5"
-             style={{ borderBottom: '1px solid var(--admin-border)', minHeight: 'var(--admin-topbar-h)' }}>
+        {/* Logo + título + toggle */}
+        <div className="flex flex-col gap-3 px-4 pt-4 pb-4"
+             style={{ borderBottom: '1px solid var(--admin-border)' }}>
+          <div className="flex items-center justify-between">
+            <Image src={logoSrc} alt="Iglesia Plenitud en Cristo" width={640} height={640} priority unoptimized
+                   className={collapsed ? 'h-12 w-12' : 'h-28 w-28'} />
+            {/* Botón colapsar — solo en desktop */}
+            <button
+              onClick={onToggleCollapse}
+              className="hidden lg:flex items-center justify-center rounded-lg p-1 transition"
+              style={{ color: 'var(--admin-text-muted)' }}
+              title={collapsed ? t('sidebar.expand') : t('sidebar.collapse')}
+            >
+              {collapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
+            </button>
+            {/* Botón cerrar — solo en móvil */}
+            <button
+              onClick={onCloseMobile}
+              className="lg:hidden flex items-center justify-center rounded-lg p-1 transition"
+              style={{ color: 'var(--admin-text-muted)' }}
+            >
+              <X size={18} />
+            </button>
+          </div>
           {!collapsed && (
-            <div className="flex items-center gap-2.5 overflow-hidden">
-              <Image src="/assets/logo-white.png" alt="IPEC" width={28} height={28} className="h-7 w-auto shrink-0" />
-              <span className="font-semibold text-sm truncate" style={{ color: 'var(--admin-text)' }}>
-                IPEC Admin
-              </span>
+            <div className="leading-tight" style={{ color: 'var(--admin-text)' }}>
+              <p className="text-base font-semibold">Iglesia</p>
+              <p className="text-base font-semibold">Plenitud en Cristo</p>
             </div>
           )}
-          {collapsed && (
-            <div className="mx-auto">
-              <Image src="/assets/logo-white.png" alt="IPEC" width={28} height={28} className="h-7 w-auto" />
-            </div>
-          )}
-          {/* Botón colapsar — solo en desktop */}
-          <button
-            onClick={onToggleCollapse}
-            className="hidden lg:flex items-center justify-center rounded-lg p-1 transition"
-            style={{ color: 'var(--admin-text-muted)' }}
-            title={collapsed ? t('sidebar.expand') : t('sidebar.collapse')}
-          >
-            {collapsed
-              ? <PanelLeftOpen size={18} />
-              : <PanelLeftClose size={18} />}
-          </button>
-          {/* Botón cerrar — solo en móvil */}
-          <button
-            onClick={onCloseMobile}
-            className="lg:hidden flex items-center justify-center rounded-lg p-1 transition"
-            style={{ color: 'var(--admin-text-muted)' }}
-          >
-            <X size={18} />
-          </button>
         </div>
 
         {/* Links de navegación */}

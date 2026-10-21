@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession, hashPassword, verifyPassword } from '@/server/auth';
-import { updateUserProfile, getUserByEmail } from '@/server/users';
+import { updateUserProfile, getUserByEmail, type ContactFields } from '@/server/users';
+
+const clean = (v: unknown, max: number) => {
+  if (typeof v !== 'string') return undefined;
+  const t = v.trim().slice(0, max);
+  return t === '' ? null : t;
+};
 
 export async function PATCH(req: NextRequest) {
   const user = await getSession();
@@ -9,12 +15,15 @@ export async function PATCH(req: NextRequest) {
   const body = await req.json();
   const updates: Parameters<typeof updateUserProfile>[1] = {};
 
-  if (body.name) updates.name = String(body.name).trim().slice(0, 100);
-  if (body.adminLocale && ['en', 'es'].includes(body.adminLocale)) {
-    updates.adminLocale = body.adminLocale;
-  }
-  if (typeof body.notifyTelegram === 'boolean') updates.notifyTelegram = body.notifyTelegram;
-  if (typeof body.notifyEmail === 'boolean') updates.notifyEmail = body.notifyEmail;
+  if (typeof body.name === 'string' && body.name.trim()) updates.name = body.name.trim().slice(0, 100);
+
+  const contact: ContactFields = {};
+  const phone = clean(body.phone, 30); if (phone !== undefined) contact.phone = phone;
+  const whatsapp = clean(body.whatsapp, 30); if (whatsapp !== undefined) contact.whatsapp = whatsapp;
+  const telegramChatId = clean(body.telegramChatId, 40); if (telegramChatId !== undefined) contact.telegramChatId = telegramChatId;
+  if (typeof body.notifyTelegram === 'boolean') contact.notifyTelegram = body.notifyTelegram;
+  if (typeof body.notifyEmail === 'boolean') contact.notifyEmail = body.notifyEmail;
+  Object.assign(updates, contact);
 
   // Cambio de correo: exige la contraseña actual
   if (body.email) {
@@ -23,11 +32,12 @@ export async function PATCH(req: NextRequest) {
     }
     const ok = await verifyPassword(String(body.currentPassword), user.passwordHash);
     if (!ok) return NextResponse.json({ error: 'invalid_password' }, { status: 401 });
-    const existing = await getUserByEmail(String(body.email).toLowerCase().trim());
+    const newEmail = String(body.email).toLowerCase().trim();
+    const existing = await getUserByEmail(newEmail);
     if (existing && existing.id !== user.id) {
       return NextResponse.json({ error: 'email_taken' }, { status: 409 });
     }
-    updates.email = String(body.email).toLowerCase().trim();
+    updates.email = newEmail;
   }
 
   // Cambio de contraseña: exige la contraseña actual

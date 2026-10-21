@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { Fragment, useState, useEffect, useCallback, useMemo } from 'react';
 import {
   useReactTable, getCoreRowModel, getSortedRowModel, getFilteredRowModel,
   getPaginationRowModel, flexRender,
@@ -7,14 +7,16 @@ import {
 } from '@tanstack/react-table';
 import {
   ChevronUp, ChevronDown, ChevronsUpDown, Search, UserPlus,
-  Trash2, Settings, ChevronLeft, ChevronRight,
+  Trash2, Settings, Pencil, X, ChevronLeft, ChevronRight,
 } from 'lucide-react';
 import { useAdminLang } from '@/components/admin/AdminLangContext';
 import type { Role } from '@prisma/client';
 
 type UserRow = {
-  id: string; email: string; name: string; role: Role; adminLocale: string;
-  permissions: Record<string, boolean>; notifyTelegram: boolean; notifyEmail: boolean; createdAt: string;
+  id: string; email: string; name: string; role: Role;
+  permissions: Record<string, boolean>;
+  phone: string | null; whatsapp: string | null; telegramChatId: string | null;
+  notifyTelegram: boolean; notifyEmail: boolean; createdAt: string;
 };
 
 const ROLE_BADGE: Record<Role, string> = {
@@ -22,9 +24,14 @@ const ROLE_BADGE: Record<Role, string> = {
   ADMIN: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
   USER: 'bg-slate-500/20 text-slate-300 border-slate-500/30',
 };
+const ROLE_LABEL: Record<Role, string> = { SUPERADMIN: 'Super Admin', ADMIN: 'Admin', USER: 'User' };
 const SECTIONS = ['hero', 'about', 'groups', 'pastors', 'contact', 'live', 'offering', 'social'];
+const SECTION_LABEL: Record<string, string> = {
+  hero: 'Hero', about: 'About', groups: 'Groups', pastors: 'Pastors',
+  contact: 'Contact', live: 'Live', offering: 'Offering', social: 'Social',
+};
 
-export default function UsersPanel({ currentRole }: { currentRole: Role }) {
+export default function UsersPanel({ currentRole, currentId }: { currentRole: Role; currentId: string }) {
   const { t } = useAdminLang();
   const [users, setUsers] = useState<UserRow[]>([]);
   const [loading, setLoading] = useState(false);
@@ -32,12 +39,14 @@ export default function UsersPanel({ currentRole }: { currentRole: Role }) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [inviteOpen, setInviteOpen] = useState(false);
   const [permOpen, setPermOpen] = useState<string | null>(null);
+  const [editing, setEditing] = useState<UserRow | null>(null);
   const [inviteLink, setInviteLink] = useState('');
   const [invEmail, setInvEmail] = useState('');
   const [invName, setInvName] = useState('');
   const [invRole, setInvRole] = useState<Role>('USER');
   const [invError, setInvError] = useState('');
   const [invLoading, setInvLoading] = useState(false);
+  const [notice, setNotice] = useState('');
 
   const loadUsers = useCallback(async () => {
     setLoading(true);
@@ -84,6 +93,11 @@ export default function UsersPanel({ currentRole }: { currentRole: Role }) {
     if (res.ok) setUsers(prev => prev.filter(u => u.id !== userId));
   }
 
+  function flash(msg: string) {
+    setNotice(msg);
+    setTimeout(() => setNotice(''), 3000);
+  }
+
   const columns = useMemo<ColumnDef<UserRow>[]>(() => [
     {
       accessorKey: 'name',
@@ -100,54 +114,68 @@ export default function UsersPanel({ currentRole }: { currentRole: Role }) {
       header: t('users.colRole'),
       cell: ({ getValue }) => {
         const r = getValue<Role>();
-        const labels: Record<Role, string> = { SUPERADMIN: 'Super Admin', ADMIN: 'Admin', USER: 'User' };
         return (
           <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium ${ROLE_BADGE[r]}`}>
-            {labels[r]}
+            {ROLE_LABEL[r]}
           </span>
         );
       },
     },
     {
-      accessorKey: 'adminLocale',
-      header: t('users.colLang'),
-      cell: ({ getValue }) => (
-        <span className="text-sm font-mono" style={{ color: 'var(--admin-text-muted)' }}>
-          {(getValue<string>()).toUpperCase()}
-        </span>
+      id: 'contact',
+      header: t('users.colContact'),
+      enableSorting: false,
+      cell: ({ row }) => (
+        <div className="text-xs" style={{ color: 'var(--admin-text-muted)' }}>
+          {row.original.telegramChatId && <div>Telegram: {row.original.telegramChatId}</div>}
+          {row.original.phone && <div>{row.original.phone}</div>}
+        </div>
       ),
     },
     {
       id: 'actions',
       header: '',
-      cell: ({ row }) => (
-        <div className="flex items-center justify-end gap-1.5">
-          {row.original.role === 'USER' && (
+      enableSorting: false,
+      cell: ({ row }) => {
+        const u = row.original;
+        const canEdit = currentRole === 'SUPERADMIN' || u.role !== 'SUPERADMIN';
+        return (
+          <div className="flex items-center justify-end gap-1.5">
             <button
-              onClick={() => setPermOpen(p => p === row.original.id ? null : row.original.id)}
+              onClick={() => canEdit ? setEditing(u) : flash(t('users.cannotEditSuper'))}
               className="flex items-center gap-1 rounded-md px-2 py-1 text-xs transition"
-              style={{ color: 'var(--admin-text-muted)', border: '1px solid var(--admin-border)' }}
-              title={t('users.permissions')}
+              style={{ color: 'var(--admin-text-muted)', border: '1px solid var(--admin-border)', opacity: canEdit ? 1 : 0.5 }}
             >
-              <Settings size={13} />
-              <span className="hidden sm:inline">{t('users.permissions')}</span>
+              <Pencil size={13} />
+              <span className="hidden sm:inline">{t('users.edit')}</span>
             </button>
-          )}
-          {currentRole === 'SUPERADMIN' && (
-            <button
-              onClick={() => deleteUser(row.original.id, row.original.name)}
-              className="flex items-center rounded-md p-1.5 transition"
-              style={{ color: 'var(--admin-danger, #f87171)' }}
-              title={t('users.delete')}
-            >
-              <Trash2 size={14} />
-            </button>
-          )}
-        </div>
-      ),
+            {u.role === 'USER' && (
+              <button
+                onClick={() => setPermOpen(p => p === u.id ? null : u.id)}
+                className="flex items-center gap-1 rounded-md px-2 py-1 text-xs transition"
+                style={{ color: 'var(--admin-text-muted)', border: '1px solid var(--admin-border)' }}
+                title={t('users.permissions')}
+              >
+                <Settings size={13} />
+                <span className="hidden sm:inline">{t('users.permissions')}</span>
+              </button>
+            )}
+            {currentRole === 'SUPERADMIN' && u.id !== currentId && (
+              <button
+                onClick={() => deleteUser(u.id, u.name)}
+                className="flex items-center rounded-md p-1.5 transition"
+                style={{ color: 'var(--admin-danger, #f87171)' }}
+                title={t('users.delete')}
+              >
+                <Trash2 size={14} />
+              </button>
+            )}
+          </div>
+        );
+      },
     },
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  ], [t, currentRole, permOpen]);
+  ], [t, currentRole, currentId]);
 
   const table = useReactTable({
     data: users,
@@ -164,27 +192,22 @@ export default function UsersPanel({ currentRole }: { currentRole: Role }) {
 
   return (
     <div className="flex flex-col gap-5">
-      {/* Toolbar */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative flex-1 max-w-sm">
           <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--admin-text-muted)' }} />
-          <input
-            value={globalFilter}
-            onChange={e => setGlobalFilter(e.target.value)}
-            placeholder={t('common.search')}
-            className="admin-input w-full pl-9"
-          />
+          <input value={globalFilter} onChange={e => setGlobalFilter(e.target.value)}
+                 placeholder={t('common.search')} className="admin-input w-full pl-9" />
         </div>
-        <button
-          onClick={() => { setInviteOpen(!inviteOpen); setInviteLink(''); }}
-          className="admin-btn flex items-center gap-2"
-        >
+        <button onClick={() => { setInviteOpen(!inviteOpen); setInviteLink(''); }} className="admin-btn flex items-center gap-2">
           <UserPlus size={15} />
           {t('users.invite')}
         </button>
       </div>
 
-      {/* Formulario invitación */}
+      {notice && (
+        <p className="rounded-lg px-4 py-2.5 text-sm" style={{ background: 'var(--admin-danger-bg)', color: 'var(--admin-danger)' }}>{notice}</p>
+      )}
+
       {inviteOpen && (
         <div className="admin-card">
           <h3 className="mb-4 font-semibold" style={{ color: 'var(--admin-text)' }}>{t('users.newInvitation')}</h3>
@@ -226,7 +249,6 @@ export default function UsersPanel({ currentRole }: { currentRole: Role }) {
         </div>
       )}
 
-      {/* Tabla */}
       {loading ? (
         <p className="text-sm" style={{ color: 'var(--admin-text-muted)' }}>{t('common.loading')}</p>
       ) : (
@@ -264,17 +286,16 @@ export default function UsersPanel({ currentRole }: { currentRole: Role }) {
                   </td>
                 </tr>
               ) : table.getRowModel().rows.map(row => (
-                <>
-                  <tr key={row.id}>
+                <Fragment key={row.id}>
+                  <tr>
                     {row.getVisibleCells().map(cell => (
                       <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
                     ))}
                   </tr>
                   {permOpen === row.original.id && row.original.role === 'USER' && (
-                    <tr key={`${row.id}-perm`}>
+                    <tr>
                       <td colSpan={columns.length} className="px-4 pb-4">
                         <PermissionsEditor
-                          userId={row.original.id}
                           initial={row.original.permissions}
                           onSave={(perms) => savePermissions(row.original.id, perms)}
                           onCancel={() => setPermOpen(null)}
@@ -283,14 +304,13 @@ export default function UsersPanel({ currentRole }: { currentRole: Role }) {
                       </td>
                     </tr>
                   )}
-                </>
+                </Fragment>
               ))}
             </tbody>
           </table>
         </div>
       )}
 
-      {/* Paginación */}
       <div className="admin-pagination">
         <span className="text-sm" style={{ color: 'var(--admin-text-muted)' }}>
           {table.getFilteredRowModel().rows.length} {t('users.total')}
@@ -300,10 +320,122 @@ export default function UsersPanel({ currentRole }: { currentRole: Role }) {
             <ChevronLeft size={15} />
           </button>
           <span className="text-sm" style={{ color: 'var(--admin-text)' }}>
-            {table.getState().pagination.pageIndex + 1} / {table.getPageCount()}
+            {table.getState().pagination.pageIndex + 1} / {Math.max(1, table.getPageCount())}
           </span>
           <button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} className="admin-page-btn">
             <ChevronRight size={15} />
+          </button>
+        </div>
+      </div>
+
+      {editing && (
+        <EditUserDialog
+          user={editing}
+          currentRole={currentRole}
+          isSelf={editing.id === currentId}
+          onClose={() => setEditing(null)}
+          onSaved={() => { setEditing(null); flash(t('users.saved')); loadUsers(); }}
+          t={t}
+        />
+      )}
+    </div>
+  );
+}
+
+
+function EditUserDialog({ user, currentRole, isSelf, onClose, onSaved, t }: {
+  user: UserRow;
+  currentRole: Role;
+  isSelf: boolean;
+  onClose: () => void;
+  onSaved: () => void;
+  t: (key: string) => string;
+}) {
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const [role, setRole] = useState<Role>(user.role);
+  const [phone, setPhone] = useState(user.phone ?? '');
+  const [whatsapp, setWhatsapp] = useState(user.whatsapp ?? '');
+  const [telegramChatId, setTelegramChatId] = useState(user.telegramChatId ?? '');
+  const [notifyTelegram, setNotifyTelegram] = useState(user.notifyTelegram);
+  const [notifyEmail, setNotifyEmail] = useState(user.notifyEmail);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+
+  async function save() {
+    setError(''); setSaving(true);
+    try {
+      const res = await fetch(`/api/admin/users/${user.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, role, phone, whatsapp, telegramChatId, notifyTelegram, notifyEmail }),
+      });
+      if (res.ok) { onSaved(); return; }
+      const data = await res.json().catch(() => ({}));
+      setError(data.error === 'email_taken' ? t('users.emailTaken') : (data.error ?? 'Error'));
+    } finally { setSaving(false); }
+  }
+
+  const input = 'admin-input w-full';
+  const label = 'text-xs font-medium';
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" style={{ background: 'rgba(2,6,23,0.6)' }}
+         onClick={onClose}>
+      <div className="admin-card w-full max-w-xl max-h-[90dvh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+        <div className="mb-5 flex items-center justify-between">
+          <h3 className="font-semibold" style={{ color: 'var(--admin-text)' }}>{t('users.editUser')}</h3>
+          <button onClick={onClose} aria-label="close" style={{ color: 'var(--admin-text-muted)' }}><X size={18} /></button>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="flex flex-col gap-1.5">
+            <label className={label} style={{ color: 'var(--admin-text-muted)' }}>{t('users.name')}</label>
+            <input className={input} value={name} onChange={e => setName(e.target.value)} />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <label className={label} style={{ color: 'var(--admin-text-muted)' }}>{t('users.email')}</label>
+            <input className={input} type="email" value={email} onChange={e => setEmail(e.target.value)} />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <label className={label} style={{ color: 'var(--admin-text-muted)' }}>{t('users.role')}</label>
+            <select className={input} value={role} disabled={isSelf} onChange={e => setRole(e.target.value as Role)}>
+              <option value="USER">User</option>
+              <option value="ADMIN">Admin</option>
+              {currentRole === 'SUPERADMIN' && <option value="SUPERADMIN">Super Admin</option>}
+            </select>
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <label className={label} style={{ color: 'var(--admin-text-muted)' }}>{t('users.phone')}</label>
+            <input className={input} value={phone} onChange={e => setPhone(e.target.value)} />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <label className={label} style={{ color: 'var(--admin-text-muted)' }}>{t('users.whatsapp')}</label>
+            <input className={input} value={whatsapp} onChange={e => setWhatsapp(e.target.value)} />
+          </div>
+          <div className="flex flex-col gap-1.5">
+            <label className={label} style={{ color: 'var(--admin-text-muted)' }}>{t('users.telegramChatId')}</label>
+            <input className={input} inputMode="numeric" value={telegramChatId} onChange={e => setTelegramChatId(e.target.value)} />
+          </div>
+        </div>
+
+        <div className="mt-5 flex flex-col gap-2.5 text-sm" style={{ color: 'var(--admin-text)' }}>
+          <label className="flex cursor-pointer items-center gap-2.5">
+            <input type="checkbox" className="accent-[var(--admin-accent)]" checked={notifyTelegram} onChange={e => setNotifyTelegram(e.target.checked)} />
+            {t('users.notifyTelegram')}
+          </label>
+          <label className="flex cursor-pointer items-center gap-2.5">
+            <input type="checkbox" className="accent-[var(--admin-accent)]" checked={notifyEmail} onChange={e => setNotifyEmail(e.target.checked)} />
+            {t('users.notifyEmail')}
+          </label>
+        </div>
+
+        {error && <p className="mt-4 text-sm" style={{ color: 'var(--admin-danger, #f87171)' }}>{error}</p>}
+
+        <div className="mt-6 flex items-center justify-end gap-3">
+          <button onClick={onClose} className="text-sm" style={{ color: 'var(--admin-text-muted)' }}>{t('common.cancel')}</button>
+          <button onClick={save} disabled={saving} className="admin-btn">
+            {saving ? t('common.sending') : t('users.save')}
           </button>
         </div>
       </div>
@@ -311,20 +443,13 @@ export default function UsersPanel({ currentRole }: { currentRole: Role }) {
   );
 }
 
-function PermissionsEditor({ userId, initial, onSave, onCancel, t }: {
-  userId: string;
+function PermissionsEditor({ initial, onSave, onCancel, t }: {
   initial: Record<string, boolean>;
   onSave: (p: Record<string, boolean>) => void;
   onCancel: () => void;
   t: (key: string) => string;
 }) {
   const [perms, setPerms] = useState({ ...initial });
-  void userId;
-  const SECTION_KEYS: Record<string, string> = {
-    hero: 'Hero', about: 'About', groups: 'Groups', pastors: 'Pastors',
-    contact: 'Contact', live: 'Live', offering: 'Offering', social: 'Social',
-  };
-
   return (
     <div className="rounded-lg p-3 mt-1" style={{ background: 'var(--admin-surface-2)', border: '1px solid var(--admin-border)' }}>
       <p className="mb-3 text-xs font-medium" style={{ color: 'var(--admin-text-muted)' }}>{t('users.sectionsCanEdit')}</p>
@@ -333,7 +458,7 @@ function PermissionsEditor({ userId, initial, onSave, onCancel, t }: {
           <label key={s} className="flex cursor-pointer items-center gap-2 text-sm" style={{ color: 'var(--admin-text)' }}>
             <input type="checkbox" checked={!!perms[s]} onChange={() => setPerms(p => ({ ...p, [s]: !p[s] }))}
               className="accent-[var(--admin-accent)]" />
-            {SECTION_KEYS[s]}
+            {SECTION_LABEL[s]}
           </label>
         ))}
       </div>

@@ -1,8 +1,35 @@
 import 'server-only';
+import type { PrayerStatus } from '@prisma/client';
 import { prisma } from './db';
 
 export const PRAYER_MAX_CHARS = 500;
 export const PRAYER_NAME_MAX = 100;
+export const PRAYER_PAGE_SIZE = 15;
+export const PRAYER_STATUSES: PrayerStatus[] = ['NEW', 'PRAYING', 'ANSWERED', 'ARCHIVED'];
+
+export async function listPrayerRequests({ page, status, q }: { page: number; status?: PrayerStatus; q?: string }) {
+  const where = {
+    ...(status ? { status } : {}),
+    ...(q ? { name: { contains: q, mode: 'insensitive' as const } } : {}),
+  };
+  const [rows, total, counts] = await Promise.all([
+    prisma.prayerRequest.findMany({
+      where,
+      orderBy: { createdAt: 'desc' },
+      skip: (page - 1) * PRAYER_PAGE_SIZE,
+      take: PRAYER_PAGE_SIZE,
+    }),
+    prisma.prayerRequest.count({ where }),
+    prisma.prayerRequest.groupBy({ by: ['status'], _count: { _all: true } }),
+  ]);
+  const countByStatus = Object.fromEntries(PRAYER_STATUSES.map((s) => [s, 0])) as Record<PrayerStatus, number>;
+  for (const c of counts) countByStatus[c.status] = c._count._all;
+  return { rows, total, pages: Math.max(1, Math.ceil(total / PRAYER_PAGE_SIZE)), countByStatus };
+}
+
+export async function setPrayerStatus(id: string, status: PrayerStatus) {
+  return prisma.prayerRequest.update({ where: { id }, data: { status } });
+}
 
 type PrayerInput = { name: string; request: string; locale: string };
 

@@ -12,10 +12,16 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 - Dominio final cambia a **v3.suplenitud.com**. Imágenes de prueba con nombre `placeholder-*` (una copia por sección).
 - **Fase 4 APROBADA y publicada** (commits `f16afcc` + `fb85ce9`, etiqueta `fase-4`). Detalle: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\07-FASE4-CONTENIDO-EN-BD.md`.
 - **Fase 5 APROBADA y publicada** (commit `536a909`, etiqueta `fase-5`). Detalle: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\08-FASE5-ADMIN.md`.
-- **Fase 6 EN PROGRESO** — Imagen `soporteyapame/ipec-v3:latest` en DockerHub. VPS Iglesia (179.236.255.48) operativo en `v3.suplenitud.com`.
+- **Fase 6 EN PROGRESO** — VPS Iglesia (179.236.255.48) operativo en `v3.suplenitud.com`.
 - **Rediseño admin completado (2026-10-21):** Nueva estructura de rutas `/admin/*` (route group `(protected)`), sidebar colapsable con Lucide, topbar con dropdown de usuario, dark/light mode con next-themes, i18n EN/ES, tablas react-table v8, SecurityPanel con 2FA (TOTP otplib v13) + timeout de sesión. Migración Prisma aplicada (`admin_security_session`). Build limpio verificado.
-- ⚠️ Repositorio a migrar: estaba en GitHub `schoolipec/ipec_v3` → mover a Gitea `git.sistemasass.online/jscothserver/ipec_web_sistema`. Eliminar repo GitHub al confirmar.
-- ⚠️ Imágenes Docker: a partir de ahora en Gitea Container Registry (`git.sistemasass.online`) en vez de DockerHub.
+- ✅ **Migración a Gitea COMPLETA (2026-10-21):**
+  - Código: `git.sistemasass.online/jscothserver/ipec-v3` (branch `main`)
+  - Docker image: `git.sistemasass.online/jscothserver/ipec-v3:latest` (sha256: `ecf42fce...`)
+  - `docker-compose.prod.yml` en VPS iglesia actualizado para usar imagen de Gitea
+  - VPS iglesia con login a `git.sistemasass.online` configurado en `/root/.docker/config.json`
+  - DockerHub: imagen `soporteyapame/ipec-v3:latest` pendiente de eliminar (después de confirmar estabilidad)
+  - GitHub: repo `schoolipec/ipec_v3` pendiente de eliminar (lo dejamos al final)
+- ⚠️ Fix Docker login Gitea: usar `-p "PASSWORD"` directo, NO `--password-stdin` desde PowerShell (el pipe corrompe el pass). Además se debe desactivar el flag `must_change_password` del admin: `docker exec -u git gitea gitea admin user must-change-password --unset USERNAME`.
 - VPS Iglesia: SSH alias `vps-iglesia`; credenciales en `C:\ProgramandoconClaude\Proyectos\enProceso\IPEC\credenciales de acceso\VPS-Iglesia.md`.
 - ⚠️ Tras editar código: `docker compose up -d --force-recreate --renew-anon-volumes app` (Docker en Windows no recarga solo).
 - Documentación de cada fase: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\04..07-*.md`. Capturas: `C:\ProgramandoconClaude\Reportes\IPEC_v3\fase1..4\`.
@@ -49,7 +55,22 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
   - [x] Verificar `https://v3.suplenitud.com/api/health` → `{"ok":true,"database":true}` ✓
   - [x] Imagen subida a DockerHub: `soporteyapame/ipec-v3:latest`
   - [x] VPS actualizado para usar imagen de DockerHub (sin rebuild)
+  - [x] Migración a Gitea: código en `git.sistemasass.online/jscothserver/ipec-v3`, imagen en `git.sistemasass.online/jscothserver/ipec-v3:latest`
+  - [x] docker-compose.prod.yml en VPS iglesia actualizado para usar imagen Gitea
+  - [ ] Eliminar imagen DockerHub `soporteyapame/ipec-v3:latest` (pendiente confirmar estabilidad)
+  - [ ] Eliminar repo GitHub `schoolipec/ipec_v3` (explícitamente al final)
   - [ ] Prueba real del webhook n8n (formulario petición de oración → Telegram)
+
+## Panel admin v2 (2026-10-21) — en local, SIN desplegar
+- Hecho y probado en navegador (dev en :3001): logo según tema (`logo-white` oscuro / `logo-transparent` claro), título "Iglesia / Plenitud en Cristo" sobre el menú, topbar sin "Panel /".
+- Idioma del panel: por defecto EN, se guarda en `localStorage` (`ipec_admin_lang`). Ya no está en el perfil ni en BD (se quitó `User.adminLocale`).
+- Inicio: analítica de visitas (`PageVisit`), sin IP: visitante = hash diario. País = cabecera CDN si existe; si no, región de `Accept-Language` (aproximado). Bots y redirecciones no cuentan.
+- Pedidos de oración: filtro por estado, búsqueda por nombre en servidor, paginación real (15), cambio de estado (`PrayerStatus`).
+- Usuarios: diálogo de edición (nombre, correo, rol, teléfono, WhatsApp, Telegram chat ID, avisos). ADMIN no edita SUPERADMIN.
+- Perfil: rediseñado en secciones; campos de contacto y Telegram; avisos por Telegram / correo.
+- Migración local: `20261021230000_admin_v2_visitas_contacto_estado` (aplicada en BD local; NO en VPS).
+- Pendiente: ruta **Mails** (Mailcow, peticiones@suplenitud.com) — falta IMAP/SMTP y decidir alcance.
+- Deuda: reglas `react-hooks/set-state-in-effect` (lint) en hidratación de localStorage; mismo patrón ya existía en ProtectedShell/ContentEditor.
 
 ## Avisos para la próxima sesión
 - E: es un SSD USB: si Docker muestra la carpeta vacía, reiniciar Docker Desktop (ver 04-FASE1 → Problemas).

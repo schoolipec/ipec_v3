@@ -7,7 +7,7 @@ type Messages = typeof enMessages;
 type Lang = 'en' | 'es';
 
 const MESSAGES: Record<Lang, Messages> = { en: enMessages, es: esMessages };
-const COOKIE_KEY = 'admin_lang';
+const STORAGE_KEY = 'ipec_admin_lang';
 
 interface LangCtx {
   lang: Lang;
@@ -29,26 +29,23 @@ function interpolate(str: string, vars?: Record<string, string | number>): strin
   return str.replace(/\{\{(\w+)\}\}/g, (_, k) => String(vars[k] ?? `{{${k}}}`));
 }
 
-export function AdminLangProvider({ children, initial }: { children: ReactNode; initial?: Lang }) {
-  const [lang, setLangState] = useState<Lang>(initial ?? 'en');
+function readStoredLang(): Lang {
+  try {
+    const v = localStorage.getItem(STORAGE_KEY);
+    return v === 'es' ? 'es' : 'en';
+  } catch {
+    return 'en';
+  }
+}
 
-  useEffect(() => {
-    // Leer cookie al montar
-    const match = document.cookie.match(/(?:^|; )admin_lang=([^;]+)/);
-    if (match && (match[1] === 'en' || match[1] === 'es')) {
-      setLangState(match[1]);
-    }
-  }, []);
+export function AdminLangProvider({ children }: { children: ReactNode }) {
+  const [lang, setLangState] = useState<Lang>('en');
+
+  useEffect(() => { setLangState(readStoredLang()); }, []);
 
   const setLang = useCallback((l: Lang) => {
     setLangState(l);
-    document.cookie = `${COOKIE_KEY}=${l};path=/;max-age=31536000;samesite=lax`;
-    // Persistir en el perfil del usuario también
-    fetch('/api/admin/profile', {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ adminLocale: l }),
-    }).catch(() => {});
+    try { localStorage.setItem(STORAGE_KEY, l); } catch { /* almacenamiento bloqueado: solo dura la sesión de la pestaña */ }
   }, []);
 
   const t = useCallback((path: string, vars?: Record<string, string | number>) => {

@@ -1,202 +1,205 @@
 'use client';
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import {
-  useReactTable, getCoreRowModel, getSortedRowModel, getFilteredRowModel,
-  getPaginationRowModel, flexRender,
-  type ColumnDef, type SortingState,
-} from '@tanstack/react-table';
-import { ChevronUp, ChevronDown, ChevronsUpDown, Search, ChevronLeft, ChevronRight, ChevronDown as Expand } from 'lucide-react';
+import { Fragment, useState, useEffect, useCallback } from 'react';
+import { Search, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import { useAdminLang } from '@/components/admin/AdminLangContext';
 
-type PrayerRow = { id: string; name: string; request: string; locale: string; createdAt: string };
-
-const LOCALE_LABEL: Record<string, string> = {
-  en: 'EN', es: 'ES', pt: 'PT', ko: 'KO', de: 'DE',
+type PrayerStatus = 'NEW' | 'PRAYING' | 'ANSWERED' | 'ARCHIVED';
+type PrayerRow = { id: string; name: string; request: string; locale: string; status: PrayerStatus; createdAt: string };
+type Response = {
+  rows: PrayerRow[]; total: number; pages: number; page: number;
+  countByStatus: Record<PrayerStatus, number>;
 };
 
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('es', { day: '2-digit', month: 'short', year: 'numeric' });
+const STATUSES: PrayerStatus[] = ['NEW', 'PRAYING', 'ANSWERED', 'ARCHIVED'];
+const STATUS_STYLE: Record<PrayerStatus, string> = {
+  NEW: 'bg-sky-500/15 text-sky-300 border-sky-500/30',
+  PRAYING: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
+  ANSWERED: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
+  ARCHIVED: 'bg-slate-500/15 text-slate-300 border-slate-500/30',
+};
+
+function formatDate(iso: string, lang: string) {
+  return new Date(iso).toLocaleString(lang === 'es' ? 'es' : 'en-US', {
+    day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit',
+  });
 }
 
 export default function PrayerTable() {
-  const { t } = useAdminLang();
-  const [rows, setRows] = useState<PrayerRow[]>([]);
-  const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [globalFilter, setGlobalFilter] = useState('');
-  const [sorting, setSorting] = useState<SortingState>([{ id: 'createdAt', desc: true }]);
+  const { t, lang } = useAdminLang();
+  const [data, setData] = useState<Response | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [status, setStatus] = useState<PrayerStatus | ''>('');
+  const [q, setQ] = useState('');
+  const [search, setSearch] = useState('');
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [savingId, setSavingId] = useState<string | null>(null);
 
-  // Carga todo para paginación en cliente (los pedidos de una iglesia son pocos)
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/admin/prayer?page=1&limit=500');
-      if (!res.ok) return;
-      const data = await res.json();
-      setRows(data.rows);
-      setTotal(data.total);
+      const params = new URLSearchParams({ page: String(page) });
+      if (status) params.set('status', status);
+      if (q) params.set('q', q);
+      const res = await fetch(`/api/admin/prayer?${params}`);
+      if (res.ok) setData(await res.json());
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [page, status, q]);
 
   useEffect(() => { load(); }, [load]);
 
-  const columns = useMemo<ColumnDef<PrayerRow>[]>(() => [
-    {
-      accessorKey: 'name',
-      header: t('prayer.colName'),
-      cell: ({ getValue }) => (
-        <span className="font-medium" style={{ color: 'var(--admin-text)' }}>{getValue<string>()}</span>
-      ),
-    },
-    {
-      accessorKey: 'locale',
-      header: t('prayer.colLang'),
-      cell: ({ getValue }) => (
-        <span className="inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-mono"
-          style={{ color: 'var(--admin-text-muted)', borderColor: 'var(--admin-border)' }}>
-          {LOCALE_LABEL[getValue<string>()] ?? getValue<string>().toUpperCase()}
-        </span>
-      ),
-      enableGlobalFilter: false,
-    },
-    {
-      accessorKey: 'createdAt',
-      header: t('prayer.colDate'),
-      cell: ({ getValue }) => (
-        <span className="text-sm" style={{ color: 'var(--admin-text-muted)' }}>{formatDate(getValue<string>())}</span>
-      ),
-      enableGlobalFilter: false,
-    },
-    {
-      id: 'expand',
-      header: '',
-      cell: ({ row }) => (
-        <button
-          onClick={() => setExpanded(e => e === row.original.id ? null : row.original.id)}
-          className="flex items-center gap-1 text-xs transition"
-          style={{ color: 'var(--admin-text-muted)' }}
-        >
-          {t('prayer.viewRequest')}
-          <Expand size={13} className={`transition-transform ${expanded === row.original.id ? 'rotate-180' : ''}`} />
-        </button>
-      ),
-      enableSorting: false,
-    },
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  ], [t, expanded]);
+  // Búsqueda con retardo para no pedir al servidor en cada tecla
+  useEffect(() => {
+    const id = setTimeout(() => { setPage(1); setQ(search.trim()); }, 300);
+    return () => clearTimeout(id);
+  }, [search]);
 
-  const table = useReactTable({
-    data: rows,
-    columns,
-    state: { globalFilter, sorting },
-    onGlobalFilterChange: setGlobalFilter,
-    onSortingChange: setSorting,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    initialState: { pagination: { pageSize: 15 } },
-  });
+  async function changeStatus(id: string, next: PrayerStatus) {
+    setSavingId(id);
+    try {
+      const res = await fetch(`/api/admin/prayer/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: next }),
+      });
+      if (res.ok) await load();
+    } finally {
+      setSavingId(null);
+    }
+  }
+
+  const counts = data?.countByStatus;
+  const totalAll = counts ? STATUSES.reduce((sum, s) => sum + counts[s], 0) : 0;
 
   return (
     <div className="flex flex-col gap-5">
-      {/* Toolbar */}
+      <div>
+        <h1 className="text-xl font-semibold" style={{ color: 'var(--admin-text)' }}>{t('prayer.title')}</h1>
+        <p className="mt-1 text-sm" style={{ color: 'var(--admin-text-muted)' }}>{t('prayer.subtitle')}</p>
+      </div>
+
+      {/* Filtros por estado */}
+      <div className="flex flex-wrap gap-2">
+        {(['', ...STATUSES] as const).map((s) => {
+          const active = status === s;
+          const count = s === '' ? totalAll : counts?.[s] ?? 0;
+          return (
+            <button
+              key={s || 'all'}
+              onClick={() => { setStatus(s); setPage(1); }}
+              className="flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium transition"
+              style={{
+                borderColor: active ? 'var(--admin-accent)' : 'var(--admin-border)',
+                background: active ? 'var(--admin-accent-bg)' : 'transparent',
+                color: active ? 'var(--admin-accent)' : 'var(--admin-text-muted)',
+              }}
+            >
+              {s === '' ? t('prayer.all') : t(`prayer.status.${s}`)}
+              <span className="font-mono">{count}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Búsqueda */}
       <div className="flex items-center justify-between gap-3">
-        <div className="relative flex-1 max-w-sm">
+        <div className="relative w-full max-w-sm">
           <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--admin-text-muted)' }} />
-          <input
-            value={globalFilter}
-            onChange={e => setGlobalFilter(e.target.value)}
-            placeholder={t('prayer.searchName')}
-            className="admin-input w-full pl-9"
-          />
+          <input value={search} onChange={(e) => setSearch(e.target.value)}
+                 placeholder={t('prayer.searchName')} className="admin-input w-full pl-9" />
         </div>
-        <span className="text-sm shrink-0" style={{ color: 'var(--admin-text-muted)' }}>
-          {total} {t('prayer.total')}
+        <span className="shrink-0 text-sm" style={{ color: 'var(--admin-text-muted)' }}>
+          {data?.total ?? 0} {t('prayer.results')}
         </span>
       </div>
 
-      {loading ? (
-        <p className="text-sm" style={{ color: 'var(--admin-text-muted)' }}>{t('common.loading')}</p>
-      ) : (
-        <div className="admin-table-wrap">
-          <table className="admin-table">
-            <thead>
-              {table.getHeaderGroups().map(hg => (
-                <tr key={hg.id}>
-                  {hg.headers.map(header => (
-                    <th key={header.id}>
-                      {header.isPlaceholder ? null : (
-                        <button
-                          className={`flex items-center gap-1 text-xs font-semibold uppercase tracking-wide ${header.column.getCanSort() ? 'cursor-pointer select-none' : ''}`}
-                          style={{ color: 'var(--admin-text-muted)' }}
-                          onClick={header.column.getToggleSortingHandler()}
-                        >
-                          {flexRender(header.column.columnDef.header, header.getContext())}
-                          {header.column.getCanSort() && (
-                            header.column.getIsSorted() === 'asc' ? <ChevronUp size={13} /> :
-                            header.column.getIsSorted() === 'desc' ? <ChevronDown size={13} /> :
-                            <ChevronsUpDown size={13} style={{ opacity: 0.4 }} />
-                          )}
-                        </button>
-                      )}
-                    </th>
-                  ))}
-                </tr>
-              ))}
-            </thead>
-            <tbody>
-              {table.getRowModel().rows.length === 0 ? (
+      <div className="admin-table-wrap">
+        <table className="admin-table">
+          <thead>
+            <tr>
+              <th>{t('prayer.colName')}</th>
+              <th>{t('prayer.colStatus')}</th>
+              <th>{t('prayer.colLang')}</th>
+              <th>{t('prayer.colDate')}</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            {loading && !data && (
+              <tr><td colSpan={5} className="py-10 text-center text-sm" style={{ color: 'var(--admin-text-muted)' }}>{t('common.loading')}</td></tr>
+            )}
+            {data && data.rows.length === 0 && (
+              <tr><td colSpan={5} className="py-10 text-center text-sm" style={{ color: 'var(--admin-text-muted)' }}>{t('prayer.noRequests')}</td></tr>
+            )}
+            {data?.rows.map((row) => (
+              <Fragment key={row.id}>
                 <tr>
-                  <td colSpan={columns.length} className="text-center py-10" style={{ color: 'var(--admin-text-muted)' }}>
-                    {t('prayer.noRequests')}
+                  <td className="font-medium" style={{ color: 'var(--admin-text)' }}>{row.name}</td>
+                  <td>
+                    <div className="relative inline-flex items-center">
+                      <select
+                        value={row.status}
+                        disabled={savingId === row.id}
+                        onChange={(e) => changeStatus(row.id, e.target.value as PrayerStatus)}
+                        aria-label={t('prayer.changeStatus')}
+                        className={`appearance-none rounded-full border py-0.5 pl-3 pr-7 text-xs font-medium ${STATUS_STYLE[row.status]}`}
+                        style={{ background: 'transparent' }}
+                      >
+                        {STATUSES.map((s) => (
+                          <option key={s} value={s} style={{ color: '#0f172a' }}>{t(`prayer.status.${s}`)}</option>
+                        ))}
+                      </select>
+                      <ChevronDown size={12} className="pointer-events-none absolute right-2" />
+                    </div>
+                  </td>
+                  <td>
+                    <span className="inline-flex rounded-full border px-2 py-0.5 text-xs font-mono"
+                          style={{ color: 'var(--admin-text-muted)', borderColor: 'var(--admin-border)' }}>
+                      {row.locale.toUpperCase()}
+                    </span>
+                  </td>
+                  <td className="text-sm" style={{ color: 'var(--admin-text-muted)' }}>{formatDate(row.createdAt, lang)}</td>
+                  <td className="text-right">
+                    <button onClick={() => setExpanded((e) => (e === row.id ? null : row.id))}
+                            className="text-xs" style={{ color: 'var(--admin-text-muted)' }}>
+                      {t('prayer.viewRequest')}
+                    </button>
                   </td>
                 </tr>
-              ) : table.getRowModel().rows.map(row => (
-                <>
-                  <tr key={row.id}>
-                    {row.getVisibleCells().map(cell => (
-                      <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
-                    ))}
+                {expanded === row.id && (
+                  <tr>
+                    <td colSpan={5} className="pb-4 px-4">
+                      <div className="rounded-lg p-3" style={{ background: 'var(--admin-surface-2)', border: '1px solid var(--admin-border)' }}>
+                        <p className="text-sm leading-relaxed whitespace-pre-wrap" style={{ color: 'var(--admin-text)' }}>{row.request}</p>
+                      </div>
+                    </td>
                   </tr>
-                  {expanded === row.original.id && (
-                    <tr key={`${row.id}-exp`}>
-                      <td colSpan={columns.length} className="pb-4 px-4">
-                        <div className="rounded-lg p-3" style={{ background: 'var(--admin-surface-2)', border: '1px solid var(--admin-border)' }}>
-                          <p className="text-sm leading-relaxed" style={{ color: 'var(--admin-text)' }}>
-                            {row.original.request}
-                          </p>
-                        </div>
-                      </td>
-                    </tr>
-                  )}
-                </>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+                )}
+              </Fragment>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* Paginación */}
-      <div className="admin-pagination">
-        <span className="text-sm" style={{ color: 'var(--admin-text-muted)' }}>
-          {table.getFilteredRowModel().rows.length} {t('prayer.results')}
-        </span>
-        <div className="flex items-center gap-2">
-          <button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()} className="admin-page-btn">
-            <ChevronLeft size={15} />
-          </button>
-          <span className="text-sm" style={{ color: 'var(--admin-text)' }}>
-            {table.getState().pagination.pageIndex + 1} / {Math.max(1, table.getPageCount())}
+      {data && (
+        <div className="admin-pagination">
+          <span className="text-sm" style={{ color: 'var(--admin-text-muted)' }}>
+            {t('prayer.page')} {data.page} {t('prayer.of')} {data.pages}
           </span>
-          <button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} className="admin-page-btn">
-            <ChevronRight size={15} />
-          </button>
+          <div className="flex items-center gap-2">
+            <button onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={data.page <= 1} className="admin-page-btn">
+              <ChevronLeft size={15} />
+            </button>
+            <button onClick={() => setPage((p) => Math.min(data.pages, p + 1))} disabled={data.page >= data.pages} className="admin-page-btn">
+              <ChevronRight size={15} />
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
+

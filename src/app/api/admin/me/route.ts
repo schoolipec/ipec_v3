@@ -9,7 +9,6 @@ export async function GET() {
     name: user.name,
     email: user.email,
     role: user.role,
-    adminLocale: user.adminLocale,
     twoFactorEnabled: user.twoFactorEnabled,
     sessionTimeout: user.sessionTimeout,
   });

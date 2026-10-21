@@ -6,5 +6,5 @@ export default async function UsersPage() {
   const user = await getSession();
   if (user?.role !== 'SUPERADMIN' && user?.role !== 'ADMIN') redirect('/admin');
 
-  return <UsersPanel currentRole={user!.role} />;
+  return <UsersPanel currentRole={user!.role} currentId={user!.id} />;
 }

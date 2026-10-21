@@ -71,11 +71,7 @@ export default function AdminTopbar({ name, email, role, pageTitle, onOpenMobile
         >
           <Menu size={20} />
         </button>
-        <div className="flex items-center gap-1.5 text-sm" style={{ color: 'var(--admin-text-muted)' }}>
-          <span>Panel</span>
-          <span>/</span>
-          <span style={{ color: 'var(--admin-text)', fontWeight: 500 }}>{pageTitle}</span>
-        </div>
+        <h1 className="text-base font-semibold" style={{ color: 'var(--admin-text)' }}>{pageTitle}</h1>
       </div>
 
       {/* Derecha: controles */}

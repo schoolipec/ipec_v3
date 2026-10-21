@@ -39,15 +39,37 @@ model ContentRevision {
 }
 
 // Pedido de oración enviado desde Contact us. Solo nombre y petición (decisión de Juan): no se guarda correo ni IP.
+enum PrayerStatus {
+  NEW
+  PRAYING
+  ANSWERED
+  ARCHIVED
+}
+
 model PrayerRequest {
-  id        String   @id @default(cuid())
-  name      String   @db.VarChar(100)
-  request   String   @db.VarChar(500)
-  locale    String   @db.VarChar(5)
-  source    String   @default("website") @db.VarChar(20)
-  createdAt DateTime @default(now())
+  id        String       @id @default(cuid())
+  name      String       @db.VarChar(100)
+  request   String       @db.VarChar(500)
+  locale    String       @db.VarChar(5)
+  source    String       @default("website") @db.VarChar(20)
+  status    PrayerStatus @default(NEW)
+  createdAt DateTime     @default(now())
 
   // El admin los lista del más reciente al más viejo
+  @@index([createdAt(sort: Desc)])
+  @@index([status, createdAt(sort: Desc)])
+}
+
+// Visita a una página pública. No guarda IP: el visitante se distingue con un hash diario.
+model PageVisit {
+  id          String   @id @default(cuid())
+  path        String   @db.VarChar(200)
+  locale      String   @db.VarChar(5)
+  country     String?  @db.VarChar(2)
+  device      String   @db.VarChar(10)
+  visitorHash String   @db.VarChar(64)
+  createdAt   DateTime @default(now())
+
   @@index([createdAt(sort: Desc)])
 }
 
@@ -65,8 +87,10 @@ model User {
   name         String   @db.VarChar(100)
   passwordHash String   @db.VarChar(256)
   role         Role     @default(USER)
-  // Idioma preferido en el panel admin: "en" o "es"
-  adminLocale  String   @default("en") @db.VarChar(5)
+  // Contacto para avisos de pedidos de oración
+  phone          String? @db.VarChar(30)
+  whatsapp       String? @db.VarChar(30)
+  telegramChatId String? @db.VarChar(40)
   // Permisos por sección para role USER (JSON: {"hero":true,"about":false,...})
   permissions  Json     @default("{}")
   // Avisos de pedidos de oración

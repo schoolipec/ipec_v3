@@ -29,16 +29,24 @@ export async function updateUserPermissions(userId: string, permissions: Permiss
   return prisma.user.update({ where: { id: userId }, data: { permissions } });
 }
 
+export type ContactFields = {
+  phone?: string | null;
+  whatsapp?: string | null;
+  telegramChatId?: string | null;
+  notifyTelegram?: boolean;
+  notifyEmail?: boolean;
+};
+
 export async function updateUserProfile(
   userId: string,
-  data: {
-    name?: string;
-    email?: string;
-    passwordHash?: string;
-    adminLocale?: string;
-    notifyTelegram?: boolean;
-    notifyEmail?: boolean;
-  },
+  data: ContactFields & { name?: string; email?: string; passwordHash?: string },
+) {
+  return prisma.user.update({ where: { id: userId }, data });
+}
+
+export async function updateUserByAdmin(
+  userId: string,
+  data: ContactFields & { name?: string; email?: string; role?: Role },
 ) {
   return prisma.user.update({ where: { id: userId }, data });
 }
@@ -50,8 +58,10 @@ export async function listUsers() {
       email: true,
       name: true,
       role: true,
-      adminLocale: true,
       permissions: true,
+      phone: true,
+      whatsapp: true,
+      telegramChatId: true,
       notifyTelegram: true,
       notifyEmail: true,
       createdAt: true,
