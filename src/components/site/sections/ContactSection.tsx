@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server';
-import { SITE_INFO } from '../siteInfo';
+import { getSiteInfo } from '../siteInfo';
 import PrayerForm from './PrayerForm';
 import { SectionLabel } from './ui';
 
@@ -19,8 +19,9 @@ function IconBubble({ path }: { path: string }) {
 
 export default async function ContactSection() {
   const t = await getTranslations('contact');
-  const whatsappUrl = `https://wa.me/${SITE_INFO.phoneHref.replace('+', '')}?text=${encodeURIComponent(t('whatsappText'))}`;
-  const telegramUrl = `https://t.me/${SITE_INFO.phoneHref}`;
+  const site = await getSiteInfo();
+  const whatsappUrl = `https://wa.me/${site.phoneHref.replace('+', '')}?text=${encodeURIComponent(t('whatsappText'))}`;
+  const telegramUrl = `https://t.me/${site.phoneHref}`;
 
   return (
     <section id="contact" className="py-20">
@@ -34,23 +35,23 @@ export default async function ContactSection() {
           {/* Dirección, mapa y datos de contacto */}
           <div className="flex flex-col gap-6 rounded-2xl border border-line bg-card/90 p-6 sm:p-8">
             <div>
-              <p className="mb-1 text-2xl font-bold text-primary">{SITE_INFO.addressStreet}</p>
-              <p className="text-secondary">{SITE_INFO.addressCity}</p>
-              <a href={SITE_INFO.mapsDirections} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-blue hover:underline dark:text-sky-400">
+              <p className="mb-1 text-2xl font-bold text-primary">{site.addressStreet}</p>
+              <p className="text-secondary">{site.addressCity}</p>
+              <a href={site.mapsDirections} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-blue hover:underline dark:text-sky-400">
                 {t('directions')}
               </a>
             </div>
             <div className="h-56 overflow-hidden rounded-xl border border-line">
-              <iframe title={SITE_INFO.address} src={SITE_INFO.mapsEmbed} className="h-full w-full border-0" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+              <iframe title={site.address} src={site.mapsEmbed} className="h-full w-full border-0" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
             </div>
             <div className="flex flex-col gap-3 text-sm text-secondary">
-              <a href={`tel:${SITE_INFO.phoneHref}`} className="group flex items-center gap-2.5 transition-colors hover:text-[#7CB342]">
+              <a href={`tel:${site.phoneHref}`} className="group flex items-center gap-2.5 transition-colors hover:text-[#7CB342]">
                 <IconBubble path={PHONE_ICON} />
-                {SITE_INFO.phone}
+                {site.phone}
               </a>
-              <a href={`mailto:${SITE_INFO.email}`} className="group flex items-center gap-2.5 break-all transition-colors hover:text-[#7CB342]">
+              <a href={`mailto:${site.email}`} className="group flex items-center gap-2.5 break-all transition-colors hover:text-[#7CB342]">
                 <IconBubble path={MAIL_ICON} />
-                {SITE_INFO.email}
+                {site.email}
               </a>
             </div>
           </div>
@@ -64,7 +65,7 @@ export default async function ContactSection() {
             <div className="mt-6 border-t border-line pt-5">
               <p className="mb-3 text-sm text-secondary">{t('contactChannel')}</p>
               <div className="flex flex-wrap gap-3">
-                <a href={`tel:${SITE_INFO.phoneHref}`} title={t('callUs')} className="flex items-center gap-2 rounded-lg border border-line px-3 py-2 text-sm text-secondary transition-colors hover:border-[#7CB342]">
+                <a href={`tel:${site.phoneHref}`} title={t('callUs')} className="flex items-center gap-2 rounded-lg border border-line px-3 py-2 text-sm text-secondary transition-colors hover:border-[#7CB342]">
                   <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={PHONE_ICON} />
                   </svg>

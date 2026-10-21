@@ -1,16 +1,12 @@
-// Datos fijos de la iglesia (tomados de v2). Pasan a ser editables desde el admin en la fase 4.
-export const SITE_INFO = {
-  address: '5000 Spencer St, Las Vegas, NV 89119',
-  addressStreet: '5000 Spencer St',
-  addressCity: 'Las Vegas, NV 89119',
-  phone: '702 328 2536',
-  phoneHref: '+17023282536',
-  email: 'marioalsina@suplenitud.com',
-  mapsDirections: 'https://www.google.com/maps/dir/?api=1&destination=5000+Spencer+St,+Las+Vegas,+NV+89119',
-  mapsEmbed: 'https://www.google.com/maps?q=5000+Spencer+St,+Las+Vegas,+NV+89119&output=embed',
-  youtube: 'https://www.youtube.com/@suplenitud',
-  facebook: 'https://www.facebook.com/suplenitud',
-  instagram: 'https://www.instagram.com/prmarioalsina',
-  square: 'https://square.link/u/MRxMQSu3?src=embed',
-  ghti: 'https://www.globalharvestonline.com/quienes-somos',
-};
+import { getTranslations } from 'next-intl/server';
+import siteDefaults from '../../../messages/site-defaults.json';
+
+export type SiteInfo = typeof siteDefaults;
+
+// Datos de la iglesia, enlaces e imágenes: vienen de la BD (sección "site", iguales en todos los idiomas).
+// Se leen "en crudo" (t.raw) para que URLs y teléfonos no pasen por el formato de mensajes.
+export async function getSiteInfo(): Promise<SiteInfo> {
+  const t = await getTranslations('site');
+  const keys = Object.keys(siteDefaults) as (keyof SiteInfo)[];
+  return Object.fromEntries(keys.map((k) => [k, (t.raw(k) as string | undefined) ?? siteDefaults[k]])) as SiteInfo;
+}

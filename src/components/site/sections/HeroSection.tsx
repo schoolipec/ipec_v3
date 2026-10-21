@@ -1,15 +1,17 @@
 import { getTranslations } from 'next-intl/server';
+import { getSiteInfo } from '../siteInfo';
 import { Link } from '@/i18n/navigation';
 import { BRAND_BUTTON } from './ui';
 
 export default async function HeroSection() {
   const t = await getTranslations('hero');
+  const site = await getSiteInfo();
 
   return (
     <section className="relative flex min-h-[88dvh] items-center justify-center overflow-hidden">
       <div
         className="absolute inset-0 bg-cover"
-        style={{ backgroundImage: 'url(/assets/hero-community.png)', backgroundPosition: 'center top' }}
+        style={{ backgroundImage: `url(${site.heroImage})`, backgroundPosition: 'center top' }}
         aria-hidden="true"
       />
       {/* Velo azul para que el texto se lea; más profundo en oscuro */}

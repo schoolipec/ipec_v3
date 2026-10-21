@@ -1,9 +1,10 @@
 import { getTranslations } from 'next-intl/server';
-import { SITE_INFO } from '../siteInfo';
+import { getSiteInfo } from '../siteInfo';
 
 // Igual que v2: no detecta transmisión real; muestra horarios y enlaces a YouTube y Facebook
 export default async function LiveSection({ asPage = false }: { asPage?: boolean }) {
   const t = await getTranslations('live');
+  const site = await getSiteInfo();
   const Title = asPage ? 'h1' : 'h2';
 
   return (
@@ -33,7 +34,7 @@ export default async function LiveSection({ asPage = false }: { asPage?: boolean
         <p className="mb-5 text-sm text-white/50">{t('watchOn')}</p>
         <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <a
-            href={SITE_INFO.youtube}
+            href={site.youtube}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-3 rounded-full border border-white/20 px-8 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:border-red-500 hover:bg-red-500/10"
@@ -44,7 +45,7 @@ export default async function LiveSection({ asPage = false }: { asPage?: boolean
             {t('watchYoutube')}
           </a>
           <a
-            href={SITE_INFO.facebook}
+            href={site.facebook}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-3 rounded-full border border-white/20 px-8 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:border-blue-500 hover:bg-blue-500/10"

@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
-import { SITE_INFO } from '../siteInfo';
+import { getSiteInfo } from '../siteInfo';
 import { INSTAGRAM_BUTTON, InstagramIcon, SectionLabel } from './ui';
 
 // Estructura de v2. Sin fotos reales de los pastores todavía: imagen genérica, editable desde el admin en la fase 4.
 export default async function PastorsContent() {
   const t = await getTranslations('pastors');
+  const site = await getSiteInfo();
   const milestones = [1, 2, 3, 4].map((n) => ({
     num: `0${n}`,
     title: t(`milestone${n}Title` as 'milestone1Title'),
@@ -22,7 +23,7 @@ export default async function PastorsContent() {
           <p className="mx-auto max-w-2xl text-lg leading-relaxed text-secondary">{t('heroText')}</p>
         </div>
         <div className="mx-auto mt-10 max-w-4xl px-6">
-          <Image src="/assets/placeholder-pastors.png" alt="" width={1536} height={1024} sizes="(min-width: 896px) 896px, 100vw" className="h-64 w-full rounded-2xl object-cover shadow-xl md:h-80" priority />
+          <Image src={site.pastorsImage} alt="" width={1536} height={1024} sizes="(min-width: 896px) 896px, 100vw" className="h-64 w-full rounded-2xl object-cover shadow-xl md:h-80" priority />
         </div>
       </section>
 
@@ -32,7 +33,7 @@ export default async function PastorsContent() {
           <h2 className="mb-6 text-3xl font-bold text-primary">{t('marioSubtitle')}</h2>
           <p className="mb-4 leading-relaxed text-secondary">{t('marioBio1')}</p>
           <p className="mb-6 leading-relaxed text-secondary">{t('marioBio2')}</p>
-          <a href={SITE_INFO.ghti} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-blue hover:underline dark:text-sky-400">
+          <a href={site.ghti} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-blue hover:underline dark:text-sky-400">
             {t('ghtiLink')}
           </a>
         </div>
@@ -79,7 +80,7 @@ export default async function PastorsContent() {
           <SectionLabel>{t('ghtiLabel')}</SectionLabel>
           <h2 className="mb-4 text-2xl font-bold text-primary md:text-3xl">{t('ghtiTitle')}</h2>
           <p className="mx-auto mb-8 max-w-2xl leading-relaxed text-secondary">{t('ghtiText')}</p>
-          <a href={SITE_INFO.instagram} target="_blank" rel="noopener noreferrer" className={INSTAGRAM_BUTTON}>
+          <a href={site.instagram} target="_blank" rel="noopener noreferrer" className={INSTAGRAM_BUTTON}>
             <InstagramIcon />
             {t('visitInstagram')}
           </a>

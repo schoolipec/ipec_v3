@@ -12,4 +12,5 @@ RUN npm ci
 COPY . .
 
 EXPOSE 3000
-CMD ["sh", "-c", "npx prisma generate && npx prisma migrate deploy && npm run dev"]
+# seed.mjs solo agrega contenido que falte (nunca pisa lo editado), por eso corre en cada arranque
+CMD ["sh", "-c", "npx prisma generate && npx prisma migrate deploy && node prisma/seed.mjs && npm run dev"]

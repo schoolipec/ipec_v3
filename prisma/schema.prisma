@@ -8,6 +8,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Texto o dato editable del sitio. locale = en|es|pt|ko|de, o "all" para datos que no cambian
+// con el idioma (dirección, teléfono, enlaces, imágenes). Guardar publica de inmediato.
+model ContentEntry {
+  id        String            @id @default(cuid())
+  section   String            @db.VarChar(40)
+  key       String            @db.VarChar(80)
+  locale    String            @db.VarChar(5)
+  value     String            @db.Text
+  updatedAt DateTime          @updatedAt
+  // Quién hizo el último cambio; pasa a relación con User en la fase 5
+  updatedBy String?           @db.VarChar(120)
+  revisions ContentRevision[]
+
+  @@unique([section, key, locale])
+  @@index([locale])
+}
+
+// Historial: cada guardado deja el valor anterior para poder restaurarlo
+model ContentRevision {
+  id        String       @id @default(cuid())
+  entryId   String
+  entry     ContentEntry @relation(fields: [entryId], references: [id], onDelete: Cascade)
+  oldValue  String       @db.Text
+  newValue  String       @db.Text
+  changedBy String?      @db.VarChar(120)
+  changedAt DateTime     @default(now())
+
+  @@index([entryId, changedAt(sort: Desc)])
+}
+
 // Pedido de oración enviado desde Contact us. Solo nombre y petición (decisión de Juan): no se guarda correo ni IP.
 model PrayerRequest {
   id        String   @id @default(cuid())

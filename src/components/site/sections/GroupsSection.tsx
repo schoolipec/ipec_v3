@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
+import { getSiteInfo } from '../siteInfo';
 import { SectionLabel } from './ui';
 
 const ICONS = [
@@ -11,6 +12,7 @@ const ICONS = [
 // Sin botones de acción: no hay página de grupos (decisión de Juan)
 export default async function GroupsSection() {
   const t = await getTranslations('groups');
+  const site = await getSiteInfo();
   const groups = [
     { title: t('smallTitle'), text: t('smallText') },
     { title: t('trainingTitle'), text: t('trainingText') },
@@ -41,7 +43,7 @@ export default async function GroupsSection() {
           </div>
 
           <div className="overflow-hidden rounded-2xl shadow-xl">
-            <Image src="/assets/placeholder-community-groups.png" alt={t('title')} width={1536} height={1024} sizes="(min-width: 768px) 50vw, 100vw" className="h-auto w-full object-cover" />
+            <Image src={site.groupsImage} alt={t('title')} width={1536} height={1024} sizes="(min-width: 768px) 50vw, 100vw" className="h-auto w-full object-cover" />
           </div>
         </div>
       </div>
