@@ -6,8 +6,14 @@ import { THEME_COOKIE } from './theme';
 // así lo que dibuja el servidor y el navegador siempre coincide (sin error de hidratación)
 export default function ThemeToggle({ label }: { label: string }) {
   function toggle() {
-    const dark = document.documentElement.classList.toggle('dark');
-    document.cookie = `${THEME_COOKIE}=${dark ? 'dark' : 'light'}; path=/; max-age=31536000; samesite=lax`;
+    const root = document.documentElement;
+    const currentlyDark =
+      root.classList.contains('dark') ||
+      (!root.classList.contains('light') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    const next = currentlyDark ? 'light' : 'dark';
+    root.classList.remove('light', 'dark');
+    root.classList.add(next);
+    document.cookie = `${THEME_COOKIE}=${next}; path=/; max-age=31536000; samesite=lax`;
   }
 
   return (

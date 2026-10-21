@@ -3,6 +3,23 @@
     "title": "Gemeinde Plenitud en Cristo",
     "description": "Ein Ort zum Wachsen, Dazugehören und Dienen"
   },
+  "Header": {
+    "home": "Startseite",
+    "about": "Über uns",
+    "pastors": "Pastoren",
+    "contact": "Kontakt",
+    "live": "Live",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen",
+    "changeLanguage": "Sprache ändern",
+    "toggleTheme": "Design wechseln"
+  },
+  "Footer": {
+    "copyright": "© {year} Iglesia Plenitud en Cristo"
+  },
+  "Placeholder": {
+    "soon": "Diese Seite wird in Phase 3 erstellt."
+  },
   "Skeleton": {
     "title": "Phase 1 — Projektgrundgerüst",
     "subtitle": "Next.js, Tailwind, Prisma und PostgreSQL laufen in Docker.",

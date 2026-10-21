@@ -4,7 +4,10 @@ import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-import { THEME_COOKIE, themeBootScript } from '@/components/site/theme';
+import { THEME_COOKIE, isTheme } from '@/components/site/theme';
+import Header from '@/components/site/Header';
+import Footer from '@/components/site/Footer';
+import WaveBackground from '@/components/site/WaveBackground';
 import './site.css';
 
 type Props = {
@@ -31,15 +34,19 @@ export default async function SiteLayout({ children, params }: Props) {
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
 
-  const theme = (await cookies()).get(THEME_COOKIE)?.value;
+  // Con cookie: clase explícita. Sin cookie: sin clase y el CSS sigue la preferencia del sistema
+  const saved = (await cookies()).get(THEME_COOKIE)?.value;
+  const themeClass = isTheme(saved) ? saved : undefined;
 
   return (
-    <html lang={locale} className={theme === 'dark' ? 'dark' : undefined} suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
-      </head>
-      <body className="min-h-dvh antialiased">
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+    <html lang={locale} className={themeClass} suppressHydrationWarning>
+      <body className="flex min-h-dvh flex-col antialiased">
+        <NextIntlClientProvider>
+          <WaveBackground />
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

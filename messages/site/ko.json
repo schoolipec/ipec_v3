@@ -3,6 +3,23 @@
     "title": "플레니투드 엔 크리스토 교회",
     "description": "성장하고, 소속되고, 섬기는 곳"
   },
+  "Header": {
+    "home": "홈",
+    "about": "소개",
+    "pastors": "목회자",
+    "contact": "연락하기",
+    "live": "라이브",
+    "openMenu": "메뉴 열기",
+    "closeMenu": "메뉴 닫기",
+    "changeLanguage": "언어 변경",
+    "toggleTheme": "테마 전환"
+  },
+  "Footer": {
+    "copyright": "© {year} Iglesia Plenitud en Cristo"
+  },
+  "Placeholder": {
+    "soon": "이 페이지는 3단계에서 제작됩니다."
+  },
   "Skeleton": {
     "title": "1단계 — 프로젝트 기본 구조",
     "subtitle": "Docker에서 실행 중인 Next.js, Tailwind, Prisma, PostgreSQL.",

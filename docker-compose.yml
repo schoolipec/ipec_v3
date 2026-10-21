@@ -28,8 +28,8 @@ services:
     environment:
       DATABASE_URL: postgresql://ipec:${POSTGRES_PASSWORD}@db:5432/ipec?schema=public
       NODE_ENV: development
-      # Windows no propaga eventos de archivos al contenedor; sin esto no recarga al editar
-      WATCHPACK_POLLING: "true"
+    # Docker Desktop en Windows no avisa de los cambios de archivos: tras editar, recrear el servicio
+    # con caché limpia → docker compose up -d --force-recreate --renew-anon-volumes app
     volumes:
       - .:/app
       - /app/node_modules

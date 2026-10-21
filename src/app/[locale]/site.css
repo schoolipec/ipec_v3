@@ -1,30 +1,56 @@
 @import "tailwindcss";
 
-/* El tema oscuro se activa con la clase .dark en <html> (no por la preferencia del sistema) */
-@custom-variant dark (&:where(.dark, .dark *));
+/* Tema: clase .dark o .light en <html> (elección guardada en cookie). Sin clase = sigue el sistema.
+   Así no hace falta ningún script: el CSS resuelve la primera visita. */
+@custom-variant dark {
+  &:where(.dark, .dark *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not(.light), :root:not(.light) *) {
+      @slot;
+    }
+  }
+}
 
-/* Colores oficiales de la iglesia: único lugar donde se definen */
+:root {
+  color-scheme: light dark;
+}
+:root.light {
+  color-scheme: light;
+}
+:root.dark {
+  color-scheme: dark;
+}
+
+/* Colores oficiales de la iglesia: único lugar donde se definen. light-dark(claro, oscuro) */
 :root {
   --navy: #082942;
   --green: #328045;
   --lime: #b6dc26;
   --blue: #1f6fb2;
 
-  --bg-page: #ffffff;
-  --bg-alt: #f5f8fb;
-  --bg-card: #ffffff;
-  --text-primary: #082942;
-  --text-secondary: #4b5563;
-  --border: #e5e7eb;
-}
+  --bg-page: light-dark(#ffffff, #061a2e);
+  --bg-alt: light-dark(#f5f8fb, #0a2240);
+  --bg-card: light-dark(#ffffff, #0f2a42);
+  --text-primary: light-dark(#082942, #e2e8f0);
+  --text-secondary: light-dark(#4b5563, #94a3b8);
+  --border: light-dark(#e5e7eb, #1e4060);
+  --header-bg: light-dark(rgb(255 255 255 / 0.88), rgb(6 26 46 / 0.88));
 
-.dark {
-  --bg-page: #061a2e;
-  --bg-alt: #0a2240;
-  --bg-card: #0f2a42;
-  --text-primary: #e2e8f0;
-  --text-secondary: #94a3b8;
-  --border: #1e4060;
+  /* Fondo con ondas: en oscuro se invierte (base azul marino, ondas profundas y líneas de luz lima) */
+  --wave-base: linear-gradient(
+    160deg,
+    light-dark(#ffffff, #061a2e) 0%,
+    light-dark(#f3f9fd, #04182b) 55%,
+    light-dark(#eaf4fb, #031322) 100%
+  );
+  --wave-lime: light-dark(rgb(182 220 38 / 0.55), rgb(143 184 28 / 0.45));
+  --wave-green: light-dark(rgb(63 163 77 / 0.55), rgb(42 122 58 / 0.45));
+  --wave-teal: light-dark(rgb(31 163 154 / 0.55), rgb(19 107 102 / 0.45));
+  --wave-blue: light-dark(rgb(31 111 178 / 0.55), rgb(26 91 148 / 0.45));
+  --wave-sky: light-dark(rgb(124 196 239 / 0.55), rgb(31 79 122 / 0.45));
+  --wave-streak: light-dark(rgb(255 255 255 / 0.85), rgb(182 220 38 / 0.35));
 }
 
 @theme inline {
@@ -40,8 +66,13 @@
   --color-line: var(--border);
 }
 
-body {
+/* El lienzo toma el color del tema (se ve al hacer scroll elástico en móvil) */
+html {
   background: var(--bg-page);
+}
+
+body {
+  background: transparent;
   color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: color 0.3s ease;
 }

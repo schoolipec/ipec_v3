@@ -3,6 +3,23 @@
     "title": "Iglesia Plenitud en Cristo",
     "description": "Un lugar para crecer, pertenecer y servir"
   },
+  "Header": {
+    "home": "Inicio",
+    "about": "Conócenos",
+    "pastors": "Pastores",
+    "contact": "Contáctanos",
+    "live": "En vivo",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "changeLanguage": "Cambiar idioma",
+    "toggleTheme": "Cambiar tema"
+  },
+  "Footer": {
+    "copyright": "© {year} Iglesia Plenitud en Cristo"
+  },
+  "Placeholder": {
+    "soon": "Esta página se construye en la fase 3."
+  },
   "Skeleton": {
     "title": "Fase 1 — Esqueleto del proyecto",
     "subtitle": "Next.js, Tailwind, Prisma y PostgreSQL funcionando en Docker.",
