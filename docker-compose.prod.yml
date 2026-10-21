@@ -1,6 +1,7 @@
-# Compose de producción — VPS vps-rescuvo (193.203.165.192)
+# Compose de producción — VPS Iglesia (179.236.255.48)
 # Red n8n-internal ya existe en el VPS (creada por el stack de n8n + Traefik)
-# Traefik enruta v3.suplenitud.com → contenedor app en puerto 3000
+# Traefik usa dynamic.yml (no labels) → /opt/n8n/traefik/dynamic.yml
+# Imagen pública en DockerHub: soporteyapame/ipec-v3:latest
 networks:
   n8n-internal:
     external: true
@@ -28,10 +29,7 @@ services:
       retries: 10
 
   app:
-    image: ipec-v3:latest
-    build:
-      context: .
-      dockerfile: Dockerfile.prod
+    image: soporteyapame/ipec-v3:latest
     container_name: ipec-v3-app
     restart: unless-stopped
     depends_on:
@@ -47,14 +45,6 @@ services:
     networks:
       - ipec-v3-net
       - n8n-internal
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.ipec-v3.rule=Host(`v3.suplenitud.com`)"
-      - "traefik.http.routers.ipec-v3.entrypoints=websecure"
-      - "traefik.http.routers.ipec-v3.tls.certresolver=letsencrypt"
-      - "traefik.http.services.ipec-v3.loadbalancer.server.port=3000"
-      - "traefik.docker.network=n8n-internal"
-
 volumes:
   ipec_v3_pgdata:
     name: ipec_v3_pgdata
