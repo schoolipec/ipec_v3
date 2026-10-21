@@ -3,6 +3,7 @@
 // No contiene datos personales (regla de Juan). Uso: node prisma/seed.mjs
 import { readFileSync } from 'node:fs';
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
 const LOCALES = ['en', 'es', 'pt', 'ko', 'de'];
 const prisma = new PrismaClient();
@@ -38,4 +39,20 @@ for (const [key, value] of Object.entries(readJson('../messages/site-defaults.js
 const { count } = await prisma.contentEntry.createMany({ data, skipDuplicates: true });
 const total = await prisma.contentEntry.count();
 console.log(`[seed] contenido: ${data.length} definidos, ${count} nuevos, ${total} en la BD`);
+
+const bootstrapEmail = process.env.ADMIN_BOOTSTRAP_EMAIL?.trim().toLowerCase();
+const bootstrapName = process.env.ADMIN_BOOTSTRAP_NAME?.trim();
+const bootstrapPassword = process.env.ADMIN_BOOTSTRAP_PASSWORD;
+if (bootstrapEmail && bootstrapName && bootstrapPassword) {
+  const existing = await prisma.user.findUnique({where: {email: bootstrapEmail}});
+  if (!existing) {
+    await prisma.user.create({data: {
+      email: bootstrapEmail,
+      name: bootstrapName,
+      passwordHash: await bcrypt.hash(bootstrapPassword, 12),
+      role: 'SUPERADMIN',
+    }});
+    console.log('[seed] SuperAdmin inicial creado desde variables de entorno');
+  }
+}
 await prisma.$disconnect();
