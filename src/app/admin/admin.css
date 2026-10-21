@@ -2,3 +2,8 @@
 
 /* Estilos exclusivos del panel admin: no comparte archivo con el sitio público */
 @custom-variant dark (&:where(.dark, .dark *));
+
+.input-admin {
+  @apply w-full rounded-lg border border-slate-700 bg-slate-800 px-3 py-2.5 text-sm text-slate-100
+         placeholder-slate-500 outline-none focus:border-green-500 focus:ring-1 focus:ring-green-500;
+}

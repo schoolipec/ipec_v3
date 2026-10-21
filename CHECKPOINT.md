@@ -10,7 +10,8 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 - Fase 2 APROBADA y publicada (etiqueta `fase-2`).
 - Fase 3 APROBADA y publicada (etiqueta `fase-3`). Detalle: `Documentacion\IPEC_v3\06-FASE3-PAGINAS.md`.
 - Dominio final cambia a **v3.suplenitud.com**. Imágenes de prueba con nombre `placeholder-*` (una copia por sección).
-- **Fase 4 TERMINADA en local (commit `f16afcc`), esperando aprobación de Juan** para push + etiqueta `fase-4`. Detalle: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\07-FASE4-CONTENIDO-EN-BD.md`. Capturas: `C:\ProgramandoconClaude\Reportes\IPEC_v3\fase4\`.
+- **Fase 4 APROBADA y publicada** (commits `f16afcc` + `fb85ce9`, etiqueta `fase-4`). Detalle: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\07-FASE4-CONTENIDO-EN-BD.md`.
+- **En curso: Fase 5 — admin panel** (login, invitaciones, roles + permisos por casillas, perfil, contenido, pedidos de oración paginados).
 - ⚠️ Tras editar código: `docker compose up -d --force-recreate --renew-anon-volumes app` (Docker en Windows no recarga solo).
 - Documentación de cada fase: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\04..07-*.md`. Capturas: `C:\ProgramandoconClaude\Reportes\IPEC_v3\fase1..4\`.
 - Levantar: `docker compose up -d` → http://localhost:3000 · admin http://localhost:3000/admin
@@ -26,7 +27,7 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 - [x] Fase 3: páginas + formulario de oración (solo Contact us) + modal de la Biblia (30 s / 12 h / no volver) (local)
 - [x] Fase 3: aprobación de Juan → push + etiqueta `fase-3`
 - [x] Fase 4: contenido editable por zonas e idioma (Prisma) (local)
-- [ ] Fase 4: aprobación de Juan → push + etiqueta `fase-4`
+- [x] Fase 4: aprobación de Juan → push + etiqueta `fase-4`
 - [ ] Fase 5: admin (login, invitaciones, roles + permisos por casillas, perfil, contenido, pedidos de oración paginados)
 - [ ] Fase 6: auditoría + VPS v3.suplenitud.com + prueba real n8n
 

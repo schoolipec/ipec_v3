@@ -28,6 +28,10 @@ services:
     environment:
       DATABASE_URL: postgresql://ipec:${POSTGRES_PASSWORD}@db:5432/ipec?schema=public
       NODE_ENV: development
+      SUPERADMIN_EMAIL: ${SUPERADMIN_EMAIL:-}
+      SUPERADMIN_PASSWORD: ${SUPERADMIN_PASSWORD:-}
+      SUPERADMIN_NAME: ${SUPERADMIN_NAME:-Super Admin}
+      SESSION_SECRET: ${SESSION_SECRET:-ipec-dev-secret-change-in-production}
     # Docker Desktop en Windows no avisa de los cambios de archivos: tras editar, recrear el servicio
     # con caché limpia → docker compose up -d --force-recreate --renew-anon-volumes app
     volumes:
