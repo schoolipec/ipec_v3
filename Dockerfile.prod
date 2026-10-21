@@ -28,11 +28,12 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static   ./.next/static
 COPY --from=builder /app/public          ./public
 
-# Prisma CLI + cliente generado (para migrate deploy al arrancar)
-COPY --from=builder /app/node_modules/.bin/prisma     ./node_modules/.bin/prisma
-COPY --from=builder /app/node_modules/prisma          ./node_modules/prisma
-COPY --from=builder /app/node_modules/@prisma/client  ./node_modules/@prisma/client
-COPY --from=builder /app/node_modules/.prisma         ./node_modules/.prisma
+# Prisma CLI + cliente generado + binarios del motor (para migrate deploy al arrancar)
+COPY --from=builder /app/node_modules/.bin/prisma          ./node_modules/.bin/prisma
+COPY --from=builder /app/node_modules/prisma               ./node_modules/prisma
+COPY --from=builder /app/node_modules/@prisma/client       ./node_modules/@prisma/client
+COPY --from=builder /app/node_modules/@prisma/engines      ./node_modules/@prisma/engines
+COPY --from=builder /app/node_modules/.prisma              ./node_modules/.prisma
 
 # Migraciones y seed (seed.mjs usa solo módulos nativos de Node.js)
 COPY --from=builder /app/prisma ./prisma
