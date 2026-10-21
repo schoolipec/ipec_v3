@@ -22,7 +22,7 @@ export default async function PastorsContent() {
           <p className="mx-auto max-w-2xl text-lg leading-relaxed text-secondary">{t('heroText')}</p>
         </div>
         <div className="mx-auto mt-10 max-w-4xl px-6">
-          <Image src="/assets/small-group.png" alt="" width={1536} height={1024} sizes="(min-width: 896px) 896px, 100vw" className="h-64 w-full rounded-2xl object-cover shadow-xl md:h-80" priority />
+          <Image src="/assets/placeholder-pastors.png" alt="" width={1536} height={1024} sizes="(min-width: 896px) 896px, 100vw" className="h-64 w-full rounded-2xl object-cover shadow-xl md:h-80" priority />
         </div>
       </section>
 

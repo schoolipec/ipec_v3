@@ -11,7 +11,7 @@ export default async function AboutSection({ asPage = false }: { asPage?: boolea
     <section id="about" className="grid grid-cols-1 bg-[#0a2240] md:grid-cols-2 dark:bg-[#061828]">
       <div className="relative min-h-72 md:min-h-[32rem]">
         {/* En su propia página es lo primero que se ve: carga prioritaria */}
-        <Image src="/assets/small-group.png" alt="" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" priority={asPage} />
+        <Image src="/assets/placeholder-about.png" alt="" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" priority={asPage} />
       </div>
       <div className="flex items-center px-8 py-16 md:px-16 lg:px-32">
         <div className="max-w-xl">

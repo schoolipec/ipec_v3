@@ -41,7 +41,7 @@ export default async function GroupsSection() {
           </div>
 
           <div className="overflow-hidden rounded-2xl shadow-xl">
-            <Image src="/assets/small-group.png" alt={t('title')} width={1536} height={1024} sizes="(min-width: 768px) 50vw, 100vw" className="h-auto w-full object-cover" />
+            <Image src="/assets/placeholder-community-groups.png" alt={t('title')} width={1536} height={1024} sizes="(min-width: 768px) 50vw, 100vw" className="h-auto w-full object-cover" />
           </div>
         </div>
       </div>
