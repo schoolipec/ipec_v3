@@ -10,9 +10,9 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 - Fase 2 APROBADA y publicada (etiqueta `fase-2`).
 - Fase 3 APROBADA y publicada (etiqueta `fase-3`). Detalle: `Documentacion\IPEC_v3\06-FASE3-PAGINAS.md`.
 - Dominio final cambia a **v3.suplenitud.com**. Imágenes de prueba con nombre `placeholder-*` (una copia por sección).
-- **Fase 4 TERMINADA en local, esperando aprobación de Juan** para push + etiqueta `fase-4`. Detalle: `DocumentacionIPEC_v3- **Siguiente: fase 4** (contenido editable por zonas e idioma en la BD).7-FASE4-CONTENIDO-EN-BD.md`.
+- **Fase 4 TERMINADA en local (commit `f16afcc`), esperando aprobación de Juan** para push + etiqueta `fase-4`. Detalle: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\07-FASE4-CONTENIDO-EN-BD.md`. Capturas: `C:\ProgramandoconClaude\Reportes\IPEC_v3\fase4\`.
 - ⚠️ Tras editar código: `docker compose up -d --force-recreate --renew-anon-volumes app` (Docker en Windows no recarga solo).
-- Detalle y verificación: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\04-FASE1-ESQUELETO.md`. Capturas: `C:\ProgramandoconClaude\Reportes\IPEC_v3\fase1\`.
+- Documentación de cada fase: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\04..07-*.md`. Capturas: `C:\ProgramandoconClaude\Reportes\IPEC_v3\fase1..4\`.
 - Levantar: `docker compose up -d` → http://localhost:3000 · admin http://localhost:3000/admin
 
 ## Tareas
