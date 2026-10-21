@@ -50,3 +50,54 @@ model PrayerRequest {
   // El admin los lista del más reciente al más viejo
   @@index([createdAt(sort: Desc)])
 }
+
+enum Role {
+  SUPERADMIN
+  ADMIN
+  USER
+}
+
+model User {
+  id              String       @id @default(cuid())
+  email           String       @unique @db.VarChar(120)
+  name            String       @db.VarChar(100)
+  passwordHash    String       @db.VarChar(256)
+  role            Role         @default(USER)
+  adminLocale     String       @default("en") @db.VarChar(5)
+  permissions     Json         @default("{}")
+  notifyTelegram  Boolean      @default(false)
+  notifyEmail     Boolean      @default(false)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  sessions        Session[]
+  invitationsSent Invitation[] @relation("InvitationSender")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String   @unique @db.VarChar(128)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model Invitation {
+  id          String    @id @default(cuid())
+  email       String    @db.VarChar(120)
+  name        String    @db.VarChar(100)
+  role        Role      @default(USER)
+  permissions Json      @default("{}")
+  tokenHash   String    @unique @db.VarChar(128)
+  expiresAt   DateTime
+  usedAt      DateTime?
+  invitedById String
+  invitedBy   User      @relation("InvitationSender", fields: [invitedById], references: [id], onDelete: Restrict)
+  createdAt   DateTime  @default(now())
+
+  @@index([email])
+  @@index([expiresAt])
+}
