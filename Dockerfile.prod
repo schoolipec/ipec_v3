@@ -29,11 +29,11 @@ COPY --from=builder /app/.next/static   ./.next/static
 COPY --from=builder /app/public          ./public
 
 # Prisma CLI + namespace completo @prisma/* + cliente generado
-# (copiamos todo @prisma/ para evitar cadena de dependencias faltantes)
-COPY --from=builder /app/node_modules/.bin/prisma  ./node_modules/.bin/prisma
-COPY --from=builder /app/node_modules/prisma       ./node_modules/prisma
-COPY --from=builder /app/node_modules/@prisma      ./node_modules/@prisma
-COPY --from=builder /app/node_modules/.prisma      ./node_modules/.prisma
+# Usamos node_modules/prisma/build/index.js directamente para evitar
+# el problema de archivos WASM relativos a node_modules/.bin/
+COPY --from=builder /app/node_modules/prisma  ./node_modules/prisma
+COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 
 # Migraciones y seed (seed.mjs usa solo módulos nativos de Node.js)
 COPY --from=builder /app/prisma ./prisma
@@ -43,4 +43,4 @@ USER nextjs
 EXPOSE 3000
 
 # migrate deploy + seed idempotente + servidor de producción
-CMD ["sh", "-c", "node_modules/.bin/prisma migrate deploy && node prisma/seed.mjs && node server.js"]
+CMD ["sh", "-c", "node node_modules/prisma/build/index.js migrate deploy && node prisma/seed.mjs && node server.js"]
