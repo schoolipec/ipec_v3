@@ -1,0 +1,14 @@
+{
+  "Meta": {
+    "title": "플레니투드 엔 크리스토 교회",
+    "description": "성장하고, 소속되고, 섬기는 곳"
+  },
+  "Skeleton": {
+    "title": "1단계 — 프로젝트 기본 구조",
+    "subtitle": "Docker에서 실행 중인 Next.js, Tailwind, Prisma, PostgreSQL.",
+    "dbOk": "데이터베이스 연결됨",
+    "dbDown": "데이터베이스를 사용할 수 없음",
+    "language": "언어",
+    "toggleTheme": "테마 전환"
+  }
+}

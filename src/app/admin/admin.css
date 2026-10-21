@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+/* Estilos exclusivos del panel admin: no comparte archivo con el sitio público */
+@custom-variant dark (&:where(.dark, .dark *));

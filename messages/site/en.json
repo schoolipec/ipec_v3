@@ -1,0 +1,14 @@
+{
+  "Meta": {
+    "title": "Plenitud en Cristo Church",
+    "description": "A place to grow, belong and serve"
+  },
+  "Skeleton": {
+    "title": "Phase 1 — Project skeleton",
+    "subtitle": "Next.js, Tailwind, Prisma and PostgreSQL running in Docker.",
+    "dbOk": "Database connected",
+    "dbDown": "Database not available",
+    "language": "Language",
+    "toggleTheme": "Toggle theme"
+  }
+}

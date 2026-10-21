@@ -1,0 +1,5 @@
+# Saltos de línea LF en el repositorio: Docker (Linux) falla con CRLF en scripts y Dockerfile
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.ico binary

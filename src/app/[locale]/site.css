@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+/* El tema oscuro se activa con la clase .dark en <html> (no por la preferencia del sistema) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Colores oficiales de la iglesia: único lugar donde se definen */
+:root {
+  --navy: #082942;
+  --green: #328045;
+  --lime: #b6dc26;
+  --blue: #1f6fb2;
+
+  --bg-page: #ffffff;
+  --bg-alt: #f5f8fb;
+  --bg-card: #ffffff;
+  --text-primary: #082942;
+  --text-secondary: #4b5563;
+  --border: #e5e7eb;
+}
+
+.dark {
+  --bg-page: #061a2e;
+  --bg-alt: #0a2240;
+  --bg-card: #0f2a42;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --border: #1e4060;
+}
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-green: var(--green);
+  --color-lime: var(--lime);
+  --color-blue: var(--blue);
+  --color-page: var(--bg-page);
+  --color-alt: var(--bg-alt);
+  --color-card: var(--bg-card);
+  --color-primary: var(--text-primary);
+  --color-secondary: var(--text-secondary);
+  --color-line: var(--border);
+}
+
+body {
+  background: var(--bg-page);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

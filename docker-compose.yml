@@ -1,0 +1,41 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: ipec-v3-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ipec
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Falta POSTGRES_PASSWORD en .env}
+      POSTGRES_DB: ipec
+    volumes:
+      - ipec_v3_pgdata:/var/lib/postgresql/data
+    # 5434 en el equipo: el 5432 ya lo usan otras bases locales
+    ports:
+      - "5434:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ipec -d ipec"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    container_name: ipec-v3-app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://ipec:${POSTGRES_PASSWORD}@db:5432/ipec?schema=public
+      NODE_ENV: development
+      # Windows no propaga eventos de archivos al contenedor; sin esto no recarga al editar
+      WATCHPACK_POLLING: "true"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - "3000:3000"
+
+volumes:
+  ipec_v3_pgdata:

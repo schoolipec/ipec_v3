@@ -1,0 +1,14 @@
+{
+  "Meta": {
+    "title": "Gemeinde Plenitud en Cristo",
+    "description": "Ein Ort zum Wachsen, Dazugehören und Dienen"
+  },
+  "Skeleton": {
+    "title": "Phase 1 — Projektgrundgerüst",
+    "subtitle": "Next.js, Tailwind, Prisma und PostgreSQL laufen in Docker.",
+    "dbOk": "Datenbank verbunden",
+    "dbDown": "Datenbank nicht verfügbar",
+    "language": "Sprache",
+    "toggleTheme": "Design wechseln"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "Meta": {
+    "title": "Iglesia Plenitud en Cristo",
+    "description": "Un lugar para crecer, pertenecer y servir"
+  },
+  "Skeleton": {
+    "title": "Fase 1 — Esqueleto del proyecto",
+    "subtitle": "Next.js, Tailwind, Prisma y PostgreSQL funcionando en Docker.",
+    "dbOk": "Base de datos conectada",
+    "dbDown": "Base de datos no disponible",
+    "language": "Idioma",
+    "toggleTheme": "Cambiar tema"
+  }
+}
