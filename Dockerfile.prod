@@ -1,0 +1,45 @@
+# Imagen de producción — multi-stage
+# Stage 1: instalar todas las dependencias (para el build)
+FROM node:24-alpine AS builder
+RUN apk add --no-cache openssl libc6-compat
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+RUN npx prisma generate
+RUN npm run build
+
+# Stage 2: imagen mínima de producción
+FROM node:24-alpine AS runner
+RUN apk add --no-cache openssl libc6-compat
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
+
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser  --system --uid 1001 nextjs
+
+# Next.js standalone output
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static   ./.next/static
+COPY --from=builder /app/public          ./public
+
+# Prisma CLI + cliente generado (para migrate deploy al arrancar)
+COPY --from=builder /app/node_modules/.bin/prisma     ./node_modules/.bin/prisma
+COPY --from=builder /app/node_modules/prisma          ./node_modules/prisma
+COPY --from=builder /app/node_modules/@prisma/client  ./node_modules/@prisma/client
+COPY --from=builder /app/node_modules/.prisma         ./node_modules/.prisma
+
+# Migraciones y seed (seed.mjs usa solo módulos nativos de Node.js)
+COPY --from=builder /app/prisma ./prisma
+
+USER nextjs
+
+EXPOSE 3000
+
+# migrate deploy + seed idempotente + servidor de producción
+CMD ["sh", "-c", "node_modules/.bin/prisma migrate deploy && node prisma/seed.mjs && node server.js"]

@@ -11,7 +11,8 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 - Fase 3 APROBADA y publicada (etiqueta `fase-3`). Detalle: `Documentacion\IPEC_v3\06-FASE3-PAGINAS.md`.
 - Dominio final cambia a **v3.suplenitud.com**. Imágenes de prueba con nombre `placeholder-*` (una copia por sección).
 - **Fase 4 APROBADA y publicada** (commits `f16afcc` + `fb85ce9`, etiqueta `fase-4`). Detalle: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\07-FASE4-CONTENIDO-EN-BD.md`.
-- **Fase 5 TERMINADA en local (commit `67d1d0a`), esperando aprobación de Juan** para push + etiqueta `fase-5`. Detalle: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\08-FASE5-ADMIN.md`. Capturas: `C:\ProgramandoconClaude\Reportes\IPEC_v3\fase5\`.
+- **Fase 5 APROBADA y publicada** (commit `536a909`, etiqueta `fase-5`). Detalle: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\08-FASE5-ADMIN.md`.
+- **Fase 6 EN PROGRESO** — archivos de producción creados (`Dockerfile.prod`, `docker-compose.prod.yml`, `deploy/`). Pendiente: credenciales de producción de la iglesia + DNS de `v3.suplenitud.com` + deploy en VPS.
 - ⚠️ Tras editar código: `docker compose up -d --force-recreate --renew-anon-volumes app` (Docker en Windows no recarga solo).
 - Documentación de cada fase: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\04..07-*.md`. Capturas: `C:\ProgramandoconClaude\Reportes\IPEC_v3\fase1..4\`.
 - Levantar: `docker compose up -d` → http://localhost:3000 · admin http://localhost:3000/admin
@@ -29,8 +30,15 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 - [x] Fase 4: contenido editable por zonas e idioma (Prisma) (local)
 - [x] Fase 4: aprobación de Juan → push + etiqueta `fase-4`
 - [x] Fase 5: admin (login, invitaciones, roles + permisos por casillas, perfil, contenido, pedidos de oración paginados) (local)
-- [ ] Fase 5: aprobación de Juan → push + etiqueta `fase-5`
+- [x] Fase 5: aprobación de Juan → push + etiqueta `fase-5`
 - [ ] Fase 6: auditoría + VPS v3.suplenitud.com + prueba real n8n
+  - [x] Auditoría del código (sin issues de seguridad)
+  - [x] Dockerfile.prod (multi-stage) creado
+  - [x] docker-compose.prod.yml creado (Traefik + n8n-internal)
+  - [x] deploy/README.md + deploy/env.example creados
+  - [ ] DNS: `v3.suplenitud.com` → 193.203.165.192 en Cloudflare (Juan)
+  - [ ] Credenciales reales de producción (Juan)
+  - [ ] Deploy en vps-rescuvo
 
 ## Avisos para la próxima sesión
 - E: es un SSD USB: si Docker muestra la carpeta vacía, reiniciar Docker Desktop (ver 04-FASE1 → Problemas).

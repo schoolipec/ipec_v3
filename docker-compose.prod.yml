@@ -1,0 +1,60 @@
+# Compose de producción — VPS vps-rescuvo (193.203.165.192)
+# Red n8n-internal ya existe en el VPS (creada por el stack de n8n + Traefik)
+# Traefik enruta v3.suplenitud.com → contenedor app en puerto 3000
+networks:
+  n8n-internal:
+    external: true
+  ipec-v3-net:
+    name: ipec-v3-net
+    internal: true
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: ipec-v3-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ipec
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Falta POSTGRES_PASSWORD}
+      POSTGRES_DB: ipec
+    volumes:
+      - ipec_v3_pgdata:/var/lib/postgresql/data
+    networks:
+      - ipec-v3-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ipec -d ipec"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    image: ipec-v3:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: ipec-v3-app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://ipec:${POSTGRES_PASSWORD}@db:5432/ipec?schema=public
+      NODE_ENV: production
+      SUPERADMIN_EMAIL: ${SUPERADMIN_EMAIL:?Falta SUPERADMIN_EMAIL}
+      SUPERADMIN_PASSWORD: ${SUPERADMIN_PASSWORD:?Falta SUPERADMIN_PASSWORD}
+      SUPERADMIN_NAME: ${SUPERADMIN_NAME:-Admin}
+      SESSION_SECRET: ${SESSION_SECRET:?Falta SESSION_SECRET}
+    networks:
+      - ipec-v3-net
+      - n8n-internal
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ipec-v3.rule=Host(`v3.suplenitud.com`)"
+      - "traefik.http.routers.ipec-v3.entrypoints=websecure"
+      - "traefik.http.routers.ipec-v3.tls.certresolver=letsencrypt"
+      - "traefik.http.services.ipec-v3.loadbalancer.server.port=3000"
+      - "traefik.docker.network=n8n-internal"
+
+volumes:
+  ipec_v3_pgdata:
+    name: ipec_v3_pgdata
