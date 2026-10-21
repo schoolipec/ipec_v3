@@ -28,12 +28,9 @@ COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static   ./.next/static
 COPY --from=builder /app/public          ./public
 
-# Prisma CLI + namespace completo @prisma/* + cliente generado
-# Usamos node_modules/prisma/build/index.js directamente para evitar
-# el problema de archivos WASM relativos a node_modules/.bin/
-COPY --from=builder /app/node_modules/prisma  ./node_modules/prisma
-COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
-COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+# Prisma v6 tiene un árbol de dependencias externas profundo (@prisma/config → effect, etc.)
+# Copiamos node_modules completo para garantizar que migrate deploy funcione
+COPY --from=builder /app/node_modules ./node_modules
 
 # Migraciones y seed (seed.mjs usa solo módulos nativos de Node.js)
 COPY --from=builder /app/prisma ./prisma
