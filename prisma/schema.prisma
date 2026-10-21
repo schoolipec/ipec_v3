@@ -72,6 +72,11 @@ model User {
   // Avisos de pedidos de oración
   notifyTelegram Boolean @default(false)
   notifyEmail    Boolean @default(false)
+  // 2FA (TOTP)
+  twoFactorSecret  String?  @db.VarChar(256)
+  twoFactorEnabled Boolean  @default(false)
+  // Minutos de inactividad antes de cerrar sesión (0 = no expira por inactividad)
+  sessionTimeout   Int      @default(480)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
@@ -83,12 +88,13 @@ model User {
 
 // Sesión activa. Se elimina al cerrar sesión o al expirar.
 model Session {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  token     String   @unique @db.VarChar(128)
-  expiresAt DateTime
-  createdAt DateTime @default(now())
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token          String   @unique @db.VarChar(128)
+  expiresAt      DateTime
+  lastActivityAt DateTime @default(now())
+  createdAt      DateTime @default(now())
 
   @@index([token])
   @@index([userId])

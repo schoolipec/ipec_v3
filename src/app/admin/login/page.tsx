@@ -21,7 +21,7 @@ export default function LoginPage() {
         body: JSON.stringify({ email, password }),
       });
       if (res.ok) {
-        router.push('/admin/dashboard');
+        router.push('/admin');
         router.refresh();
       } else {
         const data = await res.json();

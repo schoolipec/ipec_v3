@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "Session" ADD COLUMN     "lastActivityAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "sessionTimeout" INTEGER NOT NULL DEFAULT 480,
+ADD COLUMN     "twoFactorEnabled" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "twoFactorSecret" VARCHAR(256);

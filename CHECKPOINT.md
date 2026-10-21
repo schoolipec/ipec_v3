@@ -12,7 +12,11 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 - Dominio final cambia a **v3.suplenitud.com**. Imágenes de prueba con nombre `placeholder-*` (una copia por sección).
 - **Fase 4 APROBADA y publicada** (commits `f16afcc` + `fb85ce9`, etiqueta `fase-4`). Detalle: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\07-FASE4-CONTENIDO-EN-BD.md`.
 - **Fase 5 APROBADA y publicada** (commit `536a909`, etiqueta `fase-5`). Detalle: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\08-FASE5-ADMIN.md`.
-- **Fase 6 EN PROGRESO** — archivos de producción creados (`Dockerfile.prod`, `docker-compose.prod.yml`, `deploy/`). Pendiente: credenciales de producción de la iglesia + DNS de `v3.suplenitud.com` + deploy en VPS.
+- **Fase 6 EN PROGRESO** — Imagen `soporteyapame/ipec-v3:latest` en DockerHub. VPS Iglesia (179.236.255.48) operativo en `v3.suplenitud.com`.
+- **Rediseño admin completado (2026-10-21):** Nueva estructura de rutas `/admin/*` (route group `(protected)`), sidebar colapsable con Lucide, topbar con dropdown de usuario, dark/light mode con next-themes, i18n EN/ES, tablas react-table v8, SecurityPanel con 2FA (TOTP otplib v13) + timeout de sesión. Migración Prisma aplicada (`admin_security_session`). Build limpio verificado.
+- ⚠️ Repositorio a migrar: estaba en GitHub `schoolipec/ipec_v3` → mover a Gitea `git.sistemasass.online/jscothserver/ipec_web_sistema`. Eliminar repo GitHub al confirmar.
+- ⚠️ Imágenes Docker: a partir de ahora en Gitea Container Registry (`git.sistemasass.online`) en vez de DockerHub.
+- VPS Iglesia: SSH alias `vps-iglesia`; credenciales en `C:\ProgramandoconClaude\Proyectos\enProceso\IPEC\credenciales de acceso\VPS-Iglesia.md`.
 - ⚠️ Tras editar código: `docker compose up -d --force-recreate --renew-anon-volumes app` (Docker en Windows no recarga solo).
 - Documentación de cada fase: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\04..07-*.md`. Capturas: `C:\ProgramandoconClaude\Reportes\IPEC_v3\fase1..4\`.
 - Levantar: `docker compose up -d` → http://localhost:3000 · admin http://localhost:3000/admin
@@ -36,9 +40,16 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
   - [x] Dockerfile.prod (multi-stage) creado
   - [x] docker-compose.prod.yml creado (Traefik + n8n-internal)
   - [x] deploy/README.md + deploy/env.example creados
-  - [ ] DNS: `v3.suplenitud.com` → 193.203.165.192 en Cloudflare (Juan)
-  - [ ] Credenciales reales de producción (Juan)
-  - [ ] Deploy en vps-rescuvo
+  - [x] Identificar VPS correcto (179.236.255.48 — VPS Iglesia, NO el de Juan)
+  - [x] Credenciales reales subidas al VPS (.env con POSTGRES_PASSWORD, SESSION_SECRET, etc.)
+  - [x] DNS: `v3.suplenitud.com` ya cubre con wildcard `* → 179.236.255.48` (confirmado por Juan)
+  - [x] Deploy inicial en vps-iglesia (código clonado en /opt/ipec-v3/app)
+  - [x] Fix Dockerfile.prod — copiar `node_modules` completo (Prisma v6 tiene deps externas profundas)
+  - [x] Fix Traefik — agregar entradas en `/opt/n8n/traefik/dynamic.yml` (Traefik usa file provider, no labels Docker)
+  - [x] Verificar `https://v3.suplenitud.com/api/health` → `{"ok":true,"database":true}` ✓
+  - [x] Imagen subida a DockerHub: `soporteyapame/ipec-v3:latest`
+  - [x] VPS actualizado para usar imagen de DockerHub (sin rebuild)
+  - [ ] Prueba real del webhook n8n (formulario petición de oración → Telegram)
 
 ## Avisos para la próxima sesión
 - E: es un SSD USB: si Docker muestra la carpeta vacía, reiniciar Docker Desktop (ver 04-FASE1 → Problemas).

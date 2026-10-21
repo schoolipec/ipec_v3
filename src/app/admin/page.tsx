@@ -3,5 +3,5 @@ import { getSession } from '@/server/auth';
 
 export default async function AdminIndex() {
   const user = await getSession();
-  redirect(user ? '/admin/dashboard' : '/admin/login');
+  redirect(user ? '/admin' : '/admin/login');
 }

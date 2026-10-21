@@ -74,10 +74,27 @@ export async function getSession(): Promise<(User & { sessionId: string }) | nul
     where: { token },
     include: { user: true },
   });
+
   if (!session || session.expiresAt < new Date()) {
     if (session) await prisma.session.delete({ where: { id: session.id } });
     return null;
   }
+
+  // Verificar timeout por inactividad
+  const { sessionTimeout } = session.user;
+  if (sessionTimeout > 0) {
+    const inactiveMs = Date.now() - session.lastActivityAt.getTime();
+    if (inactiveMs > sessionTimeout * 60_000) {
+      await prisma.session.delete({ where: { id: session.id } });
+      return null;
+    }
+  }
+
+  // Actualizar lastActivityAt sin bloquear el render
+  prisma.session.update({
+    where: { id: session.id },
+    data: { lastActivityAt: new Date() },
+  }).catch(() => {});
 
   return { ...session.user, sessionId: session.id };
 }

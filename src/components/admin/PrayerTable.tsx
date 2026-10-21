@@ -1,93 +1,202 @@
 'use client';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import {
+  useReactTable, getCoreRowModel, getSortedRowModel, getFilteredRowModel,
+  getPaginationRowModel, flexRender,
+  type ColumnDef, type SortingState,
+} from '@tanstack/react-table';
+import { ChevronUp, ChevronDown, ChevronsUpDown, Search, ChevronLeft, ChevronRight, ChevronDown as Expand } from 'lucide-react';
+import { useAdminLang } from '@/components/admin/AdminLangContext';
 
 type PrayerRow = { id: string; name: string; request: string; locale: string; createdAt: string };
 
-const LOCALE_FLAG: Record<string, string> = {
-  en: '🇺🇸', es: '🇪🇸', pt: '🇧🇷', ko: '🇰🇷', de: '🇩🇪',
+const LOCALE_LABEL: Record<string, string> = {
+  en: 'EN', es: 'ES', pt: 'PT', ko: 'KO', de: 'DE',
 };
 
 function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('es', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  return new Date(iso).toLocaleDateString('es', { day: '2-digit', month: 'short', year: 'numeric' });
 }
 
 export default function PrayerTable() {
+  const { t } = useAdminLang();
   const [rows, setRows] = useState<PrayerRow[]>([]);
-  const [page, setPage] = useState(1);
-  const [pages, setPages] = useState(1);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [globalFilter, setGlobalFilter] = useState('');
+  const [sorting, setSorting] = useState<SortingState>([{ id: 'createdAt', desc: true }]);
   const [expanded, setExpanded] = useState<string | null>(null);
 
-  const load = useCallback(async (p: number) => {
+  // Carga todo para paginación en cliente (los pedidos de una iglesia son pocos)
+  const load = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/admin/prayer?page=${p}`);
+      const res = await fetch('/api/admin/prayer?page=1&limit=500');
       if (!res.ok) return;
       const data = await res.json();
       setRows(data.rows);
-      setPage(data.page);
-      setPages(data.pages);
       setTotal(data.total);
     } finally {
       setLoading(false);
     }
   }, []);
 
-  useEffect(() => { load(1); }, [load]);
+  useEffect(() => { load(); }, [load]);
+
+  const columns = useMemo<ColumnDef<PrayerRow>[]>(() => [
+    {
+      accessorKey: 'name',
+      header: t('prayer.colName'),
+      cell: ({ getValue }) => (
+        <span className="font-medium" style={{ color: 'var(--admin-text)' }}>{getValue<string>()}</span>
+      ),
+    },
+    {
+      accessorKey: 'locale',
+      header: t('prayer.colLang'),
+      cell: ({ getValue }) => (
+        <span className="inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-mono"
+          style={{ color: 'var(--admin-text-muted)', borderColor: 'var(--admin-border)' }}>
+          {LOCALE_LABEL[getValue<string>()] ?? getValue<string>().toUpperCase()}
+        </span>
+      ),
+      enableGlobalFilter: false,
+    },
+    {
+      accessorKey: 'createdAt',
+      header: t('prayer.colDate'),
+      cell: ({ getValue }) => (
+        <span className="text-sm" style={{ color: 'var(--admin-text-muted)' }}>{formatDate(getValue<string>())}</span>
+      ),
+      enableGlobalFilter: false,
+    },
+    {
+      id: 'expand',
+      header: '',
+      cell: ({ row }) => (
+        <button
+          onClick={() => setExpanded(e => e === row.original.id ? null : row.original.id)}
+          className="flex items-center gap-1 text-xs transition"
+          style={{ color: 'var(--admin-text-muted)' }}
+        >
+          {t('prayer.viewRequest')}
+          <Expand size={13} className={`transition-transform ${expanded === row.original.id ? 'rotate-180' : ''}`} />
+        </button>
+      ),
+      enableSorting: false,
+    },
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  ], [t, expanded]);
+
+  const table = useReactTable({
+    data: rows,
+    columns,
+    state: { globalFilter, sorting },
+    onGlobalFilterChange: setGlobalFilter,
+    onSortingChange: setSorting,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: { pagination: { pageSize: 15 } },
+  });
 
   return (
-    <div className="flex flex-col gap-4">
-      <p className="text-sm text-slate-400">{total} pedido{total !== 1 ? 's' : ''} en total</p>
-
-      {loading && <p className="text-sm text-slate-500">Cargando…</p>}
-
-      {!loading && rows.length === 0 && (
-        <p className="rounded-xl border border-slate-800 bg-slate-900 p-6 text-center text-slate-500">
-          No hay pedidos de oración todavía.
-        </p>
-      )}
-
-      <div className="flex flex-col gap-3">
-        {rows.map(row => (
-          <div key={row.id} className="rounded-xl border border-slate-800 bg-slate-900 p-4">
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex flex-col gap-0.5">
-                <div className="flex items-center gap-2">
-                  <span className="font-medium text-slate-100">{row.name}</span>
-                  <span className="text-lg" title={row.locale}>{LOCALE_FLAG[row.locale] ?? '🌐'}</span>
-                </div>
-                <span className="text-xs text-slate-500">{formatDate(row.createdAt)}</span>
-              </div>
-              <button
-                onClick={() => setExpanded(e => e === row.id ? null : row.id)}
-                className="shrink-0 text-xs text-slate-500 hover:text-slate-300"
-              >
-                {expanded === row.id ? 'Ocultar' : 'Ver petición'}
-              </button>
-            </div>
-            {expanded === row.id && (
-              <p className="mt-3 rounded-lg bg-slate-800 px-3 py-2.5 text-sm text-slate-300 leading-relaxed">
-                {row.request}
-              </p>
-            )}
-          </div>
-        ))}
+    <div className="flex flex-col gap-5">
+      {/* Toolbar */}
+      <div className="flex items-center justify-between gap-3">
+        <div className="relative flex-1 max-w-sm">
+          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: 'var(--admin-text-muted)' }} />
+          <input
+            value={globalFilter}
+            onChange={e => setGlobalFilter(e.target.value)}
+            placeholder={t('prayer.searchName')}
+            className="admin-input w-full pl-9"
+          />
+        </div>
+        <span className="text-sm shrink-0" style={{ color: 'var(--admin-text-muted)' }}>
+          {total} {t('prayer.total')}
+        </span>
       </div>
 
-      {pages > 1 && (
-        <div className="flex items-center justify-center gap-3">
-          <button onClick={() => load(page - 1)} disabled={page <= 1}
-            className="rounded-lg border border-slate-700 px-3 py-1.5 text-sm text-slate-400 disabled:opacity-40 hover:text-slate-100">
-            ← Anterior
-          </button>
-          <span className="text-sm text-slate-400">Página {page} de {pages}</span>
-          <button onClick={() => load(page + 1)} disabled={page >= pages}
-            className="rounded-lg border border-slate-700 px-3 py-1.5 text-sm text-slate-400 disabled:opacity-40 hover:text-slate-100">
-            Siguiente →
-          </button>
+      {loading ? (
+        <p className="text-sm" style={{ color: 'var(--admin-text-muted)' }}>{t('common.loading')}</p>
+      ) : (
+        <div className="admin-table-wrap">
+          <table className="admin-table">
+            <thead>
+              {table.getHeaderGroups().map(hg => (
+                <tr key={hg.id}>
+                  {hg.headers.map(header => (
+                    <th key={header.id}>
+                      {header.isPlaceholder ? null : (
+                        <button
+                          className={`flex items-center gap-1 text-xs font-semibold uppercase tracking-wide ${header.column.getCanSort() ? 'cursor-pointer select-none' : ''}`}
+                          style={{ color: 'var(--admin-text-muted)' }}
+                          onClick={header.column.getToggleSortingHandler()}
+                        >
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                          {header.column.getCanSort() && (
+                            header.column.getIsSorted() === 'asc' ? <ChevronUp size={13} /> :
+                            header.column.getIsSorted() === 'desc' ? <ChevronDown size={13} /> :
+                            <ChevronsUpDown size={13} style={{ opacity: 0.4 }} />
+                          )}
+                        </button>
+                      )}
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.length === 0 ? (
+                <tr>
+                  <td colSpan={columns.length} className="text-center py-10" style={{ color: 'var(--admin-text-muted)' }}>
+                    {t('prayer.noRequests')}
+                  </td>
+                </tr>
+              ) : table.getRowModel().rows.map(row => (
+                <>
+                  <tr key={row.id}>
+                    {row.getVisibleCells().map(cell => (
+                      <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+                    ))}
+                  </tr>
+                  {expanded === row.original.id && (
+                    <tr key={`${row.id}-exp`}>
+                      <td colSpan={columns.length} className="pb-4 px-4">
+                        <div className="rounded-lg p-3" style={{ background: 'var(--admin-surface-2)', border: '1px solid var(--admin-border)' }}>
+                          <p className="text-sm leading-relaxed" style={{ color: 'var(--admin-text)' }}>
+                            {row.original.request}
+                          </p>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
+
+      {/* Paginación */}
+      <div className="admin-pagination">
+        <span className="text-sm" style={{ color: 'var(--admin-text-muted)' }}>
+          {table.getFilteredRowModel().rows.length} {t('prayer.results')}
+        </span>
+        <div className="flex items-center gap-2">
+          <button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()} className="admin-page-btn">
+            <ChevronLeft size={15} />
+          </button>
+          <span className="text-sm" style={{ color: 'var(--admin-text)' }}>
+            {table.getState().pagination.pageIndex + 1} / {Math.max(1, table.getPageCount())}
+          </span>
+          <button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()} className="admin-page-btn">
+            <ChevronRight size={15} />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
