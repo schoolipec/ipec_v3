@@ -6,17 +6,26 @@
 Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cristo (Next.js + Prisma + PostgreSQL, en Docker local). Reemplaza a `ipec_v2_clean`, que quedó mezclado e inestable.
 
 ## Dónde nos quedamos
-- Fase 0 (definición). Requisitos de Juan guardados en `C:\ProgramandoconClaude\Documentacion\IPEC_v3\01-REQUISITOS.md`.
-- Juan respondió las aclaraciones (URLs en inglés con prefijo, User con permisos por casillas, formulario solo en Contact us, VPS v2.suplenitud.com al final).
-- Propuesta de decisiones técnicas en `C:\ProgramandoconClaude\Documentacion\IPEC_v3\02-DECISIONES-TECNICAS.md`, **esperando aprobación**. Aún sin código.
+- **Fase 1 TERMINADA en local, esperando aprobación de Juan** para hacer push a GitHub (`schoolipec/ipec_v3`) y etiquetar `fase-1`.
+- Detalle y verificación: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\04-FASE1-ESQUELETO.md`. Capturas: `C:\ProgramandoconClaude\Reportes\IPEC_v3\fase1\`.
+- Levantar: `docker compose up -d` → http://localhost:3000 · admin http://localhost:3000/admin
 
 ## Tareas
-- [x] Guardar requisitos dictados
-- [x] Respuestas de Juan a las preguntas de aclaración
-- [ ] Documento de decisiones técnicas (aprobado por Juan)
-- [ ] Fase 1: esqueleto + Docker local + BD + primer commit/push a `schoolipec/ipec_v3`
-- [ ] Fases siguientes (sitio por página, admin por pantalla, formulario de oración + n8n)
+- [x] Requisitos (`01-REQUISITOS.md`) y aclaraciones de Juan
+- [x] Decisiones técnicas aprobadas (`02-DECISIONES-TECNICAS.md`)
+- [x] Inventario de contenido v2/demo (`03-INVENTARIO-CONTENIDO.md`)
+- [x] Fase 1: esqueleto + Docker + BD + 5 idiomas + tema (local)
+- [ ] Fase 1: aprobación de Juan → push + etiqueta
+- [ ] Fase 2: header (menú Home/About/Pastors/Contact us/Live, banderas, sol/luna) + footer + fondo con ondas
+- [ ] Fase 3: páginas + formulario de oración (solo Contact us) + modal de la Biblia (30 s / 12 h / no volver)
+- [ ] Fase 4: contenido editable por zonas e idioma (Prisma)
+- [ ] Fase 5: admin (login, invitaciones, roles + permisos por casillas, perfil, contenido, pedidos de oración paginados)
+- [ ] Fase 6: auditoría + VPS v2.suplenitud.com + prueba real n8n
+
+## Avisos para la próxima sesión
+- E: es un SSD USB: si Docker muestra la carpeta vacía, reiniciar Docker Desktop (ver 04-FASE1 → Problemas).
+- Commits: `git -c user.name="IPEC Development" -c user.email="jscothserver@gmail.com" commit ...` (el equipo no tiene identidad global).
 
 ## Referencias (solo lectura, no modificar)
-- v2 (solo referencia visual): `C:\ProgramandoconClaude\Proyectos\enProceso\ipec_v2_clean`
+- v2 (solo referencia visual y de contenido): `C:\ProgramandoconClaude\Proyectos\enProceso\ipec_v2_clean`
 - Demo funcional: `C:\ProgramandoconClaude\Proyectos\enProceso\IPEC\demo.suplenitud.com` → https://demo.suplenitud.com
