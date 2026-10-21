@@ -32,8 +32,9 @@ COPY --from=builder /app/public          ./public
 # Copiamos node_modules completo para garantizar que migrate deploy funcione
 COPY --from=builder /app/node_modules ./node_modules
 
-# Migraciones y seed (seed.mjs usa solo módulos nativos de Node.js)
-COPY --from=builder /app/prisma ./prisma
+# Migraciones y seed
+COPY --from=builder /app/prisma   ./prisma
+COPY --from=builder /app/messages ./messages
 
 USER nextjs
 
