@@ -17,15 +17,161 @@
   "Footer": {
     "copyright": "© {year} Iglesia Plenitud en Cristo"
   },
-  "Placeholder": {
-    "soon": "Diese Seite wird in Phase 3 erstellt."
+  "hero": {
+    "tagline": "Ein Ort zum Wachsen, Dazugehören und Dienen",
+    "title": "Wachse in deinem geistlichen Leben.",
+    "description": "Wir sind hier, um mit dir zu gehen, aufmerksam zuzuhören und aufrichtig für dein Leben zu beten.",
+    "prayerAction": "Gebet erbitten"
   },
-  "Skeleton": {
-    "title": "Phase 1 — Projektgrundgerüst",
-    "subtitle": "Next.js, Tailwind, Prisma und PostgreSQL laufen in Docker.",
-    "dbOk": "Datenbank verbunden",
-    "dbDown": "Datenbank nicht verfügbar",
-    "language": "Sprache",
-    "toggleTheme": "Design wechseln"
+  "live": {
+    "status": "Jetzt live",
+    "title": "Sei beim heutigen Gottesdienst dabei",
+    "text": "Wenn die Gemeinde sendet, kannst du live auf unseren Plattformen zusehen.",
+    "schedule": "Sonntags 18 Uhr · Mittwochs 19 Uhr",
+    "noLiveText": "Gerade gibt es keine Liveübertragung.",
+    "watchOn": "Sieh uns hier:",
+    "watchYoutube": "Auf YouTube ansehen",
+    "watchFacebook": "Auf Facebook ansehen"
+  },
+  "groups": {
+    "label": "Unsere Gemeinschaft",
+    "title": "Hier ist ein Platz für dich.",
+    "smallTitle": "Kleingruppen",
+    "smallText": "Kleingruppen, auch Zellen genannt, sind ein grundlegender Teil unseres Dienstes für Gott.",
+    "trainingTitle": "Schulung",
+    "trainingText": "In Jesus sehen wir Gnade und Wahrheit in ihrer Fülle. Wir wachsen, indem wir auf ihn schauen.",
+    "plenitudeTitle": "Plenitud-Gruppen",
+    "plenitudeText": "Ehe, Jugend, Gesundheit und Familie: Jeder Lebensbereich wird im Licht der Heiligen Schrift betrachtet."
+  },
+  "about": {
+    "label": "Lerne uns kennen",
+    "title": "Fest in Christus. Offen für dich.",
+    "text": "Wir wollen eine gesunde, biblische, geistliche und wachsende Gemeinde sein: Leben erreichen, Menschen mit Gott versöhnen, Jünger formen und sie zum Dienen senden.",
+    "meetPastors": "Unsere Pastoren kennenlernen →"
+  },
+  "contact": {
+    "label": "Wir möchten dich kennenlernen",
+    "title": "Komm, wie du bist.",
+    "directions": "Wegbeschreibung",
+    "prayerTitle": "Wie können wir für dich beten?",
+    "prayerDescription": "Teile dein Anliegen. Wir nehmen es mit Respekt entgegen und stellen es vor dem Herrn und der Gemeinde vor.",
+    "contactChannel": "Möchtest du uns kontaktieren? Wähle einen Kanal.",
+    "errorSending": "Fehler beim Senden. Bitte versuche es erneut.",
+    "name": "Name",
+    "request": "Gebetsanliegen",
+    "send": "Senden",
+    "unavailableNotice": "Gebetsanliegen sind vorübergehend nicht verfügbar. Wir bereiten diesen Dienst vor und werden ihn bald anbieten.",
+    "callUs": "Ruf uns an",
+    "contactWhatsApp": "Schreib uns auf WhatsApp",
+    "contactTelegram": "Schreib uns auf Telegram",
+    "whatsappText": "Ich möchte ein Gebetsanliegen teilen.",
+    "telegramText": "Ich möchte ein Gebetsanliegen teilen.",
+    "successTitle": "Anfrage gesendet",
+    "successText": "Wir haben dein Gebetsanliegen erhalten und werden für dich beten.",
+    "close": "Schließen",
+    "remaining": "Noch {count} Zeichen",
+    "tooMany": "Zu viele Anfragen. Bitte warte einige Minuten und versuche es erneut."
+  },
+  "offering": {
+    "label": "Online geben",
+    "title": "Unterstütze unseren Dienst",
+    "text": "Deine Großzügigkeit hilft uns, Menschen zu erreichen, zu stärken, auszubilden und zum Dienst für Christus auszusenden.",
+    "notice": "Du wirst sicher zu Square weitergeleitet, um deine Spende abzuschließen.",
+    "action": "Spenden"
+  },
+  "vision": {
+    "label": "Unsere Vision",
+    "title": "Erreichen, stärken, formen und senden.",
+    "text": "Wir erreichen Familien, um Jesus Christus zu verkünden, versöhnen Nichtgläubige mit Gott und formen sie zu Jüngern, die im Heiligen Geist leben und dienen.",
+    "reach": "Erreichen",
+    "reachText": "Wir bringen Christi Liebe in jedes Zuhause.",
+    "strengthen": "Stärken",
+    "strengthenText": "Wir begleiten und stärken im Glauben und in der Einheit.",
+    "form": "Formen",
+    "formText": "Jünger mit reifem Dienst und starkem Charakter.",
+    "send": "Senden",
+    "sendText": "Wir ermutigen Menschen, die Welt mit Christi Liebe zu prägen.",
+    "presence": "Gegenwart",
+    "character": "Charakter",
+    "service": "Dienst",
+    "quote": "“Wir leben in Gottes Gegenwart, gehen im Gehorsam, feiern mit Freude und Glauben, lieben und sorgen mit Integrität, heißen mit Gastfreundschaft willkommen und dienen in Demut.”",
+    "schedule": "Sonntags 18 Uhr · Mittwochs 19 Uhr · 702 328 2536"
+  },
+  "social": {
+    "label": "In Verbindung bleiben",
+    "title": "Folge unserer Gemeinschaft auf Instagram.",
+    "text": "Sieh Neuigkeiten, Glaubensmomente und bevorstehende Aktivitäten unserer Gemeinschaft.",
+    "action": "Instagram öffnen"
+  },
+  "pastors": {
+    "story": "Unsere Gemeindegeschichte",
+    "heroTitle": "Ein Leben, das dem Dienst an Menschen und der Jüngerschaft gewidmet ist.",
+    "heroText": "Lerne die Geschichte, den Ruf und die Arbeit kennen, die das pastorale Herz von Iglesia Plenitud en Cristo prägen.",
+    "marioName": "Pastor Mario Alsina",
+    "marioSubtitle": "Ausbildung, Gemeindegründung und Mission.",
+    "marioBio1": "Pastor Mario Alsina verfügt über mehr als drei Jahrzehnte Erfahrung im Dienst an theologischer Ausbildung, Gemeindegründung, Seelsorge und Medienarbeit.",
+    "marioBio2": "Er ist Gründer, Rektor und Professor des Global Harvest Theological Institute (GHTI), einer Institution, die zugängliche theologische Ausbildung anbietet und Diener für die Mission der Gemeinde vorbereitet.",
+    "ghtiLink": "Erfahre mehr über das Global Harvest Theological Institute →",
+    "journeyLabel": "Ein Weg des Dienstes",
+    "journeyTitle": "Ein Dienst, der die Ortsgemeinde mit Jüngerschaft und Mission verbindet.",
+    "milestone1Title": "Pastorale Berufung",
+    "milestone1Text": "Ein pastoraler Weg, geprägt durch den Dienst an Familien, Jüngerschaft und die Gründung von Gemeinden in Las Vegas.",
+    "milestone2Title": "Theologische Ausbildung",
+    "milestone2Text": "Master in theologischen Studien am Southwestern Baptist Theological Seminary, laufende Doktorarbeit und weitere akademische Zertifikate.",
+    "milestone3Title": "Global Harvest",
+    "milestone3Text": "Gründer und Direktor des GHTI, das zugängliche theologische Bildung für Studenten und Leitende erweitert.",
+    "milestone4Title": "Schreiben und Lehren",
+    "milestone4Text": "Autor von \"Skizzen des Johannesevangeliums\" und \"Cómo perdonar de verdad\", sowie fortlaufende Lehre und Leitung.",
+    "adrianaName": "Pastorin Adriana Alsina",
+    "adrianaSubtitle": "Anbetung, Mission und die nächste Generation.",
+    "adrianaBio1": "Adriana Alsina ist Musiklehrerin, Anbetungsleiterin und Mitgründerin des GHTI. Ihr Dienst umfasst Anbetungsschulung, Gemeindegründung und gemeindlichen Dienst in Las Vegas.",
+    "adrianaBio2": "Mit über drei Jahrzehnten Dienst in Anbetungs- und Gemeindegründungsministerien lehrt sie auch Theologie der Anbetung und bringt Kreativität durch Kinderbücher und christliche Lieder ein.",
+    "valuesLabel": "Was ihren Dienst prägt",
+    "value1": "Biblische Lehre, die Jünger formt.",
+    "value2": "Anbetung, die auf Christus zeigt.",
+    "value3": "Fürsorge für Familien und die Ortsgemeinde.",
+    "value4": "Mission, die Menschen aussendet zum Dienen.",
+    "ghtiLabel": "Global Harvest online",
+    "ghtiTitle": "Geschichten und Momente der Mission.",
+    "ghtiText": "Wir bereiten diesen Bereich vor, um künftige Foto-Updates von Global Harvest Online zu teilen. Bis dahin kannst du ihrer Arbeit auf Instagram folgen.",
+    "visitInstagram": "Instagram besuchen"
+  },
+  "bibleModal": {
+    "church": "Fülle in Christus",
+    "subtitle": "Ein Wort für dich",
+    "description": "Möge das lebendige Wort Gottes dein Herz heute mit Frieden erfüllen und deine Kräfte erneuern.",
+    "verseLabel": "Tagesvers",
+    "noShow": "Diese Segensworte nicht mehr anzeigen",
+    "close": "AMEN • SCHLIESSEN",
+    "verses": [
+      {
+        "text": "Der Herr ist nahe allen, die ihn anrufen, allen, die ihn in Wahrheit anrufen.",
+        "ref": "Psalm 145:18"
+      },
+      {
+        "text": "Ich vermag alles durch den, der mich stärkt.",
+        "ref": "Philipper 4:13"
+      },
+      {
+        "text": "Der Herr ist mein Hirte, mir wird nichts mangeln.",
+        "ref": "Psalm 23:1"
+      },
+      {
+        "text": "Vertrau auf den Herrn von ganzem Herzen und verlass dich nicht auf deinen Verstand.",
+        "ref": "Sprüche 3:5"
+      },
+      {
+        "text": "Denn ich kenne die Gedanken, die ich über euch habe, spricht der Herr, Gedanken des Friedens und nicht des Leids.",
+        "ref": "Jeremia 29:11"
+      },
+      {
+        "text": "Trachtet zuerst nach dem Reich Gottes und seiner Gerechtigkeit, so wird euch das alles zufallen.",
+        "ref": "Matthäus 6:33"
+      },
+      {
+        "text": "Ich bin der Weinstock, ihr seid die Reben. Wer in mir bleibt und ich in ihm, der bringt viel Frucht.",
+        "ref": "Johannes 15:5"
+      }
+    ]
   }
 }

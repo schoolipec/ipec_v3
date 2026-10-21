@@ -7,7 +7,8 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 
 ## Dónde nos quedamos
 - **Fase 1 APROBADA y publicada** en GitHub `schoolipec/ipec_v3` (commit `92dc0cc`, etiqueta `fase-1`).
-- **Fase 2 TERMINADA en local (commit `e1dd223`), esperando aprobación de Juan** para push + etiqueta `fase-2`. Detalle: `Documentacion\IPEC_v3\05-FASE2-HEADER-FOOTER.md`. Capturas: `Reportes\IPEC_v3\fase2\`.
+- Fase 2 APROBADA y publicada (etiqueta `fase-2`).
+- **Fase 3 TERMINADA en local, esperando aprobación de Juan** para push + etiqueta `fase-3`. Detalle: `Documentacion\IPEC_v3\06-FASE3-PAGINAS.md`. Capturas: `Reportes\IPEC_v3\fase3\`. Pregunta abierta: foto del grupo repetida en el Home.
 - ⚠️ Tras editar código: `docker compose up -d --force-recreate --renew-anon-volumes app` (Docker en Windows no recarga solo).
 - Detalle y verificación: `C:\ProgramandoconClaude\Documentacion\IPEC_v3\04-FASE1-ESQUELETO.md`. Capturas: `C:\ProgramandoconClaude\Reportes\IPEC_v3\fase1\`.
 - Levantar: `docker compose up -d` → http://localhost:3000 · admin http://localhost:3000/admin
@@ -19,8 +20,9 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 - [x] Fase 1: esqueleto + Docker + BD + 5 idiomas + tema (local)
 - [x] Fase 1: aprobación de Juan → push + etiqueta `fase-1`
 - [x] Fase 2: header (menú Home/About/Pastors/Contact us/Live, banderas, sol/luna) + footer + fondo con ondas (local)
-- [ ] Fase 2: aprobación de Juan → push + etiqueta `fase-2`
-- [ ] Fase 3: páginas + formulario de oración (solo Contact us) + modal de la Biblia (30 s / 12 h / no volver)
+- [x] Fase 2: aprobación de Juan → push + etiqueta `fase-2`
+- [x] Fase 3: páginas + formulario de oración (solo Contact us) + modal de la Biblia (30 s / 12 h / no volver) (local)
+- [ ] Fase 3: aprobación de Juan → push + etiqueta `fase-3`
 - [ ] Fase 4: contenido editable por zonas e idioma (Prisma)
 - [ ] Fase 5: admin (login, invitaciones, roles + permisos por casillas, perfil, contenido, pedidos de oración paginados)
 - [ ] Fase 6: auditoría + VPS v2.suplenitud.com + prueba real n8n

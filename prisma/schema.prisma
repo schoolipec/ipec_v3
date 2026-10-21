@@ -8,4 +8,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Fase 1: solo conexión. Los modelos (contenido, usuarios, oración) llegan en sus fases.
+// Pedido de oración enviado desde Contact us. Solo nombre y petición (decisión de Juan): no se guarda correo ni IP.
+model PrayerRequest {
+  id        String   @id @default(cuid())
+  name      String   @db.VarChar(100)
+  request   String   @db.VarChar(500)
+  locale    String   @db.VarChar(5)
+  source    String   @default("website") @db.VarChar(20)
+  createdAt DateTime @default(now())
+
+  // El admin los lista del más reciente al más viejo
+  @@index([createdAt(sort: Desc)])
+}

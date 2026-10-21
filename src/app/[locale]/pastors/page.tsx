@@ -1,8 +1,8 @@
 import { setRequestLocale } from 'next-intl/server';
-import PagePlaceholder from '@/components/site/PagePlaceholder';
+import PastorsContent from '@/components/site/sections/PastorsContent';
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <PagePlaceholder titleKey="pastors" />;
+  return <PastorsContent />;
 }

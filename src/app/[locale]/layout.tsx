@@ -8,6 +8,7 @@ import { THEME_COOKIE, isTheme } from '@/components/site/theme';
 import Header from '@/components/site/Header';
 import Footer from '@/components/site/Footer';
 import WaveBackground from '@/components/site/WaveBackground';
+import BibleModal from '@/components/site/BibleModal';
 import './site.css';
 
 type Props = {
@@ -46,6 +47,7 @@ export default async function SiteLayout({ children, params }: Props) {
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
+          <BibleModal />
         </NextIntlClientProvider>
       </body>
     </html>

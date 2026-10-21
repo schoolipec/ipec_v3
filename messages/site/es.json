@@ -17,15 +17,161 @@
   "Footer": {
     "copyright": "© {year} Iglesia Plenitud en Cristo"
   },
-  "Placeholder": {
-    "soon": "Esta página se construye en la fase 3."
+  "hero": {
+    "tagline": "Un lugar para crecer, pertenecer y servir",
+    "title": "Crece en tu vida espiritual.",
+    "description": "Estamos aquí para caminar contigo, escucharte con atención y orar con sinceridad por tu vida.",
+    "prayerAction": "Pide oración"
   },
-  "Skeleton": {
-    "title": "Fase 1 — Esqueleto del proyecto",
-    "subtitle": "Next.js, Tailwind, Prisma y PostgreSQL funcionando en Docker.",
-    "dbOk": "Base de datos conectada",
-    "dbDown": "Base de datos no disponible",
-    "language": "Idioma",
-    "toggleTheme": "Cambiar tema"
+  "live": {
+    "status": "En vivo ahora",
+    "title": "Acompáñanos en el servicio de hoy",
+    "text": "Cuando la iglesia esté transmitiendo, puedes verlo en vivo en nuestras plataformas.",
+    "schedule": "Domingos 6 PM · Miércoles 7 PM",
+    "noLiveText": "No hay transmisión en este momento.",
+    "watchOn": "Encuéntranos en:",
+    "watchYoutube": "Ver en YouTube",
+    "watchFacebook": "Ver en Facebook"
+  },
+  "groups": {
+    "label": "Nuestra comunidad",
+    "title": "Hay un lugar para ti aquí.",
+    "smallTitle": "Grupos pequeños",
+    "smallText": "Los grupos pequeños, también conocidos como células, son parte fundamental de nuestro servicio a Dios.",
+    "trainingTitle": "Entrenamiento",
+    "trainingText": "En Jesús vemos gracia y verdad en plenitud. Crecemos al mirarlo a Él.",
+    "plenitudeTitle": "Grupos de plenitud",
+    "plenitudeText": "Matrimonio, juventud, salud y familia: cada área de la vida se estudia a la luz de las Escrituras."
+  },
+  "about": {
+    "label": "Conócenos",
+    "title": "Firmes en Cristo. Abiertos para ti.",
+    "text": "Queremos ser una iglesia saludable, bíblica, espiritual y multiplicadora: alcanzando vidas, reconciliando con Dios, formando discípulos y enviándolos a servir.",
+    "meetPastors": "Conoce a nuestros pastores →"
+  },
+  "contact": {
+    "label": "Nos encantaría conocerte",
+    "title": "Ven tal como eres.",
+    "directions": "Cómo llegar",
+    "prayerTitle": "¿Cómo podemos orar por ti?",
+    "prayerDescription": "Comparte tu petición. La recibiremos con respeto y la presentaremos ante el Señor y la congregación.",
+    "contactChannel": "¿Te gustaría contactarnos? Elige un canal.",
+    "errorSending": "Error al enviar. Por favor intenta de nuevo.",
+    "name": "Nombre",
+    "request": "Petición de oración",
+    "send": "Enviar",
+    "unavailableNotice": "Las peticiones de oración están temporalmente no disponibles. Estamos preparando este servicio y pronto estará disponible.",
+    "callUs": "Llámanos",
+    "contactWhatsApp": "Contáctanos por WhatsApp",
+    "contactTelegram": "Contáctanos por Telegram",
+    "whatsappText": "Me gustaría compartir una petición de oración.",
+    "telegramText": "Me gustaría compartir una petición de oración.",
+    "successTitle": "Solicitud enviada",
+    "successText": "Recibimos tu petición de oración y oraremos por ti.",
+    "close": "Cerrar",
+    "remaining": "Quedan {count} caracteres",
+    "tooMany": "Demasiados envíos. Espera unos minutos e inténtalo de nuevo."
+  },
+  "offering": {
+    "label": "Ofrendas",
+    "title": "Apoya nuestro ministerio",
+    "text": "Tu generosidad nos ayuda a alcanzar, fortalecer, formar y enviar a servir a Cristo.",
+    "notice": "Serás redirigido de forma segura a Square para completar tu ofrenda.",
+    "action": "Ofrendar"
+  },
+  "vision": {
+    "label": "Nuestra visión",
+    "title": "Alcanzar, consolidar, formar y enviar.",
+    "text": "Alcanzar a los hogares para anunciar a Jesucristo, reconciliar a los no creyentes con Dios y formarlos como discípulos que viven y sirven en el Espíritu Santo.",
+    "reach": "Alcanzar",
+    "reachText": "Llevamos el amor de Cristo a cada hogar.",
+    "strengthen": "Consolidar",
+    "strengthenText": "Acompañamos y fortalecemos en la fe y la unidad.",
+    "form": "Formar",
+    "formText": "Discípulos con un servicio maduro y un gran carácter.",
+    "send": "Enviar",
+    "sendText": "Impulsamos a impactar al mundo con el amor de Cristo.",
+    "presence": "Presencia",
+    "character": "Carácter",
+    "service": "Servicio",
+    "quote": "“Vivimos en la presencia de Dios, caminamos en obediencia, celebramos con gozo y fe, amamos y cuidamos con integridad, recibimos con hospitalidad y servimos con humildad.”",
+    "schedule": "Domingos 6 PM · Miércoles 7 PM · 702 328 2536"
+  },
+  "social": {
+    "label": "Mantente conectado",
+    "title": "Sigue a nuestra comunidad en Instagram.",
+    "text": "Mira noticias, momentos de fe y próximas actividades de nuestra comunidad.",
+    "action": "Abrir Instagram"
+  },
+  "pastors": {
+    "story": "Nuestra historia pastoral",
+    "heroTitle": "Una vida dedicada a servir a las personas y formar discípulos.",
+    "heroText": "Conoce la historia, el llamado y el trabajo que dan forma al corazón pastoral de Iglesia Plenitud en Cristo.",
+    "marioName": "Pastor Mario Alsina",
+    "marioSubtitle": "Educación, plantación de iglesias y misión.",
+    "marioBio1": "El pastor Mario Alsina cuenta con más de tres décadas de experiencia ministerial en educación teológica, plantación de iglesias, cuidado pastoral y medios de difusión.",
+    "marioBio2": "Es fundador, rector y profesor del Global Harvest Theological Institute (GHTI), institución creada para ofrecer formación teológica accesible y preparar siervos para la misión de la iglesia.",
+    "ghtiLink": "Conoce Global Harvest Theological Institute →",
+    "journeyLabel": "Un camino de servicio",
+    "journeyTitle": "Un ministerio que conecta la iglesia local con la formación y la misión.",
+    "milestone1Title": "Llamado pastoral",
+    "milestone1Text": "Un camino pastoral marcado por el servicio a las familias, el discipulado y la plantación de iglesias en Las Vegas.",
+    "milestone2Title": "Formación teológica",
+    "milestone2Text": "Máster en Estudios Teológicos del Southwestern Baptist Theological Seminary, estudios doctorales en curso y otras certificaciones académicas.",
+    "milestone3Title": "Global Harvest",
+    "milestone3Text": "Fundador y director de GHTI, ampliando la educación teológica accesible para estudiantes y líderes ministeriales.",
+    "milestone4Title": "Escritura y enseñanza",
+    "milestone4Text": "Autor de \"Bosquejos del evangelio de Juan\" y \"Cómo perdonar de verdad\", junto con su enseñanza y liderazgo continuo.",
+    "adrianaName": "Pastora Adriana Alsina",
+    "adrianaSubtitle": "Adoración, misión y la próxima generación.",
+    "adrianaBio1": "Adriana Alsina es profesora de música, líder de adoración y cofundadora de GHTI. Su ministerio incluye formación en adoración, plantación de iglesias y servicio a la comunidad en Las Vegas.",
+    "adrianaBio2": "Con más de tres décadas de servicio en ministerios de adoración y plantación de iglesias, también enseña Teología de la Adoración y aporta creatividad mediante libros infantiles y canciones cristianas.",
+    "valuesLabel": "Lo que guía su servicio",
+    "value1": "Enseñanza bíblica que forma discípulos.",
+    "value2": "Adoración que señala a Cristo.",
+    "value3": "Cuidado por las familias y la comunidad local.",
+    "value4": "Misión que envía a las personas a servir.",
+    "ghtiLabel": "Global Harvest en línea",
+    "ghtiTitle": "Historias y momentos de la misión.",
+    "ghtiText": "Estamos preparando este espacio para compartir futuras actualizaciones fotográficas de Global Harvest Online. Mientras tanto, puedes seguir su trabajo en Instagram.",
+    "visitInstagram": "Visitar Instagram"
+  },
+  "bibleModal": {
+    "church": "Plenitud en Cristo",
+    "subtitle": "Una palabra para ti",
+    "description": "Que la palabra viva de Dios llene tu corazón de paz y renueve tus fuerzas en este día.",
+    "verseLabel": "Versículo de hoy",
+    "noShow": "No volver a mostrar estos mensajes de bendición",
+    "close": "AMÉN • CERRAR",
+    "verses": [
+      {
+        "text": "El Señor está cerca de todos los que lo invocan de verdad.",
+        "ref": "Salmo 145:18"
+      },
+      {
+        "text": "Todo lo puedo en Cristo que me fortalece.",
+        "ref": "Filipenses 4:13"
+      },
+      {
+        "text": "El Señor es mi pastor; nada me faltará.",
+        "ref": "Salmo 23:1"
+      },
+      {
+        "text": "Confía en el Señor de todo corazón, y no te apoyes en tu propia prudencia.",
+        "ref": "Proverbios 3:5"
+      },
+      {
+        "text": "Porque yo sé los pensamientos que tengo acerca de vosotros, pensamientos de paz y no de mal.",
+        "ref": "Jeremías 29:11"
+      },
+      {
+        "text": "Mas buscad primeramente el reino de Dios y su justicia, y todas estas cosas os serán añadidas.",
+        "ref": "Mateo 6:33"
+      },
+      {
+        "text": "Yo soy la vid, vosotros los pámpanos; el que permanece en mí, y yo en él, éste lleva mucho fruto.",
+        "ref": "Juan 15:5"
+      }
+    ]
   }
 }

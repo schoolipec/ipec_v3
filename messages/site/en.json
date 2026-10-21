@@ -17,15 +17,161 @@
   "Footer": {
     "copyright": "© {year} Iglesia Plenitud en Cristo"
   },
-  "Placeholder": {
-    "soon": "This page is built in phase 3."
+  "hero": {
+    "tagline": "A place to grow, belong, and serve",
+    "title": "Grow in your spiritual life.",
+    "description": "We are here to walk with you, listen with care, and pray sincerely for your life.",
+    "prayerAction": "Request prayer"
   },
-  "Skeleton": {
-    "title": "Phase 1 — Project skeleton",
-    "subtitle": "Next.js, Tailwind, Prisma and PostgreSQL running in Docker.",
-    "dbOk": "Database connected",
-    "dbDown": "Database not available",
-    "language": "Language",
-    "toggleTheme": "Toggle theme"
+  "live": {
+    "status": "Live now",
+    "title": "Join us in today's service",
+    "text": "When the church is broadcasting, you can watch it live on our platforms.",
+    "schedule": "Sundays 6 PM · Wednesdays 7 PM",
+    "noLiveText": "There is no live broadcast at this moment.",
+    "watchOn": "Watch us on:",
+    "watchYoutube": "Watch on YouTube",
+    "watchFacebook": "Watch on Facebook"
+  },
+  "groups": {
+    "label": "Our community",
+    "title": "There is a place for you here.",
+    "smallTitle": "Small groups",
+    "smallText": "Small groups, also known as cells, are a fundamental part of our service to God.",
+    "trainingTitle": "Training",
+    "trainingText": "In Jesus we see grace and truth in fullness. We grow by looking to Him.",
+    "plenitudeTitle": "Plenitude groups",
+    "plenitudeText": "Marriage, youth, health, and family — every part of life is explored in light of Scripture."
+  },
+  "about": {
+    "label": "Get to know us",
+    "title": "Rooted in Christ. Open to you.",
+    "text": "We seek to be a healthy, biblical, spiritual, and multiplying church: reaching lives, reconciling people with God, forming disciples, and sending them to serve.",
+    "meetPastors": "Meet our pastors →"
+  },
+  "contact": {
+    "label": "We would love to meet you",
+    "title": "Come as you are.",
+    "directions": "Get directions",
+    "prayerTitle": "How can we pray for you?",
+    "prayerDescription": "Share your request. We will receive it with respect and present it before the Lord and the congregation.",
+    "contactChannel": "Would you like to contact us? Choose a channel.",
+    "errorSending": "Error sending. Please try again.",
+    "name": "Name",
+    "request": "Prayer request",
+    "send": "Send",
+    "unavailableNotice": "Prayer requests are temporarily unavailable. We are preparing this service and will have it available soon.",
+    "callUs": "Call us",
+    "contactWhatsApp": "Contact us on WhatsApp",
+    "contactTelegram": "Contact us on Telegram",
+    "whatsappText": "I would like to share a prayer request.",
+    "telegramText": "I would like to share a prayer request.",
+    "successTitle": "Request sent",
+    "successText": "We received your prayer request and will pray for you.",
+    "close": "Close",
+    "remaining": "{count} characters left",
+    "tooMany": "Too many requests. Please wait a few minutes and try again."
+  },
+  "offering": {
+    "label": "Give online",
+    "title": "Support our ministry",
+    "text": "Your generosity helps us reach, strengthen, form and send people to serve Christ.",
+    "notice": "You'll be redirected securely to Square to complete your giving.",
+    "action": "Give"
+  },
+  "vision": {
+    "label": "Our vision",
+    "title": "Reach, strengthen, form, and send.",
+    "text": "Reaching homes to proclaim Jesus Christ, reconciling nonbelievers with God, and forming them as disciples who live and serve in the Holy Spirit.",
+    "reach": "Reach",
+    "reachText": "We bring Christ's love to every home.",
+    "strengthen": "Strengthen",
+    "strengthenText": "We accompany and strengthen people in faith and unity.",
+    "form": "Form",
+    "formText": "Disciples with mature service and strong character.",
+    "send": "Send",
+    "sendText": "We inspire people to impact the world with Christ's love.",
+    "presence": "Presence",
+    "character": "Character",
+    "service": "Service",
+    "quote": "“We live in God’s presence, walk in obedience, celebrate with joy and faith, love and care with integrity, welcome with hospitality, and serve with humility.”",
+    "schedule": "Sundays 6 PM · Wednesdays 7 PM · 702 328 2536"
+  },
+  "social": {
+    "label": "Stay connected",
+    "title": "Follow our community on Instagram.",
+    "text": "See news, moments of faith, and upcoming activities from our community.",
+    "action": "Open Instagram"
+  },
+  "pastors": {
+    "story": "Our pastoral story",
+    "heroTitle": "A life dedicated to serving people and forming disciples.",
+    "heroText": "Get to know the story, calling, and work that shape the pastoral heart of Iglesia Plenitud en Cristo.",
+    "marioName": "Pastor Mario Alsina",
+    "marioSubtitle": "Education, church planting, and mission.",
+    "marioBio1": "Pastor Mario Alsina has more than three decades of ministry experience in theological education, church planting, pastoral care, and media outreach.",
+    "marioBio2": "He is founder, rector, and professor at Global Harvest Theological Institute (GHTI), an institution created to offer accessible theological training and prepare servants for the mission of the church.",
+    "ghtiLink": "Learn about Global Harvest Theological Institute →",
+    "journeyLabel": "A journey of service",
+    "journeyTitle": "A ministry that connects the local church with formation and mission.",
+    "milestone1Title": "Pastoral calling",
+    "milestone1Text": "A pastoral path marked by service to families, discipleship, and the planting of churches in Las Vegas.",
+    "milestone2Title": "Theological formation",
+    "milestone2Text": "A Master of Theological Studies from Southwestern Baptist Theological Seminary, continuing doctoral studies, and other academic certifications.",
+    "milestone3Title": "Global Harvest",
+    "milestone3Text": "Founder and director of GHTI, expanding accessible theological education for students and ministry leaders.",
+    "milestone4Title": "Writing and teaching",
+    "milestone4Text": "Author of \"Sketches of the Gospel of John\" and \"Cómo perdonar de verdad,\" alongside ongoing teaching and leadership.",
+    "adrianaName": "Pastor Adriana Alsina",
+    "adrianaSubtitle": "Worship, mission, and the next generation.",
+    "adrianaBio1": "Adriana Alsina is a music teacher, worship leader, and co-founder of GHTI. Her ministry includes worship formation, church planting, and service to the community in Las Vegas.",
+    "adrianaBio2": "With more than three decades of service in worship and church-planting ministries, she also teaches Theology of Worship and brings creativity through children's books and Christian songs.",
+    "valuesLabel": "What shapes their service",
+    "value1": "Biblical teaching that forms disciples.",
+    "value2": "Worship that points to Christ.",
+    "value3": "Care for families and the local community.",
+    "value4": "Mission that sends people to serve.",
+    "ghtiLabel": "Global Harvest online",
+    "ghtiTitle": "Stories and moments from the mission.",
+    "ghtiText": "We are preparing this space to share future photo updates from Global Harvest Online. Until then, you can follow their work on Instagram.",
+    "visitInstagram": "Visit Instagram"
+  },
+  "bibleModal": {
+    "church": "Plenitud en Cristo",
+    "subtitle": "A word for you",
+    "description": "May the living word of God fill your heart with peace and renew your strength today.",
+    "verseLabel": "Verse of the day",
+    "noShow": "Do not show these blessing messages again",
+    "close": "AMEN • CLOSE",
+    "verses": [
+      {
+        "text": "The Lord is near to all who call on him, to all who call on him in truth.",
+        "ref": "Psalm 145:18"
+      },
+      {
+        "text": "I can do all this through him who gives me strength.",
+        "ref": "Philippians 4:13"
+      },
+      {
+        "text": "The Lord is my shepherd, I lack nothing.",
+        "ref": "Psalm 23:1"
+      },
+      {
+        "text": "Trust in the Lord with all your heart and lean not on your own understanding.",
+        "ref": "Proverbs 3:5"
+      },
+      {
+        "text": "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you.",
+        "ref": "Jeremiah 29:11"
+      },
+      {
+        "text": "But seek first his kingdom and his righteousness, and all these things will be given to you as well.",
+        "ref": "Matthew 6:33"
+      },
+      {
+        "text": "I am the vine; you are the branches. If you remain in me and I in you, you will bear much fruit.",
+        "ref": "John 15:5"
+      }
+    ]
   }
 }

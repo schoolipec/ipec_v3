@@ -66,6 +66,18 @@
   --color-line: var(--border);
 }
 
+/* Degradados de marca (de v2) */
+@utility bg-brand-gradient {
+  background: linear-gradient(135deg, #1565c0 0%, #2e7d32 50%, #7cb342 100%);
+}
+@utility bg-instagram-gradient {
+  background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
+}
+/* Secciones claras semitransparentes: dejan ver el fondo con ondas */
+@utility bg-section-alt {
+  background: color-mix(in srgb, var(--bg-alt) 72%, transparent);
+}
+
 /* El lienzo toma el color del tema (se ve al hacer scroll elástico en móvil) */
 html {
   background: var(--bg-page);
