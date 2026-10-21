@@ -1,0 +1,8 @@
+# Entorno local aislado para la rama de Codex. No sustituye docker-compose.yml.
+services:
+  db:
+    ports:
+      - "5435:5432"
+  app:
+    ports:
+      - "3001:3000"
