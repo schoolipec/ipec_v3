@@ -25,13 +25,17 @@ export async function POST(req: NextRequest) {
     where,
     orderBy: { createdAt: 'desc' },
     take: MAX_PAGES,
-    select: { name: true, request: true, createdAt: true },
+    select: { id: true, name: true, request: true, createdAt: true },
   });
   if (rows.length === 0) return NextResponse.json({ error: 'no_results' }, { status: 400 });
 
   const bytes = await buildPrayerQueleaPdf(
     rows.map((r) => ({ name: r.name, message: r.request, createdAt: r.createdAt.toISOString() })),
   );
+  await prisma.prayerRequest.updateMany({
+    where: { id: { in: rows.map((r) => r.id) } },
+    data: { status: 'DOWNLOADED' },
+  });
   const stamp = new Date().toISOString().slice(0, 10);
   return new NextResponse(Buffer.from(bytes), {
     headers: {

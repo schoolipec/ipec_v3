@@ -91,11 +91,8 @@
     "colStatus": "Estado",
     "all": "Todos",
     "status": {
-      "NEW": "Nuevo",
-      "PRAYING": "En oración",
-      "ANSWERED": "Respondido",
-      "ARCHIVED": "Archivado",
-      "RECEIVED": "Recibida"
+      "NEW": "Recibida",
+      "DOWNLOADED": "Descargada"
     },
     "changeStatus": "Cambiar estado",
     "page": "Página",
@@ -105,7 +102,7 @@
     "exporting": "Generando…",
     "exportNoResults": "No hay peticiones con el filtro actual.",
     "exportError": "No se pudo generar el PDF.",
-    "exportNotice": "El PDF para Quelea solo incluye las peticiones marcadas como Nueva. Después de presentarlas, cámbialas a Recibida para que no se vuelvan a exportar."
+    "exportNotice": "El PDF para Quelea solo incluye las peticiones Recibidas. Al descargarlo, esas peticiones cambian a Descargada para que no se vuelvan a exportar."
   },
   "profile": {
     "title": "Mi perfil",

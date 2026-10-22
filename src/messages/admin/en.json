@@ -91,11 +91,8 @@
     "colStatus": "Status",
     "all": "All",
     "status": {
-      "NEW": "New",
-      "PRAYING": "Praying",
-      "ANSWERED": "Answered",
-      "ARCHIVED": "Archived",
-      "RECEIVED": "Received"
+      "NEW": "Received",
+      "DOWNLOADED": "Downloaded"
     },
     "changeStatus": "Change status",
     "page": "Page",
@@ -105,7 +102,7 @@
     "exporting": "Generating…",
     "exportNoResults": "No requests match the current filter.",
     "exportError": "Could not generate the PDF.",
-    "exportNotice": "The PDF for Quelea only includes requests marked as New. After presenting them, mark them as Received so they are not exported again."
+    "exportNotice": "The Quelea PDF only includes requests marked Received. Once you download it, those requests change to Downloaded so they are not exported again."
   },
   "profile": {
     "title": "My profile",

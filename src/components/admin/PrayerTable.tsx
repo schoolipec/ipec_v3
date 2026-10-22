@@ -3,20 +3,17 @@ import { Fragment, useState, useEffect, useCallback } from 'react';
 import { Search, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import { useAdminLang } from '@/components/admin/AdminLangContext';
 
-type PrayerStatus = 'NEW' | 'RECEIVED' | 'PRAYING' | 'ANSWERED' | 'ARCHIVED';
+type PrayerStatus = 'NEW' | 'DOWNLOADED';
 type PrayerRow = { id: string; name: string; request: string; locale: string; status: PrayerStatus; createdAt: string };
 type Response = {
   rows: PrayerRow[]; total: number; pages: number; page: number;
   countByStatus: Record<PrayerStatus, number>;
 };
 
-const STATUSES: PrayerStatus[] = ['NEW', 'RECEIVED', 'PRAYING', 'ANSWERED', 'ARCHIVED'];
+const STATUSES: PrayerStatus[] = ['NEW', 'DOWNLOADED'];
 const STATUS_STYLE: Record<PrayerStatus, string> = {
   NEW: 'bg-sky-500/15 text-sky-300 border-sky-500/30',
-  RECEIVED: 'bg-teal-500/15 text-teal-300 border-teal-500/30',
-  PRAYING: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
-  ANSWERED: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
-  ARCHIVED: 'bg-slate-500/15 text-slate-300 border-slate-500/30',
+  DOWNLOADED: 'bg-violet-500/15 text-violet-300 border-violet-500/30',
 };
 
 function formatDate(iso: string, lang: string) {

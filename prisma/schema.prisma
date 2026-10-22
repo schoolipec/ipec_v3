@@ -41,10 +41,7 @@ model ContentRevision {
 // Pedido de oración enviado desde Contact us. Solo nombre y petición (decisión de Juan): no se guarda correo ni IP.
 enum PrayerStatus {
   NEW
-  RECEIVED
-  PRAYING
-  ANSWERED
-  ARCHIVED
+  DOWNLOADED
 }
 
 model PrayerRequest {
