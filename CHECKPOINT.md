@@ -165,3 +165,8 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 - [ ] Buzón peticiones@: lo borra Juan.
 - [ ] Mailcow: límite de envíos de no-reply@ (451 Ratelimit) — ajustar si vuelve a fallar.
 - [x] Permisos de roles: ADMIN no puede invitar ni asignar SUPERADMIN, ni cambiar su propio rol (servidor y UI).
+
+## Cierre del proyecto (2026-10-22)
+- Proyecto movido de `E:\enProceso\IPEC_v3_Clean` a `C:\ProgramandoconClaude\Proyectos\finalizados\IPEC_v3_Clean` (repositorio íntegro, commit d558105).
+- Estado: finalizado y desplegado en v3.suplenitud.com. Pendiente: respuesta del pastor; después, publicar en suplenitud.com y borrar proyectos y subdominios de prueba (solo con aprobación de Juan).
+- Datos de prueba: limpios en producción (solo el SUPERADMIN).
