@@ -1,0 +1,1397 @@
+[
+  {
+    "book": 43,
+    "chapter": 3,
+    "verse": 16,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Juan 3:16",
+    "text": "Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna."
+  },
+  {
+    "book": 43,
+    "chapter": 3,
+    "verse": 16,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "John 3:16",
+    "text": "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."
+  },
+  {
+    "book": 43,
+    "chapter": 3,
+    "verse": 16,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "João 3:16",
+    "text": "Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna."
+  },
+  {
+    "book": 43,
+    "chapter": 3,
+    "verse": 16,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Johannes 3:16",
+    "text": "Also hat Gott die Welt geliebt, daß er seinen eingeborenen Sohn gab, auf daß alle, die an ihn glauben, nicht verloren werden, sondern das ewige Leben haben."
+  },
+  {
+    "book": 43,
+    "chapter": 3,
+    "verse": 16,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "요한복음 3:16",
+    "text": "하나님이 세상을 이처럼 사랑하사 독생자를 주셨으니 이는 저를 믿는 자마다 멸망치 않고 영생을 얻게 하려 하심이니라"
+  },
+  {
+    "book": 19,
+    "chapter": 23,
+    "verse": 1,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Salmos 23:1",
+    "text": "Jehová es mi pastor; nada me faltará."
+  },
+  {
+    "book": 19,
+    "chapter": 23,
+    "verse": 1,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Psalm 23:1",
+    "text": "A Psalm of David. The LORD is my shepherd; I shall not want."
+  },
+  {
+    "book": 19,
+    "chapter": 23,
+    "verse": 1,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Salmos 23:1",
+    "text": "O Senhor é o meu pastor; nada me faltará."
+  },
+  {
+    "book": 19,
+    "chapter": 23,
+    "verse": 1,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Psalm 23:1",
+    "text": "Ein Psalm Davids. Der HERR ist mein Hirte; mir wird nichts mangeln."
+  },
+  {
+    "book": 19,
+    "chapter": 23,
+    "verse": 1,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "시편 23:1",
+    "text": "여호와는 나의 목자시니 내가 부족함이 없으리로다"
+  },
+  {
+    "book": 50,
+    "chapter": 4,
+    "verse": 13,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Filipenses 4:13",
+    "text": "Todo lo puedo en Cristo que me fortalece."
+  },
+  {
+    "book": 50,
+    "chapter": 4,
+    "verse": 13,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Philippians 4:13",
+    "text": "I can do all things through Christ which strengtheneth me."
+  },
+  {
+    "book": 50,
+    "chapter": 4,
+    "verse": 13,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Filipenses 4:13",
+    "text": "Posso todas as coisas naquele que me fortalece."
+  },
+  {
+    "book": 50,
+    "chapter": 4,
+    "verse": 13,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Philipper 4:13",
+    "text": "Ich vermag alles durch den, der mich mächtig macht, Christus."
+  },
+  {
+    "book": 50,
+    "chapter": 4,
+    "verse": 13,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "빌립보서 4:13",
+    "text": "내게 능력 주시는 자 안에서 내가 모든 것을 할 수 있느니라"
+  },
+  {
+    "book": 24,
+    "chapter": 29,
+    "verse": 11,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Jeremías 29:11",
+    "text": "Porque yo sé los pensamientos que tengo acerca de vosotros, dice Jehová, pensamientos de paz, y no de mal, para daros el fin que esperáis."
+  },
+  {
+    "book": 24,
+    "chapter": 29,
+    "verse": 11,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Jeremiah 29:11",
+    "text": "For I know the thoughts that I think toward you, saith the LORD, thoughts of peace, and not of evil, to give you an expected end. expected: Heb. end and expectation"
+  },
+  {
+    "book": 24,
+    "chapter": 29,
+    "verse": 11,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Jeremias 29:11",
+    "text": "Pois eu bem sei os planos que estou projetando para vós, diz o Senhor; planos de paz, e não de mal, para vos dar um futuro e uma esperança."
+  },
+  {
+    "book": 24,
+    "chapter": 29,
+    "verse": 11,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Jeremia 29:11",
+    "text": "Denn ich weiß wohl, was ich für Gedanken über euch habe, spricht der HERR: Gedanken des Friedens und nicht des Leidens, daß ich euch gebe das Ende, des ihr wartet."
+  },
+  {
+    "book": 24,
+    "chapter": 29,
+    "verse": 11,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "예레미야 29:11",
+    "text": "나 여호와가 말하노라 너희를 향한 나의 생각은 내가 아나니 재앙이 아니라 곧 평안이요 너희 장래에 소망을 주려하는 생각이라"
+  },
+  {
+    "book": 45,
+    "chapter": 8,
+    "verse": 28,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Romanos 8:28",
+    "text": "Y sabemos que a los que aman a Dios, todas las cosas les ayudan a bien, esto es, a los que conforme a su propósito son llamados."
+  },
+  {
+    "book": 45,
+    "chapter": 8,
+    "verse": 28,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Romans 8:28",
+    "text": "And we know that all things work together for good to them that love God, to them who are the called according to his purpose."
+  },
+  {
+    "book": 45,
+    "chapter": 8,
+    "verse": 28,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Romanos 8:28",
+    "text": "E sabemos que todas as coisas concorrem para o bem daqueles que amam a Deus, daqueles que são chamados segundo o seu propósito."
+  },
+  {
+    "book": 45,
+    "chapter": 8,
+    "verse": 28,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Römer 8:28",
+    "text": "Wir wissen aber, daß denen, die Gott lieben, alle Dinge zum Besten dienen, denen, die nach dem Vorsatz berufen sind."
+  },
+  {
+    "book": 45,
+    "chapter": 8,
+    "verse": 28,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "로마서 8:28",
+    "text": "우리가 알거니와 하나님을 사랑하는 자 곧 그 뜻대로 부르심을 입은 자들에게는 모든 것이 합력하여 선을 이루느니라"
+  },
+  {
+    "book": 20,
+    "chapter": 3,
+    "verse": 5,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Proverbios 3:5",
+    "text": "Fíate de Jehová de todo tu corazón, Y no te apoyes en tu propia prudencia."
+  },
+  {
+    "book": 20,
+    "chapter": 3,
+    "verse": 5,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Proverbs 3:5",
+    "text": "Trust in the LORD with all thine heart; and lean not unto thine own understanding."
+  },
+  {
+    "book": 20,
+    "chapter": 3,
+    "verse": 5,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Provérbios 3:5",
+    "text": "Confia no Senhor de todo o teu coração, e não te estribes no teu próprio entendimento."
+  },
+  {
+    "book": 20,
+    "chapter": 3,
+    "verse": 5,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Sprüche 3:5",
+    "text": "Verlaß dich auf den HERRN von ganzem Herzen und verlaß dich nicht auf deinen Verstand;"
+  },
+  {
+    "book": 20,
+    "chapter": 3,
+    "verse": 5,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "잠언 3:5",
+    "text": "너는 마음을 다하여 여호와를 의뢰하고 네 명철을 의지하지 말라"
+  },
+  {
+    "book": 23,
+    "chapter": 41,
+    "verse": 10,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Isaías 41:10",
+    "text": "No temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios que te esfuerzo; siempre te ayudaré, siempre te sustentaré con la diestra de mi justicia."
+  },
+  {
+    "book": 23,
+    "chapter": 41,
+    "verse": 10,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Isaiah 41:10",
+    "text": "Fear thou not; for I am with thee: be not dismayed; for I am thy God: I will strengthen thee; yea, I will help thee; yea, I will uphold thee with the right hand of my righteousness."
+  },
+  {
+    "book": 23,
+    "chapter": 41,
+    "verse": 10,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Isaías 41:10",
+    "text": "não temas, porque eu sou contigo; não te assombres, porque eu sou teu Deus; eu te fortaleço, e te ajudo, e te sustento com a destra da minha justiça."
+  },
+  {
+    "book": 23,
+    "chapter": 41,
+    "verse": 10,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Jesaja 41:10",
+    "text": "fürchte dich nicht, ich bin mit dir; weiche nicht, denn ich bin dein Gott; ich stärke dich, ich helfe dir auch, ich erhalte dich durch die rechte Hand meiner Gerechtigkeit."
+  },
+  {
+    "book": 23,
+    "chapter": 41,
+    "verse": 10,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "이사야 41:10",
+    "text": "두려워 말라 내가 너와 함께 함이니라 놀라지 말라 나는 네 하나님이 됨이니라 내가 너를 굳세게 하리라 참으로 너를 도와 주리라 참으로 나의 의로운 오른손으로 너를 붙들리라"
+  },
+  {
+    "book": 19,
+    "chapter": 46,
+    "verse": 1,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Salmos 46:1",
+    "text": "Dios es nuestro amparo y fortaleza, Nuestro pronto auxilio en las tribulaciones."
+  },
+  {
+    "book": 19,
+    "chapter": 46,
+    "verse": 1,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Psalm 46:1",
+    "text": "To the chief Musician for the sons of Korah, A Song upon Alamoth. God is our refuge and strength, a very present help in trouble. for: or, of"
+  },
+  {
+    "book": 19,
+    "chapter": 46,
+    "verse": 1,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Salmos 46:1",
+    "text": "Deus é o nosso refúgio e fortaleza, socorro bem presente na angústia."
+  },
+  {
+    "book": 19,
+    "chapter": 46,
+    "verse": 1,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Psalm 46:1",
+    "text": "Ein Lied der Kinder Korah, von der Jugend, vorzusingen. Gott ist unsre Zuversicht und Stärke. Eine Hilfe in den großen Nöten, die uns getroffen haben."
+  },
+  {
+    "book": 19,
+    "chapter": 46,
+    "verse": 1,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "시편 46:1",
+    "text": "하나님은 우리의 피난처시요 힘이시니 환난 중에 만날 큰 도움이시라"
+  },
+  {
+    "book": 40,
+    "chapter": 11,
+    "verse": 28,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Mateo 11:28",
+    "text": "Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar."
+  },
+  {
+    "book": 40,
+    "chapter": 11,
+    "verse": 28,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Matthew 11:28",
+    "text": "Come unto me, all ye that labour and are heavy laden, and I will give you rest."
+  },
+  {
+    "book": 40,
+    "chapter": 11,
+    "verse": 28,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Mateus 11:28",
+    "text": "Vinde a mim, todos os que estai cansados e oprimidos, e eu vos aliviarei."
+  },
+  {
+    "book": 40,
+    "chapter": 11,
+    "verse": 28,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Matthäus 11:28",
+    "text": "Kommet her zu mir alle, die ihr mühselig und beladen seid; ich will euch erquicken."
+  },
+  {
+    "book": 40,
+    "chapter": 11,
+    "verse": 28,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "마태복음 11:28",
+    "text": "수고하고 무거운 짐진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라"
+  },
+  {
+    "book": 43,
+    "chapter": 14,
+    "verse": 6,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Juan 14:6",
+    "text": "Jesús le dijo: Yo soy el camino, y la verdad, y la vida; nadie viene al Padre, sino por mí."
+  },
+  {
+    "book": 43,
+    "chapter": 14,
+    "verse": 6,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "John 14:6",
+    "text": "Jesus saith unto him, I am the way, the truth, and the life: no man cometh unto the Father, but by me."
+  },
+  {
+    "book": 43,
+    "chapter": 14,
+    "verse": 6,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "João 14:6",
+    "text": "Respondeu-lhe Jesus: 'Eu sou o caminho, e a verdade, e a vida; ninguém vem ao Pai, senão por mim."
+  },
+  {
+    "book": 43,
+    "chapter": 14,
+    "verse": 6,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Johannes 14:6",
+    "text": "Jesus spricht zu ihm: Ich bin der Weg und die Wahrheit und das Leben; niemand kommt zum Vater denn durch mich."
+  },
+  {
+    "book": 43,
+    "chapter": 14,
+    "verse": 6,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "요한복음 14:6",
+    "text": "예수께서 가라사대 내가 곧 길이요 진리요 생명이니 나로 말미암지 않고는 아버지께로 올 자가 없느니라"
+  },
+  {
+    "book": 19,
+    "chapter": 119,
+    "verse": 105,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Salmos 119:105",
+    "text": "Lámpara es a mis pies tu palabra, Y lumbrera a mi camino."
+  },
+  {
+    "book": 19,
+    "chapter": 119,
+    "verse": 105,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Psalm 119:105",
+    "text": "NUN. Thy word is a lamp unto my feet, and a light unto my path. lamp: or, candle"
+  },
+  {
+    "book": 19,
+    "chapter": 119,
+    "verse": 105,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Salmos 119:105",
+    "text": "Lâmpada para os meus pés é a tua palavra, e luz para o meu caminho."
+  },
+  {
+    "book": 19,
+    "chapter": 119,
+    "verse": 105,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Psalm 119:105",
+    "text": "Dein Wort ist meine Fußes Leuchte und ein Licht auf meinem Wege."
+  },
+  {
+    "book": 19,
+    "chapter": 119,
+    "verse": 105,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "시편 119:105",
+    "text": "주의 말씀은 내 발에 등이요 내 길에 빛이니이다"
+  },
+  {
+    "book": 45,
+    "chapter": 8,
+    "verse": 38,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Romanos 8:38",
+    "text": "Por lo cual estoy seguro de que ni la muerte, ni la vida, ni ángeles, ni principados, ni potestades, ni lo presente, ni lo por venir,"
+  },
+  {
+    "book": 45,
+    "chapter": 8,
+    "verse": 38,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Romans 8:38",
+    "text": "For I am persuaded, that neither death, nor life, nor angels, nor principalities, nor powers, nor things present, nor things to come,"
+  },
+  {
+    "book": 45,
+    "chapter": 8,
+    "verse": 38,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Romanos 8:38",
+    "text": "Porque estou certo de que, nem a morte, nem a vida, nem anjos, nem principados, nem coisas presentes, nem futuras, nem potestades,"
+  },
+  {
+    "book": 45,
+    "chapter": 8,
+    "verse": 38,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Römer 8:38",
+    "text": "Denn ich bin gewiß, daß weder Tod noch Leben, weder Engel noch Fürstentümer noch Gewalten, weder Gegenwärtiges noch Zukünftiges,"
+  },
+  {
+    "book": 45,
+    "chapter": 8,
+    "verse": 38,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "로마서 8:38",
+    "text": "내가 확신하노니 사망이나 생명이나 천사들이나 권세자들이나 현재 일이나 장래 일이나 능력이나"
+  },
+  {
+    "book": 55,
+    "chapter": 1,
+    "verse": 7,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "2 Timoteo 1:7",
+    "text": "Porque no nos ha dado Dios espíritu de cobardía, sino de poder, de amor y de dominio propio."
+  },
+  {
+    "book": 55,
+    "chapter": 1,
+    "verse": 7,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "2 Timothy 1:7",
+    "text": "For God hath not given us the spirit of fear; but of power, and of love, and of a sound mind."
+  },
+  {
+    "book": 55,
+    "chapter": 1,
+    "verse": 7,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "2 Timóteo 1:7",
+    "text": "Porque Deus não nos deu o espírito de covardia, mas de poder, de amor e de moderação."
+  },
+  {
+    "book": 55,
+    "chapter": 1,
+    "verse": 7,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "2. Timotheus 1:7",
+    "text": "Denn Gott hat uns nicht gegeben den Geist der Furcht, sondern der Kraft und der Liebe und der Zucht."
+  },
+  {
+    "book": 55,
+    "chapter": 1,
+    "verse": 7,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "디모데후서 1:7",
+    "text": "하나님이 우리에게 주신 것은 두려워하는 마음이 아니요 오직 능력과 사랑과 근신하는 마음이니"
+  },
+  {
+    "book": 58,
+    "chapter": 11,
+    "verse": 1,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Hebreos 11:1",
+    "text": "Es, pues, la fe la certeza de lo que se espera, la convicción de lo que no se ve."
+  },
+  {
+    "book": 58,
+    "chapter": 11,
+    "verse": 1,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Hebrews 11:1",
+    "text": "Now faith is the substance of things hoped for, the evidence of things not seen. substance: or, ground, or, confidence"
+  },
+  {
+    "book": 58,
+    "chapter": 11,
+    "verse": 1,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Hebreus 11:1",
+    "text": "Ora, a fé é o firme fundamento das coisas que se esperam, e a prova das coisas que não se vêem."
+  },
+  {
+    "book": 58,
+    "chapter": 11,
+    "verse": 1,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Hebräer 11:1",
+    "text": "Es ist aber der Glaube eine gewisse Zuversicht des, das man hofft, und ein Nichtzweifeln an dem, das man nicht sieht."
+  },
+  {
+    "book": 58,
+    "chapter": 11,
+    "verse": 1,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "히브리서 11:1",
+    "text": "믿음은 바라는 것들의 실상이요 보지 못하는 것들의 증거니"
+  },
+  {
+    "book": 49,
+    "chapter": 2,
+    "verse": 8,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Efesios 2:8",
+    "text": "Porque por gracia sois salvos por medio de la fe; y esto no de vosotros, pues es don de Dios;"
+  },
+  {
+    "book": 49,
+    "chapter": 2,
+    "verse": 8,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Ephesians 2:8",
+    "text": "For by grace are ye saved through faith; and that not of yourselves: it is the gift of God:"
+  },
+  {
+    "book": 49,
+    "chapter": 2,
+    "verse": 8,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Efésios 2:8",
+    "text": "Porque pela graça sois salvos, por meio da fé; e isto não vem de vós, é dom de Deus;"
+  },
+  {
+    "book": 49,
+    "chapter": 2,
+    "verse": 8,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Epheser 2:8",
+    "text": "Denn aus Gnade seid ihr selig geworden durch den Glauben, und das nicht aus euch: Gottes Gabe ist es,"
+  },
+  {
+    "book": 49,
+    "chapter": 2,
+    "verse": 8,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "에베소서 2:8",
+    "text": "너희가 그 은혜를 인하여 믿음으로 말미암아 구원을 얻었나니 이것이 너희에게서 난 것이 아니요 하나님의 선물이라"
+  },
+  {
+    "book": 40,
+    "chapter": 6,
+    "verse": 33,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Mateo 6:33",
+    "text": "Mas buscad primeramente el reino de Dios y su justicia, y todas estas cosas os serán añadidas."
+  },
+  {
+    "book": 40,
+    "chapter": 6,
+    "verse": 33,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Matthew 6:33",
+    "text": "But seek ye first the kingdom of God, and his righteousness; and all these things shall be added unto you."
+  },
+  {
+    "book": 40,
+    "chapter": 6,
+    "verse": 33,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Mateus 6:33",
+    "text": "Mas buscai primeiro o seu reino e a sua justiça, e todas estas coisas vos serão acrescentadas."
+  },
+  {
+    "book": 40,
+    "chapter": 6,
+    "verse": 33,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Matthäus 6:33",
+    "text": "Trachtet am ersten nach dem Reich Gottes und nach seiner Gerechtigkeit, so wird euch solches alles zufallen."
+  },
+  {
+    "book": 40,
+    "chapter": 6,
+    "verse": 33,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "마태복음 6:33",
+    "text": "너희는 먼저 그의 나라와 그의 의를 구하라 그리하면 이 모든 것을 너희에게 더하시리라"
+  },
+  {
+    "book": 6,
+    "chapter": 1,
+    "verse": 9,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Josué 1:9",
+    "text": "Mira que te mando que te esfuerces y seas valiente; no temas ni desmayes, porque Jehová tu Dios estará contigo en dondequiera que vayas."
+  },
+  {
+    "book": 6,
+    "chapter": 1,
+    "verse": 9,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Joshua 1:9",
+    "text": "Have not I commanded thee? Be strong and of a good courage; be not afraid, neither be thou dismayed: for the LORD thy God is with thee whithersoever thou goest."
+  },
+  {
+    "book": 6,
+    "chapter": 1,
+    "verse": 9,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Josué 1:9",
+    "text": "Não to mandei eu? Esforça-te, e tem bom ânimo; não te atemorizes, nem te espantes; porque o Senhor teu Deus está contigo, por onde quer que andares."
+  },
+  {
+    "book": 6,
+    "chapter": 1,
+    "verse": 9,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Josua 1:9",
+    "text": "Siehe, ich habe dir geboten, daß du getrost und freudig seist. Laß dir nicht grauen und entsetze dich nicht; denn der HERR, dein Gott, ist mit dir in allem, was du tun wirst."
+  },
+  {
+    "book": 6,
+    "chapter": 1,
+    "verse": 9,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "여호수아 1:9",
+    "text": "내가 네게 명한 것이 아니냐 마음을 강하게 하고 담대히 하라 두려워 말며 놀라지 말라 네가 어디로 가든지 네 하나님 여호와가 너와 함께 하느니라 하시니라"
+  },
+  {
+    "book": 46,
+    "chapter": 13,
+    "verse": 4,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "1 Corintios 13:4",
+    "text": "El amor es sufrido, es benigno; el amor no tiene envidia, el amor no es jactancioso, no se envanece;"
+  },
+  {
+    "book": 46,
+    "chapter": 13,
+    "verse": 4,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "1 Corinthians 13:4",
+    "text": "Charity suffereth long, and is kind; charity envieth not; charity vaunteth not itself, is not puffed up, vaunteth: or, is not rash"
+  },
+  {
+    "book": 46,
+    "chapter": 13,
+    "verse": 4,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "1 Coríntios 13:4",
+    "text": "O amor é sofredor, é benigno; o amor não é invejoso; o amor não se vangloria, não se ensoberbece,"
+  },
+  {
+    "book": 46,
+    "chapter": 13,
+    "verse": 4,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "1. Korinther 13:4",
+    "text": "Die Liebe ist langmütig und freundlich, die Liebe eifert nicht, die Liebe treibt nicht Mutwillen, sie blähet sich nicht,"
+  },
+  {
+    "book": 46,
+    "chapter": 13,
+    "verse": 4,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "고린도전서 13:4",
+    "text": "사랑은 오래 참고 사랑은 온유하며 투기하는 자가 되지 아니하며 사랑은 자랑하지 아니하며 교만하지 아니하며"
+  },
+  {
+    "book": 19,
+    "chapter": 34,
+    "verse": 8,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Salmos 34:8",
+    "text": "Gustad, y ved que es bueno Jehová; Dichoso el hombre que confía en él."
+  },
+  {
+    "book": 19,
+    "chapter": 34,
+    "verse": 8,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Psalm 34:8",
+    "text": "O taste and see that the LORD is good: blessed is the man that trusteth in him."
+  },
+  {
+    "book": 19,
+    "chapter": 34,
+    "verse": 8,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Salmos 34:8",
+    "text": "Provai, e vede que o Senhor é bom; bem-aventurado o homem que nele se refugia."
+  },
+  {
+    "book": 19,
+    "chapter": 34,
+    "verse": 8,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Psalm 34:8",
+    "text": "Schmecket und sehet, wie freundlich der HERR ist. Wohl dem, der auf ihn traut!"
+  },
+  {
+    "book": 19,
+    "chapter": 34,
+    "verse": 8,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "시편 34:8",
+    "text": "너희는 여호와의 선하심을 맛보아 알찌어다 그에게 피하는 자는 복이 있도다"
+  },
+  {
+    "book": 48,
+    "chapter": 5,
+    "verse": 22,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Gálatas 5:22",
+    "text": "Mas el fruto del Espíritu es amor, gozo, paz, paciencia, benignidad, bondad, fe,"
+  },
+  {
+    "book": 48,
+    "chapter": 5,
+    "verse": 22,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Galatians 5:22",
+    "text": "But the fruit of the Spirit is love, joy, peace, longsuffering, gentleness, goodness, faith,"
+  },
+  {
+    "book": 48,
+    "chapter": 5,
+    "verse": 22,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Gálatas 5:22",
+    "text": "Mas o fruto do Espírito é: o amor, o gozo, a paz, a longanimidade, a benignidade, a bondade, a fidelidade."
+  },
+  {
+    "book": 48,
+    "chapter": 5,
+    "verse": 22,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Galater 5:22",
+    "text": "Die Frucht aber des Geistes ist Liebe, Freude, Friede, Geduld, Freundlichkeit, Gütigkeit, Glaube, Sanftmut, Keuschheit."
+  },
+  {
+    "book": 48,
+    "chapter": 5,
+    "verse": 22,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "갈라디아서 5:22",
+    "text": "오직 성령의 열매는 사랑과 희락과 화평과 오래 참음과 자비와 양선과 충성과"
+  },
+  {
+    "book": 66,
+    "chapter": 21,
+    "verse": 4,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Apocalipsis 21:4",
+    "text": "Enjugará Dios toda lágrima de los ojos de ellos; y ya no habrá muerte, ni habrá más llanto, ni clamor, ni dolor; porque las primeras cosas pasaron."
+  },
+  {
+    "book": 66,
+    "chapter": 21,
+    "verse": 4,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Revelation 21:4",
+    "text": "And God shall wipe away all tears from their eyes; and there shall be no more death, neither sorrow, nor crying, neither shall there be any more pain: for the former things are passed away."
+  },
+  {
+    "book": 66,
+    "chapter": 21,
+    "verse": 4,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Apocalipse 21:4",
+    "text": "Ele enxugará de seus olhos toda lágrima; e não haverá mais morte, nem haverá mais pranto, nem lamento, nem dor; porque já as primeiras coisas são passadas."
+  },
+  {
+    "book": 66,
+    "chapter": 21,
+    "verse": 4,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Offenbarung 21:4",
+    "text": "und Gott wird abwischen alle Tränen von ihren Augen, und der Tod wird nicht mehr sein, noch Leid noch Geschrei noch Schmerz wird mehr sein; denn das Erste ist vergangen."
+  },
+  {
+    "book": 66,
+    "chapter": 21,
+    "verse": 4,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "요한계시록 21:4",
+    "text": "모든 눈물을 그 눈에서 씻기시매 다시 사망이 없고 애통하는 것이나 곡하는 것이나 아픈 것이 다시 있지 아니하리니 처음 것들이 다 지나갔음이러라"
+  },
+  {
+    "book": 25,
+    "chapter": 3,
+    "verse": 23,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Lamentaciones 3:23",
+    "text": "Nuevas son cada mañana; grande es tu fidelidad."
+  },
+  {
+    "book": 25,
+    "chapter": 3,
+    "verse": 23,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Lamentations 3:23",
+    "text": "They are new every morning: great is thy faithfulness."
+  },
+  {
+    "book": 25,
+    "chapter": 3,
+    "verse": 23,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Lamentações 3:23",
+    "text": "renovam-se cada manhã. Grande é a tua fidelidade."
+  },
+  {
+    "book": 25,
+    "chapter": 3,
+    "verse": 23,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Klagelieder 3:23",
+    "text": "sondern sie ist alle Morgen neu, und deine Treue ist groß."
+  },
+  {
+    "book": 25,
+    "chapter": 3,
+    "verse": 23,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "예레미야애가 3:23",
+    "text": "이것이 아침마다 새로우니 주의 성실이 크도소이다"
+  },
+  {
+    "book": 45,
+    "chapter": 12,
+    "verse": 2,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Romanos 12:2",
+    "text": "No os conforméis a este siglo, sino transformaos por medio de la renovación de vuestro entendimiento, para que comprobéis cuál sea la buena voluntad de Dios, agradable y perfecta."
+  },
+  {
+    "book": 45,
+    "chapter": 12,
+    "verse": 2,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Romans 12:2",
+    "text": "And be not conformed to this world: but be ye transformed by the renewing of your mind, that ye may prove what is that good, and acceptable, and perfect, will of God."
+  },
+  {
+    "book": 45,
+    "chapter": 12,
+    "verse": 2,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Romanos 12:2",
+    "text": "E não vos conformeis a este mundo, mas transformai-vos pela renovação da vossa mente, para que experimenteis qual seja a boa, agradável, e perfeita vontade de Deus."
+  },
+  {
+    "book": 45,
+    "chapter": 12,
+    "verse": 2,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Römer 12:2",
+    "text": "Und stellet euch nicht dieser Welt gleich, sondern verändert euch durch die Erneuerung eures Sinnes, auf daß ihr prüfen möget, welches da sei der gute, wohlgefällige und vollkommene Gotteswille."
+  },
+  {
+    "book": 45,
+    "chapter": 12,
+    "verse": 2,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "로마서 12:2",
+    "text": "너희는 이 세대를 본받지 말고 오직 마음을 새롭게 함으로 변화를 받아 하나님의 선하시고 기뻐하시고 온전하신 뜻이 무엇인지 분별하도록 하라"
+  },
+  {
+    "book": 51,
+    "chapter": 3,
+    "verse": 23,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Colosenses 3:23",
+    "text": "Y todo lo que hagáis, hacedlo de corazón, como para el Señor y no para los hombres;"
+  },
+  {
+    "book": 51,
+    "chapter": 3,
+    "verse": 23,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Colossians 3:23",
+    "text": "And whatsoever ye do, do it heartily , as to the Lord, and not unto men;"
+  },
+  {
+    "book": 51,
+    "chapter": 3,
+    "verse": 23,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Colossenses 3:23",
+    "text": "E tudo quanto fizerdes, fazei-o de coração, como ao Senhor, e não aos homens,"
+  },
+  {
+    "book": 51,
+    "chapter": 3,
+    "verse": 23,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Kolosser 3:23",
+    "text": "Alles, was ihr tut, das tut von Herzen als dem HERRN und nicht den Menschen,"
+  },
+  {
+    "book": 51,
+    "chapter": 3,
+    "verse": 23,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "골로새서 3:23",
+    "text": "무슨 일을 하든지 마음을 다하여 주께 하듯하고 사람에게 하듯하지 말라"
+  },
+  {
+    "book": 60,
+    "chapter": 5,
+    "verse": 7,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "1 Pedro 5:7",
+    "text": "echando toda vuestra ansiedad sobre él, porque él tiene cuidado de vosotros."
+  },
+  {
+    "book": 60,
+    "chapter": 5,
+    "verse": 7,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "1 Peter 5:7",
+    "text": "Casting all your care upon him; for he careth for you."
+  },
+  {
+    "book": 60,
+    "chapter": 5,
+    "verse": 7,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "1 Pedro 5:7",
+    "text": "lançando sobre ele toda a vossa ansiedade, porque ele tem cuidado de vós."
+  },
+  {
+    "book": 60,
+    "chapter": 5,
+    "verse": 7,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "1. Petrus 5:7",
+    "text": "Alle Sorge werfet auf ihn; denn er sorgt für euch."
+  },
+  {
+    "book": 60,
+    "chapter": 5,
+    "verse": 7,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "베드로전서 5:7",
+    "text": "너희 염려를 다 주께 맡겨 버리라 이는 저가 너희를 권고하심이니라"
+  },
+  {
+    "book": 43,
+    "chapter": 10,
+    "verse": 10,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Juan 10:10",
+    "text": "El ladrón no viene sino para hurtar y matar y destruir; yo he venido para que tengan vida, y para que la tengan en abundancia."
+  },
+  {
+    "book": 43,
+    "chapter": 10,
+    "verse": 10,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "John 10:10",
+    "text": "The thief cometh not, but for to steal, and to kill, and to destroy: I am come that they might have life, and that they might have it more abundantly."
+  },
+  {
+    "book": 43,
+    "chapter": 10,
+    "verse": 10,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "João 10:10",
+    "text": "O ladrão não vem senão para roubar, matar e destruir; eu vim para que tenham vida e a tenham em abundância."
+  },
+  {
+    "book": 43,
+    "chapter": 10,
+    "verse": 10,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Johannes 10:10",
+    "text": "Ein Dieb kommt nur, daß er stehle, würge und umbringe."
+  },
+  {
+    "book": 43,
+    "chapter": 10,
+    "verse": 10,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "요한복음 10:10",
+    "text": "도적이 오는 것은 도적질하고 죽이고 멸망시키려는 것뿐이요 내가 온 것은 양으로 생명을 얻게 하고 더 풍성히 얻게 하려는 것이라"
+  },
+  {
+    "book": 62,
+    "chapter": 4,
+    "verse": 8,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "1 Juan 4:8",
+    "text": "El que no ama, no ha conocido a Dios; porque Dios es amor."
+  },
+  {
+    "book": 62,
+    "chapter": 4,
+    "verse": 8,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "1 John 4:8",
+    "text": "He that loveth not knoweth not God; for God is love."
+  },
+  {
+    "book": 62,
+    "chapter": 4,
+    "verse": 8,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "1 João 4:8",
+    "text": "Aquele que não ama não conhece a Deus; porque Deus é amor."
+  },
+  {
+    "book": 62,
+    "chapter": 4,
+    "verse": 8,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "1. Johannes 4:8",
+    "text": "Wer nicht liebhat, der kennt Gott nicht; denn Gott ist Liebe."
+  },
+  {
+    "book": 62,
+    "chapter": 4,
+    "verse": 8,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "요한일서 4:8",
+    "text": "사랑하지 아니하는 자는 하나님을 알지 못하나니 이는 하나님은 사랑이심이라"
+  },
+  {
+    "book": 19,
+    "chapter": 37,
+    "verse": 4,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Salmos 37:4",
+    "text": "Deléitate asimismo en Jehová, Y él te concederá las peticiones de tu corazón."
+  },
+  {
+    "book": 19,
+    "chapter": 37,
+    "verse": 4,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Psalm 37:4",
+    "text": "Delight thyself also in the LORD; and he shall give thee the desires of thine heart."
+  },
+  {
+    "book": 19,
+    "chapter": 37,
+    "verse": 4,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Salmos 37:4",
+    "text": "Deleita-te também no Senhor, e ele te concederá o que deseja o teu coração."
+  },
+  {
+    "book": 19,
+    "chapter": 37,
+    "verse": 4,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Psalm 37:4",
+    "text": "Habe Deine Lust am HERRN; der wird dir geben, was dein Herz wünschet."
+  },
+  {
+    "book": 19,
+    "chapter": 37,
+    "verse": 4,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "시편 37:4",
+    "text": "또 여호와를 기뻐하라 저가 네 마음의 소원을 이루어 주시리로다"
+  },
+  {
+    "book": 40,
+    "chapter": 5,
+    "verse": 16,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Mateo 5:16",
+    "text": "Así alumbre vuestra luz delante de los hombres, para que vean vuestras buenas obras, y glorifiquen a vuestro Padre que están los cielos."
+  },
+  {
+    "book": 40,
+    "chapter": 5,
+    "verse": 16,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Matthew 5:16",
+    "text": "Let your light so shine before men, that they may see your good works, and glorify your Father which is in heaven."
+  },
+  {
+    "book": 40,
+    "chapter": 5,
+    "verse": 16,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Mateus 5:16",
+    "text": "Assim resplandeça a vossa luz diante dos homens, para que vejam as vossas boas obras, e glorifiquem a vosso Pai, que está nos céus."
+  },
+  {
+    "book": 40,
+    "chapter": 5,
+    "verse": 16,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Matthäus 5:16",
+    "text": "Also laßt euer Licht leuchten vor den Leuten, daß sie eure guten Werke sehen und euren Vater im Himmel preisen."
+  },
+  {
+    "book": 40,
+    "chapter": 5,
+    "verse": 16,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "마태복음 5:16",
+    "text": "이같이 너희 빛을 사람 앞에 비취게 하여 저희로 너희 착한 행실을 보고 하늘에 계신 너희 아버지께 영광을 돌리게 하라"
+  },
+  {
+    "book": 47,
+    "chapter": 5,
+    "verse": 17,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "2 Corintios 5:17",
+    "text": "De modo que si alguno está en Cristo, nueva criatura es; las cosas viejas pasaron; he aquí todas son hechas nuevas."
+  },
+  {
+    "book": 47,
+    "chapter": 5,
+    "verse": 17,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "2 Corinthians 5:17",
+    "text": "Therefore if any man be in Christ, he is a new creature: old things are passed away; behold, all things are become new. he is: or, let him be"
+  },
+  {
+    "book": 47,
+    "chapter": 5,
+    "verse": 17,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "2 Coríntios 5:17",
+    "text": "Pelo que, se alguém está em Cristo, nova criatura é; as coisas velhas já passaram; eis que tudo se fez novo."
+  },
+  {
+    "book": 47,
+    "chapter": 5,
+    "verse": 17,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "2. Korinther 5:17",
+    "text": "Darum, ist jemand in Christo, so ist er eine neue Kreatur; das Alte ist vergangen, siehe, es ist alles neu geworden!"
+  },
+  {
+    "book": 47,
+    "chapter": 5,
+    "verse": 17,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "고린도후서 5:17",
+    "text": "그런즉 누구든지 그리스도 안에 있으면 새로운 피조물이라 이전 것은 지나갔으니 보라 새것이 되었도다"
+  },
+  {
+    "book": 23,
+    "chapter": 40,
+    "verse": 31,
+    "locale": "es",
+    "translation": "RV1960",
+    "reference": "Isaías 40:31",
+    "text": "pero los que esperan a Jehová tendrán nuevas fuerzas; levantarán alas como las águilas; correrán, y no se cansarán; caminarán, y no se fatigarán."
+  },
+  {
+    "book": 23,
+    "chapter": 40,
+    "verse": 31,
+    "locale": "en",
+    "translation": "KJV",
+    "reference": "Isaiah 40:31",
+    "text": "But they that wait upon the LORD shall renew their strength; they shall mount up with wings as eagles; they shall run, and not be weary; and they shall walk, and not faint. renew: Heb. change"
+  },
+  {
+    "book": 23,
+    "chapter": 40,
+    "verse": 31,
+    "locale": "pt",
+    "translation": "ARA",
+    "reference": "Isaías 40:31",
+    "text": "mas os que esperam no Senhor renovarão as suas forças; subirão com asas como águias; correrão, e não se cansarão; andarão, e não se fatigarão."
+  },
+  {
+    "book": 23,
+    "chapter": 40,
+    "verse": 31,
+    "locale": "de",
+    "translation": "LUT",
+    "reference": "Jesaja 40:31",
+    "text": "aber die auf den HERRN harren, kriegen neue Kraft, daß sie auffahren mit Flügeln wie Adler, daß sie laufen und nicht matt werden, daß sie wandeln und nicht müde werden."
+  },
+  {
+    "book": 23,
+    "chapter": 40,
+    "verse": 31,
+    "locale": "ko",
+    "translation": "KRV",
+    "reference": "이사야 40:31",
+    "text": "오직 여호와를 앙망하는 자는 새 힘을 얻으리니 독수리의 날개치며 올라감 같을 것이요 달음박질하여도 곤비치 아니하겠고 걸어가도 피곤치 아니하리로다"
+  }
+]

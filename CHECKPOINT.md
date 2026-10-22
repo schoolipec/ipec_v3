@@ -113,3 +113,14 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 ### Deuda conocida (lint, no bloquea build)
 - `react-hooks/set-state-in-effect` en AdminLangContext, AdminSidebar, AdminTopbar, ContentEditor, MailsPanel, PrayerTable, ProtectedShell (hidratación de localStorage). Ya existía; no tocar sin pedirlo.
 - Warnings de `no-unused-vars` en logout, export-quelea, users route y ContentEditor; `incompatible-library` de TanStack Table en UsersPanel.
+
+## Versículos del día y orden de contacto (2026-10-22, local, SIN publicar)
+- [x] Página de contacto: formulario de oración primero (antes el mapa). Revisado en escritorio y 390 px.
+- [x] Modelo `BibleVerse` (libro, capítulo, versículo, idioma, traducción, referencia, texto). Migración `20261022050000_bible_verses`.
+- [x] 31 versículos (uno por día) en 5 idiomas = 155 filas en `prisma/data/bible-verses.json`, descargadas de Bolls Bible API.
+  - es: RV1960 · en: KJV · pt: ARA · de: LUT · ko: KRV (개역한글)
+- [x] Seed carga los versículos sin duplicar (`[seed] versículos: 155 definidos, 0 nuevos` en la segunda corrida).
+- [ ] Licencias: RV1960 (Sociedades Bíblicas Unidas) y ARA (Sociedade Bíblica do Brasil) tienen copyright. Verificar permiso o límite de uso antes de publicar. KJV y KRV de dominio público.
+- [ ] Mostrar el versículo del día en el sitio (rotación por fecha, zona America/Los_Angeles).
+- [ ] Publicar (commit, push a Gitea, imagen y despliegue) cuando Juan lo apruebe.
+- Nota dev: `/contact` (sin prefijo) da bucle de redirección en `127.0.0.1:3001` tras el cambio de Prisma; producción responde bien. Probar con reinicio del dev server cuando convenga.

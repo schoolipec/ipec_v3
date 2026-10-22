@@ -40,6 +40,11 @@ const { count } = await prisma.contentEntry.createMany({ data, skipDuplicates: t
 const total = await prisma.contentEntry.count();
 console.log(`[seed] contenido: ${data.length} definidos, ${count} nuevos, ${total} en la BD`);
 
+// Versículos del día (RV1960, KJV, ARA, LUT, KRV). Solo agrega los que faltan.
+const verses = readJson('./data/bible-verses.json');
+const verseResult = await prisma.bibleVerse.createMany({ data: verses, skipDuplicates: true });
+console.log(`[seed] versículos: ${verses.length} definidos, ${verseResult.count} nuevos`);
+
 // SuperAdmin inicial: usa scrypt nativo de Node.js (sin dependencias externas).
 // El hash queda con prefijo "scrypt:" para que auth.ts lo reconozca.
 // La aplicación admite ambos formatos: "scrypt:" (seed) y "$2b$" (bcryptjs, a partir del primer login).

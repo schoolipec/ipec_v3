@@ -33,30 +33,6 @@ export default async function ContactSection() {
         </div>
 
         <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-2 md:gap-12">
-          {/* Dirección, mapa y datos de contacto */}
-          <div className="flex flex-col gap-6 rounded-2xl border border-line bg-card/90 p-6 sm:p-8">
-            <div>
-              <p className="mb-1 text-2xl font-bold text-primary">{site.addressStreet}</p>
-              <p className="text-secondary">{site.addressCity}</p>
-              <a href={mapsDirectionsUrl(site.address)} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-blue hover:underline dark:text-sky-400">
-                {t('directions')}
-              </a>
-            </div>
-            <div className="h-56 overflow-hidden rounded-xl border border-line">
-              <iframe title={site.address} src={mapsEmbedUrl(site.address)} className="h-full w-full border-0" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
-            </div>
-            <div className="flex flex-col gap-3 text-sm text-secondary">
-              <a href={`tel:${site.phoneHref}`} className="group flex items-center gap-2.5 transition-colors hover:text-[#7CB342]">
-                <IconBubble path={PHONE_ICON} />
-                {site.phone}
-              </a>
-              <a href={`mailto:${site.email}`} className="group flex items-center gap-2.5 break-all transition-colors hover:text-[#7CB342]">
-                <IconBubble path={MAIL_ICON} />
-                {site.email}
-              </a>
-            </div>
-          </div>
-
           {/* Formulario de oración */}
           <div className="rounded-2xl border border-line bg-card/90 p-6 sm:p-8">
             <h2 className="mb-2 text-lg font-bold text-primary">{t('prayerTitle')}</h2>
@@ -87,6 +63,30 @@ export default async function ContactSection() {
               </div>
             </div>
           </div>
+          {/* Dirección, mapa y datos de contacto */}
+          <div className="flex flex-col gap-6 rounded-2xl border border-line bg-card/90 p-6 sm:p-8">
+            <div>
+              <p className="mb-1 text-2xl font-bold text-primary">{site.addressStreet}</p>
+              <p className="text-secondary">{site.addressCity}</p>
+              <a href={mapsDirectionsUrl(site.address)} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-blue hover:underline dark:text-sky-400">
+                {t('directions')}
+              </a>
+            </div>
+            <div className="h-56 overflow-hidden rounded-xl border border-line">
+              <iframe title={site.address} src={mapsEmbedUrl(site.address)} className="h-full w-full border-0" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+            </div>
+            <div className="flex flex-col gap-3 text-sm text-secondary">
+              <a href={`tel:${site.phoneHref}`} className="group flex items-center gap-2.5 transition-colors hover:text-[#7CB342]">
+                <IconBubble path={PHONE_ICON} />
+                {site.phone}
+              </a>
+              <a href={`mailto:${site.email}`} className="group flex items-center gap-2.5 break-all transition-colors hover:text-[#7CB342]">
+                <IconBubble path={MAIL_ICON} />
+                {site.email}
+              </a>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

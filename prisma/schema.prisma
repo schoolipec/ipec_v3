@@ -162,3 +162,20 @@ model PasswordReset {
 
   @@index([userId])
 }
+
+// Versículos para el versículo del día. Una fila por versículo e idioma (mismo versículo en 5 idiomas).
+// Libro en orden bíblico (1 = Génesis, 66 = Apocalipsis). Cargados desde prisma/data/bible-verses.json.
+model BibleVerse {
+  id          String   @id @default(cuid())
+  book        Int
+  chapter     Int
+  verse       Int
+  locale      String   @db.VarChar(5)
+  translation String   @db.VarChar(20)
+  reference   String   @db.VarChar(80)
+  text        String   @db.Text
+  createdAt   DateTime @default(now())
+
+  @@unique([book, chapter, verse, locale])
+  @@index([locale])
+}
