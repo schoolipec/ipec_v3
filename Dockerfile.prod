@@ -36,6 +36,9 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/prisma   ./prisma
 COPY --from=builder /app/messages ./messages
 
+# Caché de imágenes de Next.js: la carpeta debe ser escribible por el usuario nextjs
+RUN mkdir -p ./.next/cache && chown -R nextjs:nodejs ./.next
+
 USER nextjs
 
 EXPOSE 3000
