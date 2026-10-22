@@ -156,3 +156,12 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 - [x] Remitente de todos los correos: "Iglesia Plenitud en Cristo <no-reply@suplenitud.com>" (app por defecto, n8n de peticiones y panel de Correo con nombre).
 - [x] Causa de "no llegó el correo de peticiones": Mailcow aplica límite de envíos a no-reply@ (451 Ratelimit) tras las pruebas seguidas. Pendiente: ajustar ese límite en Mailcow o esperar la ventana.
 - [ ] SMTP_FROM en el .env de producción debe ser "Iglesia Plenitud en Cristo <no-reply@suplenitud.com>".
+
+## Limpieza y despliegue de correos (2026-10-22, tarde)
+- [x] Despliegue: imagen con remitente "Iglesia Plenitud en Cristo <no-reply@suplenitud.com>" (SMTP_FROM en .env de producción). Health OK; páginas 200.
+- [x] Limpieza en producción (BD): 4 peticiones de oración de prueba, 22 visitas de prueba, 2 invitaciones de prueba. Respaldo previo: `ipec-2026-10-22-pre-correos.sql` en BackupsProyectos.
+- [x] Usuario SUPERADMIN (jscothserver@gmail.com) se conserva.
+- [x] Buzón no-reply@: 0 mensajes, sin carpeta de enviados. El envío por SMTP no guarda copias en Mailcow; no hay que borrar ni configurar nada.
+- [ ] Buzón peticiones@: lo borra Juan.
+- [ ] Mailcow: límite de envíos de no-reply@ (451 Ratelimit) — ajustar si vuelve a fallar.
+- [x] Permisos de roles: ADMIN no puede invitar ni asignar SUPERADMIN, ni cambiar su propio rol (servidor y UI).
