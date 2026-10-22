@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 // Reglas de Juan:
 //  - aparece 30 s después de entrar al sitio
@@ -13,6 +13,18 @@ const SNOOZE_MS = 12 * 60 * 60 * 1000;
 const NEVER = 'never';
 
 type Verse = { text: string; ref: string };
+
+// Versículo del día desde la base de datos (en el idioma del visitante, o inglés si falta)
+async function loadVerse(locale: string): Promise<Verse | null> {
+  try {
+    const res = await fetch(`/api/verse-of-day?locale=${locale}`);
+    if (!res.ok) return null;
+    const data = (await res.json()) as Verse;
+    return data.text && data.ref ? data : null;
+  } catch {
+    return null;
+  }
+}
 
 function shouldShow(): boolean {
   try {
@@ -35,19 +47,23 @@ function remember(value: string) {
 
 export default function BibleModal() {
   const t = useTranslations('bibleModal');
+  const locale = useLocale();
   const [open, setOpen] = useState(false);
+  const [verse, setVerse] = useState<Verse | null>(null);
   const [neverAgain, setNeverAgain] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
 
-  const verses = t.raw('verses') as Verse[];
-  // Versículo del día: cambia cada día y es el mismo para todos ese día
-  const verse = verses[new Date().getDate() % verses.length];
-
+  // Pide el versículo justo antes de mostrarlo; si no hay versículo, no se muestra el modal
   useEffect(() => {
     if (!shouldShow()) return;
-    const timer = setTimeout(() => setOpen(true), DELAY_MS);
+    const timer = setTimeout(async () => {
+      const loaded = await loadVerse(locale);
+      if (!loaded) return;
+      setVerse(loaded);
+      setOpen(true);
+    }, DELAY_MS);
     return () => clearTimeout(timer);
-  }, []);
+  }, [locale]);
 
   useEffect(() => {
     if (!open) return;
@@ -63,7 +79,7 @@ export default function BibleModal() {
     setOpen(false);
   }
 
-  if (!open) return null;
+  if (!open || !verse) return null;
 
   return (
     <div

@@ -124,3 +124,13 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 - [ ] Mostrar el versículo del día en el sitio (rotación por fecha, zona America/Los_Angeles).
 - [ ] Publicar (commit, push a Gitea, imagen y despliegue) cuando Juan lo apruebe.
 - Nota dev: `/contact` (sin prefijo) da bucle de redirección en `127.0.0.1:3001` tras el cambio de Prisma; producción responde bien. Probar con reinicio del dev server cuando convenga.
+
+## Modal de versículos desde la BD y correo de peticiones (2026-10-22, local + n8n en producción)
+- [x] `BibleModal` pide el versículo a `/api/verse-of-day?locale=xx` justo antes de mostrarse (a los 30 s). Si no hay versículo, el modal no aparece.
+- [x] Idioma: el del visitante; si falta, inglés (regla de Juan). Día según fecha de Los Ángeles (`src/server/verse-of-day.ts`).
+- [x] Probado en producción local (imagen de producción contra la BD de desarrollo): 5 idiomas responden; modal muestra "2 Corintios 5:17" (22 de octubre) en español.
+- [x] Limpieza de traducciones en inglés: notas del traductor de KJV y encabezado del Salmo 119 eliminados del archivo de datos y de la BD de desarrollo.
+- [x] Correo de peticiones (n8n `IPEC - Prayer request delivery v2`): texto plano con fecha en español (`setLocale('es')`) y sin el campo `adminPanelText` que no existía. Activo; respaldo antes del cambio en `BackupsProyectos\IPEC_v3\n8n\prayer-delivery-v2-antes-2026-10-22.json`.
+- [ ] Confirmar con una petición real de prueba que la fecha sale en español (no hay prueba automática).
+- [ ] Publicar la aplicación (modal, versículos, orden de contacto) en v3.suplenitud.com cuando Juan apruebe.
+- Nota dev: el contenedor de desarrollo tuvo problemas de caché de Prisma/Turbopack al agregar modelos. La imagen de producción no tiene ese problema.
