@@ -3,16 +3,17 @@ import { Fragment, useState, useEffect, useCallback } from 'react';
 import { Search, ChevronLeft, ChevronRight, ChevronDown } from 'lucide-react';
 import { useAdminLang } from '@/components/admin/AdminLangContext';
 
-type PrayerStatus = 'NEW' | 'PRAYING' | 'ANSWERED' | 'ARCHIVED';
+type PrayerStatus = 'NEW' | 'RECEIVED' | 'PRAYING' | 'ANSWERED' | 'ARCHIVED';
 type PrayerRow = { id: string; name: string; request: string; locale: string; status: PrayerStatus; createdAt: string };
 type Response = {
   rows: PrayerRow[]; total: number; pages: number; page: number;
   countByStatus: Record<PrayerStatus, number>;
 };
 
-const STATUSES: PrayerStatus[] = ['NEW', 'PRAYING', 'ANSWERED', 'ARCHIVED'];
+const STATUSES: PrayerStatus[] = ['NEW', 'RECEIVED', 'PRAYING', 'ANSWERED', 'ARCHIVED'];
 const STATUS_STYLE: Record<PrayerStatus, string> = {
   NEW: 'bg-sky-500/15 text-sky-300 border-sky-500/30',
+  RECEIVED: 'bg-teal-500/15 text-teal-300 border-teal-500/30',
   PRAYING: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
   ANSWERED: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
   ARCHIVED: 'bg-slate-500/15 text-slate-300 border-slate-500/30',
@@ -144,11 +145,12 @@ export default function PrayerTable() {
           <span className="text-sm" style={{ color: 'var(--admin-text-muted)' }}>
             {data?.total ?? 0} {t('prayer.results')}
           </span>
-          <button onClick={exportQuelea} disabled={exporting || !data || data.total === 0} className="admin-btn text-xs py-1.5 px-3">
+          <button onClick={exportQuelea} disabled={exporting || !counts || counts.NEW === 0} className="admin-btn text-xs py-1.5 px-3">
             {exporting ? t('prayer.exporting') : t('prayer.exportQuelea')}
           </button>
         </div>
       </div>
+      <p className="rounded-lg px-4 py-2.5 text-sm" style={{ background: 'var(--admin-accent-bg)', color: 'var(--admin-text)' }}>{t('prayer.exportNotice')}</p>
       {exportMsg && (
         <p className="rounded-lg px-4 py-2.5 text-sm" style={{ background: 'var(--admin-danger-bg)', color: 'var(--admin-danger)' }}>{exportMsg}</p>
       )}

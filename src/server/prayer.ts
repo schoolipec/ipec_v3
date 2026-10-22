@@ -5,7 +5,7 @@ import { prisma } from './db';
 export const PRAYER_MAX_CHARS = 500;
 export const PRAYER_NAME_MAX = 100;
 export const PRAYER_PAGE_SIZE = 15;
-export const PRAYER_STATUSES: PrayerStatus[] = ['NEW', 'PRAYING', 'ANSWERED', 'ARCHIVED'];
+export const PRAYER_STATUSES: PrayerStatus[] = ['NEW', 'RECEIVED', 'PRAYING', 'ANSWERED', 'ARCHIVED'];
 
 export async function listPrayerRequests({ page, status, q }: { page: number; status?: PrayerStatus; q?: string }) {
   const where = {

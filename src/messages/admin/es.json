@@ -94,7 +94,8 @@
       "NEW": "Nuevo",
       "PRAYING": "En oración",
       "ANSWERED": "Respondido",
-      "ARCHIVED": "Archivado"
+      "ARCHIVED": "Archivado",
+      "RECEIVED": "Recibida"
     },
     "changeStatus": "Cambiar estado",
     "page": "Página",
@@ -103,7 +104,8 @@
     "exportQuelea": "Exportar PDF para Quelea",
     "exporting": "Generando…",
     "exportNoResults": "No hay peticiones con el filtro actual.",
-    "exportError": "No se pudo generar el PDF."
+    "exportError": "No se pudo generar el PDF.",
+    "exportNotice": "El PDF para Quelea solo incluye las peticiones marcadas como Nueva. Después de presentarlas, cámbialas a Recibida para que no se vuelvan a exportar."
   },
   "profile": {
     "title": "Mi perfil",

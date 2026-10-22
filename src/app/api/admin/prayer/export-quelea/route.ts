@@ -15,10 +15,9 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json().catch(() => ({}));
-  const status = PRAYER_STATUSES.includes(body.status as PrayerStatus) ? (body.status as PrayerStatus) : undefined;
   const q = typeof body.q === 'string' && body.q.trim() ? body.q.trim().slice(0, 100) : undefined;
   const where = {
-    ...(status ? { status } : {}),
+    status: 'NEW' as PrayerStatus,
     ...(q ? { name: { contains: q, mode: 'insensitive' as const } } : {}),
   };
 

@@ -1,188 +1,125 @@
 import "server-only";
-import {PDFDocument, rgb, StandardFonts} from "pdf-lib";
-import type {PDFImage, PDFFont} from "pdf-lib";
-import {readFileSync} from "node:fs";
-import {join} from "node:path";
+import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
+import type { PDFFont, PDFImage } from "pdf-lib";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
-export const LOGO_PATH = join(process.cwd(), "public", "assets", "logo-white.png");
 export const PAGE_WIDTH = 1920;
 export const PAGE_HEIGHT = 1080;
-export const MARGIN = 80;
-export const HEADER_HEIGHT = 300;
-export const HEADER_BOTTOM = PAGE_HEIGHT - HEADER_HEIGHT;
-export const CONTENT_TOP = HEADER_BOTTOM - 80;
-export const CONTENT_BOTTOM = MARGIN * 2;
-export const AVAILABLE_HEIGHT = CONTENT_TOP - CONTENT_BOTTOM;
-export const MAX_MESSAGE_CHARS = 500;
-export const NAME_MAX_START = 72;
-export const NAME_MIN = 24;
-export const MSG_MAX_START = 64;
-export const MSG_MIN = 20;
-export const DATE_SIZE = 28;
+const CARD = { x: 180, y: 200, width: 1560, height: 680 };
+const CARD_PADDING = 90;
+const FOOTER_Y = 56;
+const NAME_START = 84;
+const NAME_MIN = 40;
+const MSG_START = 64;
+const MSG_MIN = 36;
+const MAX_MESSAGE_CHARS = 500;
 const NAVY = rgb(0.031, 0.161, 0.259);
-const LIGHT = rgb(0.98, 0.99, 1);
-const WHITE = rgb(1, 1, 1);
+const GREEN = rgb(0.227, 0.529, 0.14);
 
-export type QueleaPdfItem = {
-  name: string;
-  message: string;
-  createdAt: string;
-};
+export type QueleaPdfItem = { name: string; message: string; createdAt: string };
 
-export function wrapByWords(text: string, font: PDFFont, fontSize: number, maxWidth: number): string[] {
-  const words = text.split(/\s+/);
+export function formatReceivedDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("es", {
+    timeZone: "America/Los_Angeles",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+function wrapByWords(text: string, font: PDFFont, size: number, maxWidth: number): string[] {
   const lines: string[] = [];
   let current = "";
-  for (const word of words) {
+  for (const word of text.split(/\s+/).filter(Boolean)) {
     const test = current ? `${current} ${word}` : word;
-    const width = font.widthOfTextAtSize(test, fontSize);
-    if (width > maxWidth && current) {
+    if (font.widthOfTextAtSize(test, size) > maxWidth && current) {
       lines.push(current);
       current = word;
     } else {
       current = test;
     }
-    if (font.widthOfTextAtSize(current, fontSize) > maxWidth) {
-      let partial = "";
-      for (let i = 0; i < current.length; i++) {
-        const t = partial + current[i];
-        if (font.widthOfTextAtSize(t, fontSize) > maxWidth && partial) {
-          lines.push(partial);
-          partial = current[i];
-        } else {
-          partial = t;
-        }
-      }
-      current = partial;
-    }
   }
   if (current) lines.push(current);
   return lines;
 }
 
-export function wrapByChars(text: string, font: PDFFont, fontSize: number, maxWidth: number): string[] {
+function wrapByChars(text: string, font: PDFFont, size: number, maxWidth: number): string[] {
   const lines: string[] = [];
   let current = "";
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    const t = current + c;
-    if (font.widthOfTextAtSize(t, fontSize) > maxWidth && current) {
-      lines.push(current);
+  for (const c of text) {
+    const test = current + c;
+    if (font.widthOfTextAtSize(test, size) > maxWidth && current) {
+      lines.push(current.trimEnd());
       current = c === " " ? "" : c;
     } else {
-      current = t;
+      current = test;
     }
   }
-  if (current) lines.push(current);
+  if (current) lines.push(current.trimEnd());
   return lines;
 }
 
-export function wrapText(text: string, font: PDFFont, fontSize: number, maxWidth: number): string[] {
-  const words = text.split(/\s+/);
-  const hasLongWord = words.some((w) => font.widthOfTextAtSize(w, fontSize) > maxWidth);
-  return hasLongWord ? wrapByChars(text, font, fontSize, maxWidth) : wrapByWords(text, font, fontSize, maxWidth);
+function wrapText(text: string, font: PDFFont, size: number, maxWidth: number): string[] {
+  const hasLongWord = text.split(/\s+/).some((w) => font.widthOfTextAtSize(w, size) > maxWidth);
+  return hasLongWord ? wrapByChars(text, font, size, maxWidth) : wrapByWords(text, font, size, maxWidth);
 }
 
-export function fitText(text: string, font: PDFFont, maxWidth: number, maxHeight: number, startSize: number): {lines: string[]; fontSize: number} {
-  let size = startSize;
-  for (let step = 0; step < 30; step++) {
+function fitBlock(text: string, font: PDFFont, maxWidth: number, maxHeight: number, start: number, min: number) {
+  for (let size = start; size >= min; size -= 2) {
     const lines = wrapText(text, font, size, maxWidth);
-    const height = lines.length * size * 1.2;
-    if (height <= maxHeight) return {lines, fontSize: size};
-    size -= 2;
-    if (size < MSG_MIN) break;
+    if (lines.length * size * 1.25 <= maxHeight) return { lines, size };
   }
-  const finalSize = size < MSG_MIN ? MSG_MIN : size;
-  const lines = wrapText(text, font, finalSize, maxWidth);
-  return {lines, fontSize: finalSize};
+  return { lines: wrapText(text, font, min, maxWidth), size: min };
 }
 
-export function fitName(text: string, font: PDFFont, maxWidth: number): {text: string; fontSize: number} {
-  let size = NAME_MAX_START;
-  for (let step = 0; step < 20; step++) {
-    const width = font.widthOfTextAtSize(text, size);
-    if (width <= maxWidth) return {text, fontSize: size};
-    size -= 2;
-    if (size < NAME_MIN) break;
-  }
-  const finalSize = size < NAME_MIN ? NAME_MIN : size;
-  const words = text.split(/\s+/);
-  const lines = wrapText(text, font, finalSize, maxWidth);
-  if (lines.length <= 1 && font.widthOfTextAtSize(text, finalSize) <= maxWidth) {
-    return {text, fontSize: finalSize};
-  }
-  let truncated = words.join(" ");
-  while (truncated.length > 4) {
-    const candidate = `${truncated}…`;
-    if (font.widthOfTextAtSize(candidate, finalSize) <= maxWidth) return {text: candidate, fontSize: finalSize};
-    truncated = truncated.slice(0, -1).replace(/\s+\S*$/, "");
-    if (!truncated) break;
-  }
-  return {text: `${text.slice(0, 8)}…`, fontSize: finalSize};
-}
-
-export function loadLogoBytes(): Buffer | null {
-  try {
-    return readFileSync(LOGO_PATH);
-  } catch {
-    return null;
-  }
+function loadPublic(relative: string): Buffer {
+  return readFileSync(join(process.cwd(), "public", relative));
 }
 
 export async function buildPrayerQueleaPdf(items: QueleaPdfItem[]): Promise<Uint8Array> {
   const pdf = await PDFDocument.create();
   const font = await pdf.embedFont(StandardFonts.Helvetica);
-  const fontBold = await pdf.embedFont(StandardFonts.HelveticaBold);
-  let logo: PDFImage | null = null;
-  const logoBytes = loadLogoBytes();
-  if (logoBytes) {
-    try {
-      logo = await pdf.embedPng(logoBytes);
-    } catch {
-      logo = null;
-    }
-  }
-  const maxNameWidth = PAGE_WIDTH - MARGIN * 2 - (logo ? 280 : 0);
-  const maxMsgWidth = PAGE_WIDTH - MARGIN * 2;
-  const maxMsgHeight = AVAILABLE_HEIGHT * 0.9;
+  const bold = await pdf.embedFont(StandardFonts.HelveticaBold);
+  const background = await pdf.embedJpg(loadPublic("assets/brand/quelea-fondo.jpg"));
+  const logo: PDFImage = await pdf.embedPng(loadPublic("assets/logo-transparent.png"));
+  const logoHeight = 230;
+  const logoWidth = logo.width * (logoHeight / logo.height);
+
+  const textWidth = CARD.width - CARD_PADDING * 2;
   for (const item of items) {
     const page = pdf.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
-    page.drawRectangle({x: 0, y: 0, width: PAGE_WIDTH, height: PAGE_HEIGHT, color: LIGHT});
-    page.drawRectangle({x: 0, y: HEADER_BOTTOM, width: PAGE_WIDTH, height: HEADER_HEIGHT, color: NAVY});
-    if (logo) {
-      const logoDims = logo.scale(0.18);
-      page.drawImage(logo, {
-        x: PAGE_WIDTH - MARGIN - logoDims.width,
-        y: HEADER_BOTTOM + (HEADER_HEIGHT - logoDims.height) / 2,
-        width: logoDims.width,
-        height: logoDims.height,
-        opacity: 1,
-      });
+    page.drawImage(background, { x: 0, y: 0, width: PAGE_WIDTH, height: PAGE_HEIGHT });
+    page.drawRectangle({ ...CARD, color: rgb(1, 1, 1) });
+
+    const name = fitBlock(item.name, bold, textWidth, 170, NAME_START, NAME_MIN);
+    const nameTop = CARD.y + CARD.height - CARD_PADDING;
+    let y = nameTop - name.size;
+    for (const line of name.lines) {
+      const w = bold.widthOfTextAtSize(line, name.size);
+      page.drawText(line, { x: (PAGE_WIDTH - w) / 2, y, size: name.size, font: bold, color: NAVY });
+      y -= name.size * 1.25;
     }
-    const nameFit = fitName(item.name, fontBold, maxNameWidth);
-    page.drawText(nameFit.text, {
-      x: MARGIN,
-      y: HEADER_BOTTOM + (HEADER_HEIGHT - nameFit.fontSize) / 2,
-      size: nameFit.fontSize,
-      font: fontBold,
-      color: WHITE,
-    });
+
+    const divY = y + name.size * 0.2;
+    page.drawLine({ start: { x: PAGE_WIDTH / 2 - 260, y: divY }, end: { x: PAGE_WIDTH / 2 + 260, y: divY }, thickness: 3, color: GREEN });
+
     const message = item.message.slice(0, MAX_MESSAGE_CHARS);
-    const fit = fitText(message, font, maxMsgWidth, maxMsgHeight, MSG_MAX_START);
-    const blockHeight = fit.lines.length * fit.fontSize * 1.2;
-    const blockTop = CONTENT_BOTTOM + (AVAILABLE_HEIGHT - blockHeight) / 2 + blockHeight;
-    let y = blockTop - fit.fontSize;
-    for (const line of fit.lines) {
-      page.drawText(line, {x: MARGIN, y, size: fit.fontSize, font, color: NAVY});
-      y -= fit.fontSize * 1.2;
+    const availableTop = divY - 40;
+    const availableBottom = CARD.y + CARD_PADDING;
+    const body = fitBlock(message, font, textWidth, availableTop - availableBottom, MSG_START, MSG_MIN);
+    let by = availableTop - body.size;
+    for (const line of body.lines) {
+      const w = font.widthOfTextAtSize(line, body.size);
+      page.drawText(line, { x: (PAGE_WIDTH - w) / 2, y: by, size: body.size, font, color: NAVY });
+      by -= body.size * 1.25;
     }
-    page.drawText(item.createdAt.slice(0, 10), {
-      x: MARGIN,
-      y: MARGIN * 0.8,
-      size: DATE_SIZE,
-      font,
-      color: NAVY,
-    });
+
+    page.drawImage(logo, { x: 120, y: FOOTER_Y, width: logoWidth, height: logoHeight });
+    const date = `Recibida el ${formatReceivedDate(item.createdAt)}`;
+    const dateSize = 34;
+    const dateWidth = font.widthOfTextAtSize(date, dateSize);
+    page.drawText(date, { x: PAGE_WIDTH - 120 - dateWidth, y: FOOTER_Y + logoHeight / 2 - dateSize / 2, size: dateSize, font, color: NAVY });
   }
   return pdf.save();
 }

@@ -94,7 +94,8 @@
       "NEW": "New",
       "PRAYING": "Praying",
       "ANSWERED": "Answered",
-      "ARCHIVED": "Archived"
+      "ARCHIVED": "Archived",
+      "RECEIVED": "Received"
     },
     "changeStatus": "Change status",
     "page": "Page",
@@ -103,7 +104,8 @@
     "exportQuelea": "Export PDF for Quelea",
     "exporting": "Generating…",
     "exportNoResults": "No requests match the current filter.",
-    "exportError": "Could not generate the PDF."
+    "exportError": "Could not generate the PDF.",
+    "exportNotice": "The PDF for Quelea only includes requests marked as New. After presenting them, mark them as Received so they are not exported again."
   },
   "profile": {
     "title": "My profile",
