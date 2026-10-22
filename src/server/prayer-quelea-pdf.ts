@@ -6,8 +6,8 @@ import { join } from "node:path";
 
 export const PAGE_WIDTH = 1920;
 export const PAGE_HEIGHT = 1080;
-const CARD = { x: 180, y: 200, width: 1560, height: 680 };
-const CARD_PADDING = 90;
+const TEXT_BOX = { x: 180, y: 200, width: 1560, height: 680 };
+const TEXT_PADDING = 90;
 const FOOTER_Y = 56;
 const NAME_START = 84;
 const NAME_MIN = 40;
@@ -81,19 +81,23 @@ export async function buildPrayerQueleaPdf(items: QueleaPdfItem[]): Promise<Uint
   const pdf = await PDFDocument.create();
   const font = await pdf.embedFont(StandardFonts.Helvetica);
   const bold = await pdf.embedFont(StandardFonts.HelveticaBold);
-  const background = await pdf.embedJpg(loadPublic("assets/brand/quelea-fondo.jpg"));
+  const topBand = await pdf.embedJpg(loadPublic("assets/brand/quelea-banda-superior.jpg"));
+  const bottomBand = await pdf.embedJpg(loadPublic("assets/brand/quelea-banda-inferior.jpg"));
+  const topHeight = (PAGE_WIDTH * 220) / 1600;
+  const bottomHeight = (PAGE_WIDTH * 210) / 1600;
   const logo: PDFImage = await pdf.embedPng(loadPublic("assets/logo-transparent.png"));
   const logoHeight = 230;
   const logoWidth = logo.width * (logoHeight / logo.height);
 
-  const textWidth = CARD.width - CARD_PADDING * 2;
+  const textWidth = TEXT_BOX.width - TEXT_PADDING * 2;
   for (const item of items) {
     const page = pdf.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
-    page.drawImage(background, { x: 0, y: 0, width: PAGE_WIDTH, height: PAGE_HEIGHT });
-    page.drawRectangle({ ...CARD, color: rgb(1, 1, 1) });
+    page.drawRectangle({ x: 0, y: 0, width: PAGE_WIDTH, height: PAGE_HEIGHT, color: rgb(0.969, 0.988, 0.992) });
+    page.drawImage(topBand, { x: 0, y: PAGE_HEIGHT - topHeight, width: PAGE_WIDTH, height: topHeight });
+    page.drawImage(bottomBand, { x: 0, y: 0, width: PAGE_WIDTH, height: bottomHeight });
 
     const name = fitBlock(item.name, bold, textWidth, 170, NAME_START, NAME_MIN);
-    const nameTop = CARD.y + CARD.height - CARD_PADDING;
+    const nameTop = TEXT_BOX.y + TEXT_BOX.height - TEXT_PADDING;
     let y = nameTop - name.size;
     for (const line of name.lines) {
       const w = bold.widthOfTextAtSize(line, name.size);
@@ -106,7 +110,7 @@ export async function buildPrayerQueleaPdf(items: QueleaPdfItem[]): Promise<Uint
 
     const message = item.message.slice(0, MAX_MESSAGE_CHARS);
     const availableTop = divY - 40;
-    const availableBottom = CARD.y + CARD_PADDING;
+    const availableBottom = TEXT_BOX.y + TEXT_PADDING;
     const body = fitBlock(message, font, textWidth, availableTop - availableBottom, MSG_START, MSG_MIN);
     let by = availableTop - body.size;
     for (const line of body.lines) {
@@ -116,7 +120,7 @@ export async function buildPrayerQueleaPdf(items: QueleaPdfItem[]): Promise<Uint
     }
 
     page.drawImage(logo, { x: 120, y: FOOTER_Y, width: logoWidth, height: logoHeight });
-    const date = `Recibida el ${formatReceivedDate(item.createdAt)}`;
+    const date = formatReceivedDate(item.createdAt);
     const dateSize = 34;
     const dateWidth = font.widthOfTextAtSize(date, dateSize);
     page.drawText(date, { x: PAGE_WIDTH - 120 - dateWidth, y: FOOTER_Y + logoHeight / 2 - dateSize / 2, size: dateSize, font, color: NAVY });
