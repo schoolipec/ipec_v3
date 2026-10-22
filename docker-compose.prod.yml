@@ -1,7 +1,7 @@
-# Compose de producción — VPS Iglesia (179.236.255.48)
+﻿# Compose de producciÃ³n â€” VPS Iglesia (179.236.255.48)
 # Red n8n-internal ya existe en el VPS (creada por el stack de n8n + Traefik)
-# Traefik usa dynamic.yml (no labels) → /opt/n8n/traefik/dynamic.yml
-# Imagen pública en DockerHub: soporteyapame/ipec-v3:latest
+# Traefik usa dynamic.yml (no labels) â†’ /opt/n8n/traefik/dynamic.yml
+# Imagen pÃºblica en DockerHub: soporteyapame/ipec-v3:latest
 networks:
   n8n-internal:
     external: true
@@ -29,7 +29,7 @@ services:
       retries: 10
 
   app:
-    image: soporteyapame/ipec-v3:latest
+    image: git.sistemasass.online/jscothserver/ipec-v3:latest
     container_name: ipec-v3-app
     restart: unless-stopped
     depends_on:
@@ -42,9 +42,11 @@ services:
       SUPERADMIN_PASSWORD: ${SUPERADMIN_PASSWORD:?Falta SUPERADMIN_PASSWORD}
       SUPERADMIN_NAME: ${SUPERADMIN_NAME:-Admin}
       SESSION_SECRET: ${SESSION_SECRET:?Falta SESSION_SECRET}
+      N8N_INTERNAL_TOKEN: ${N8N_INTERNAL_TOKEN:?Falta N8N_INTERNAL_TOKEN}
     networks:
       - ipec-v3-net
       - n8n-internal
 volumes:
   ipec_v3_pgdata:
     name: ipec_v3_pgdata
+
