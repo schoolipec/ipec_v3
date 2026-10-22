@@ -134,3 +134,16 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 - [ ] Confirmar con una petición real de prueba que la fecha sale en español (no hay prueba automática).
 - [ ] Publicar la aplicación (modal, versículos, orden de contacto) en v3.suplenitud.com cuando Juan apruebe.
 - Nota dev: el contenedor de desarrollo tuvo problemas de caché de Prisma/Turbopack al agregar modelos. La imagen de producción no tiene ese problema.
+
+## Despliegue 2026-10-22 ~17:50 (v3.suplenitud.com) — imagen 6f4fa0d
+- [x] Respaldo previo: `BackupsProyectos\IPEC_v3\ipec-2026-10-22-pre-versiculos.sql`.
+- [x] Imagen `sha256:c749fcc…` enviada por SSH y publicada en Gitea; app recreada; migración `bible_verses` y seed (155 versículos).
+- [x] Verificado: /api/health OK; /api/verse-of-day en es/en/pt/de/ko; /contact, /es/contact, /pt, /ko, /de, /admin/login, /admin/forgot, /admin/reset 200; logs sin errores (sin EACCES).
+- [x] Modal de versículos en producción: aparece a los 30 s con "2 Corintios 5:17".
+- [x] Contacto: formulario primero en celular (producción).
+- [x] Login en inglés por defecto (producción).
+- [x] Correo de peticiones (n8n): texto plano con fecha en español; flujo activo.
+- [ ] Prueba real: correo de invitación (falta dirección de prueba de Juan).
+- [ ] Prueba real: cambio de contraseña (enlace a un correo de prueba).
+- [ ] Prueba real: petición de oración (correo a peticiones@, Telegram, PDF).
+- [ ] Limpieza de datos de prueba en producción (lista por confirmar).
