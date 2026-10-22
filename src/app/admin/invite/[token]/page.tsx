@@ -28,7 +28,7 @@ export default function InvitePage({ params }: { params: Promise<{ token: string
         body: JSON.stringify({ token, password }),
       });
       if (res.ok) {
-        router.push('/admin/dashboard');
+        router.push('/admin');
         router.refresh();
       } else {
         const data = await res.json();
