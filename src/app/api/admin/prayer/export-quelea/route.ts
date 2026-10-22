@@ -36,12 +36,18 @@ export async function POST(req: NextRequest) {
     where: { id: { in: rows.map((r) => r.id) } },
     data: { status: 'DOWNLOADED' },
   });
-  const stamp = new Date().toISOString().slice(0, 10);
+  // Nombre: "Peticiones MM-DD-YYYY.pdf" con la fecha de Los Ángeles
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat('en-US', { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' })
+      .formatToParts(new Date())
+      .map((p) => [p.type, p.value]),
+  );
+  const filename = `Peticiones ${parts.month}-${parts.day}-${parts.year}.pdf`;
   return new NextResponse(Buffer.from(bytes), {
     headers: {
       'Content-Type': 'application/pdf',
       'Cache-Control': 'private, no-store',
-      'Content-Disposition': `attachment; filename="peticiones-quelea-${stamp}.pdf"`,
+      'Content-Disposition': `attachment; filename="${filename}"`,
     },
   });
 }

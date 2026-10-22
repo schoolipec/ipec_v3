@@ -79,7 +79,10 @@
     "permissionsTitle": "Permisos por sección",
     "inviteSent": "Invitación enviada por correo. También puedes copiar el enlace de abajo.",
     "inviteNotSentSmtp": "El correo no se envió porque el servidor aún no tiene la configuración de correo. Copia el enlace y envíalo tú mismo.",
-    "inviteNotSentFailed": "No se pudo enviar el correo. Copia el enlace y envíalo tú mismo."
+    "inviteNotSentFailed": "No se pudo enviar el correo. Copia el enlace y envíalo tú mismo.",
+    "mailLanguage": "Idioma del correo",
+    "mailLangEnglish": "Inglés",
+    "mailLangSpanish": "Español"
   },
   "prayer": {
     "title": "Pedidos de oración",
@@ -345,6 +348,13 @@
     "goToSignIn": "Ir a ingresar",
     "saveNewPassword": "Guardar contraseña",
     "savingNewPassword": "Guardando…",
-    "requestNewLink": "Pedir un enlace nuevo"
+    "requestNewLink": "Pedir un enlace nuevo",
+    "inviteTitle": "Crear tu contraseña",
+    "inviteWelcome": "Bienvenido al panel administrativo de IPEC",
+    "inviteCreate": "Crear cuenta y entrar",
+    "inviteCreating": "Creando cuenta…",
+    "inviteUsed": "Este enlace ya fue usado",
+    "inviteExpired": "El enlace ha expirado — pide uno nuevo",
+    "inviteEmailTaken": "Ese correo ya tiene cuenta"
   }
 }

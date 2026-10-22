@@ -147,3 +147,12 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 - [ ] Prueba real: cambio de contraseña (enlace a un correo de prueba).
 - [ ] Prueba real: petición de oración (correo a peticiones@, Telegram, PDF).
 - [ ] Limpieza de datos de prueba en producción (lista por confirmar).
+
+## Correos y PDF (2026-10-22) — en preparación para despliegue
+- [x] Invitación: "El Pastor Mario Alsina te invita…" (sin el nombre de quien la envía), idioma elegido en el panel (inglés por defecto), fondo de ondas y logo grande como el login.
+- [x] Recuperación de contraseña: mismo diseño y en el idioma de la pantalla desde la que se pide.
+- [x] Página de invitación: mismo diseño del login (fondo, logo grande, selector EN/ES).
+- [x] PDF de peticiones: nombre "Peticiones MM-DD-YYYY.pdf" (fecha de Los Ángeles).
+- [x] Remitente de todos los correos: "Iglesia Plenitud en Cristo <no-reply@suplenitud.com>" (app por defecto, n8n de peticiones y panel de Correo con nombre).
+- [x] Causa de "no llegó el correo de peticiones": Mailcow aplica límite de envíos a no-reply@ (451 Ratelimit) tras las pruebas seguidas. Pendiente: ajustar ese límite en Mailcow o esperar la ventana.
+- [ ] SMTP_FROM en el .env de producción debe ser "Iglesia Plenitud en Cristo <no-reply@suplenitud.com>".

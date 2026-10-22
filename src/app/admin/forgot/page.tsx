@@ -6,7 +6,7 @@ import { useAdminLang } from '@/components/admin/AdminLangContext';
 import AuthLangToggle from '@/components/admin/AuthLangToggle';
 
 export default function ForgotPage() {
-  const { t } = useAdminLang();
+  const { t, lang } = useAdminLang();
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
@@ -20,7 +20,7 @@ export default function ForgotPage() {
       const res = await fetch('/api/admin/password/forgot', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, locale: lang }),
       });
       if (res.status === 429) setError(t('auth.tooMany'));
       else setSent(true);

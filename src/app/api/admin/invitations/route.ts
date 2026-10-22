@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession, createInvitation } from '@/server/auth';
 import type { Role } from '@prisma/client';
-import { invitationMail } from '@/server/mail/templates';
+import { invitationMail, ROLE_LABELS, type MailLocale } from '@/server/mail/templates';
 import { sendMail } from '@/server/mail/send';
-
-const ROLE_LABEL: Record<Role, string> = { SUPERADMIN: 'Super administrador', ADMIN: 'Administrador', USER: 'Usuario' };
 
 export async function POST(req: NextRequest) {
   const actor = await getSession();
@@ -13,7 +11,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'forbidden' }, { status: 403 });
   }
 
-  const { email, name, role } = await req.json();
+  const { email, name, role, locale } = await req.json();
   if (!email || !name || !role) {
     return NextResponse.json({ error: 'missing_fields' }, { status: 400 });
   }
@@ -23,21 +21,21 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'forbidden' }, { status: 403 });
   }
 
-  const token = await createInvitation(
-    String(email).toLowerCase().trim(),
-    String(name).trim(),
-    role as Role,
-    actor.email,
-  );
+  // Idioma del correo elegido en el panel; inglés por defecto
+  const lang: MailLocale = locale === 'es' ? 'es' : 'en';
+  const cleanEmail = String(email).toLowerCase().trim();
+  const cleanName = String(name).trim();
+
+  const token = await createInvitation(cleanEmail, cleanName, role as Role, actor.email);
 
   const base = (process.env.APP_PUBLIC_URL ?? req.nextUrl.origin).replace(/\/$/, '');
   const link = `${base}/admin/invite/${token}`;
   const mail = invitationMail({
-    name: String(name).trim(),
-    inviterName: actor.name,
-    roleLabel: ROLE_LABEL[role as Role],
+    name: cleanName,
+    roleLabel: ROLE_LABELS[lang][role as 'SUPERADMIN' | 'ADMIN' | 'USER'],
     acceptUrl: link,
+    lang,
   });
-  const result = await sendMail(String(email).toLowerCase().trim(), mail);
+  const result = await sendMail(cleanEmail, mail);
   return NextResponse.json({ ok: true, link, emailSent: result.sent, emailReason: result.reason });
 }

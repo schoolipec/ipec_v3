@@ -10,7 +10,8 @@ export type SmtpConfig = {
   tlsServername: string;
 };
 
-const DEFAULT_FROM = 'no-reply@suplenitud.com';
+// Remitente visible en Gmail y similares: nombre de la iglesia + correo sin respuesta
+const DEFAULT_FROM = 'Iglesia Plenitud en Cristo <no-reply@suplenitud.com>';
 
 // Nunca inventa valores: sin host, usuario y contraseña no se envía nada
 export function getSmtpConfig(env: NodeJS.ProcessEnv = process.env): SmtpConfig | null {

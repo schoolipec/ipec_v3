@@ -72,9 +72,11 @@ export default function PrayerTable() {
       }
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
+      // El nombre viene del servidor ("Peticiones MM-DD-YYYY.pdf") para que cada descarga sea distinta
+      const filename = /filename="([^"]+)"/.exec(res.headers.get('Content-Disposition') ?? '')?.[1] ?? 'Peticiones.pdf';
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'peticiones-quelea.pdf';
+      a.download = filename;
       document.body.appendChild(a);
       a.click();
       a.remove();

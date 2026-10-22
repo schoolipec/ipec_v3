@@ -3,13 +3,13 @@ import { randomBytes } from 'crypto';
 import { prisma } from './db';
 import { hashPassword } from './auth';
 import { getUserByEmail } from './users';
-import { passwordResetMail } from './mail/templates';
+import { passwordResetMail, type MailLocale } from './mail/templates';
 import { sendMail } from './mail/send';
 
 const RESET_HOURS = 1;
 
 // Siempre responde igual, exista o no la cuenta, para no revelar qué correos están registrados
-export async function requestPasswordReset(email: string): Promise<void> {
+export async function requestPasswordReset(email: string, lang: MailLocale = 'en'): Promise<void> {
   const user = await getUserByEmail(email.toLowerCase().trim());
   if (!user) return;
   const token = randomBytes(32).toString('hex');
@@ -18,7 +18,7 @@ export async function requestPasswordReset(email: string): Promise<void> {
     data: { userId: user.id, token, expiresAt: new Date(Date.now() + RESET_HOURS * 3_600_000) },
   });
   const base = (process.env.APP_PUBLIC_URL ?? '').replace(/\/$/, '');
-  const mail = passwordResetMail({ name: user.name, resetUrl: `${base}/admin/reset/${token}` });
+  const mail = passwordResetMail({ name: user.name, resetUrl: `${base}/admin/reset/${token}`, lang });
   await sendMail(user.email, mail);
 }
 

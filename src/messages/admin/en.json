@@ -79,7 +79,10 @@
     "permissionsTitle": "Section permissions",
     "inviteSent": "Invitation sent by email. You can also copy the link below.",
     "inviteNotSentSmtp": "The email was not sent because the server has no email settings yet. Copy the link and send it yourself.",
-    "inviteNotSentFailed": "The email could not be sent. Copy the link and send it yourself."
+    "inviteNotSentFailed": "The email could not be sent. Copy the link and send it yourself.",
+    "mailLanguage": "Email language",
+    "mailLangEnglish": "English",
+    "mailLangSpanish": "Spanish"
   },
   "prayer": {
     "title": "Prayer requests",
@@ -345,6 +348,13 @@
     "goToSignIn": "Go to sign in",
     "saveNewPassword": "Save password",
     "savingNewPassword": "Saving…",
-    "requestNewLink": "Request a new link"
+    "requestNewLink": "Request a new link",
+    "inviteTitle": "Create your password",
+    "inviteWelcome": "Welcome to the IPEC admin panel",
+    "inviteCreate": "Create account and sign in",
+    "inviteCreating": "Creating account…",
+    "inviteUsed": "This link has already been used",
+    "inviteExpired": "The link has expired. Ask for a new one.",
+    "inviteEmailTaken": "That email already has an account"
   }
 }

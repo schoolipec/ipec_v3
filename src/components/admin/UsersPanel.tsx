@@ -44,6 +44,8 @@ export default function UsersPanel({ currentRole, currentId }: { currentRole: Ro
   const [invEmail, setInvEmail] = useState('');
   const [invName, setInvName] = useState('');
   const [invRole, setInvRole] = useState<Role>('USER');
+  // Idioma del correo de invitación: inglés por defecto
+  const [invMailLang, setInvMailLang] = useState<'en' | 'es'>('en');
   const [invError, setInvError] = useState('');
   const [invLoading, setInvLoading] = useState(false);
   const [notice, setNotice] = useState('');
@@ -65,7 +67,7 @@ export default function UsersPanel({ currentRole, currentId }: { currentRole: Ro
       const res = await fetch('/api/admin/invitations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: invEmail, name: invName, role: invRole }),
+        body: JSON.stringify({ email: invEmail, name: invName, role: invRole, locale: invMailLang }),
       });
       const data = await res.json();
       if (!res.ok) { setInvError(data.error ?? 'Error'); return; }
@@ -213,7 +215,7 @@ export default function UsersPanel({ currentRole, currentId }: { currentRole: Ro
       {inviteOpen && (
         <div className="admin-card">
           <h3 className="mb-4 font-semibold" style={{ color: 'var(--admin-text)' }}>{t('users.newInvitation')}</h3>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
             <div className="flex flex-col gap-1.5">
               <label className="text-xs" style={{ color: 'var(--admin-text-muted)' }}>{t('users.email')}</label>
               <input type="email" value={invEmail} onChange={e => setInvEmail(e.target.value)}
@@ -230,6 +232,13 @@ export default function UsersPanel({ currentRole, currentId }: { currentRole: Ro
                 <option value="USER">User</option>
                 <option value="ADMIN">Admin</option>
                 {currentRole === 'SUPERADMIN' && <option value="SUPERADMIN">Super Admin</option>}
+              </select>
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs" style={{ color: 'var(--admin-text-muted)' }}>{t('users.mailLanguage')}</label>
+              <select value={invMailLang} onChange={e => setInvMailLang(e.target.value as 'en' | 'es')} className="admin-input">
+                <option value="en">{t('users.mailLangEnglish')}</option>
+                <option value="es">{t('users.mailLangSpanish')}</option>
               </select>
             </div>
           </div>

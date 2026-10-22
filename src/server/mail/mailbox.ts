@@ -179,7 +179,7 @@ export async function sendMail(mail: OutgoingMail) {
     headers['In-Reply-To'] = mail.inReplyTo.messageId;
     headers['References'] = [mail.inReplyTo.references, mail.inReplyTo.messageId].filter(Boolean).join(' ');
   }
-  const options = { from: cfg.user, to: mail.to, subject: mail.subject, text: mail.text, headers };
+  const options = { from: `"Iglesia Plenitud en Cristo" <${cfg.user}>`, to: mail.to, subject: mail.subject, text: mail.text, headers };
 
   // El nombre se valida contra el certificado; la conexión puede ir a una IP fija (MAIL_SMTP_HOST) si el DNS interno no resuelve bien
   const transporter = nodemailer.createTransport({
