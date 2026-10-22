@@ -25,24 +25,24 @@ export default function WaveBackground() {
           </linearGradient>
         </defs>
 
-        {/* Arriba a la izquierda: lima → verde */}
-        <path d="M0 0H560C420 110 240 250 0 560Z" fill="url(#wave-lime)" />
-        <path d="M0 0H360C250 90 120 200 0 360Z" fill="url(#wave-lime)" />
-        {/* Abajo a la izquierda: verde */}
-        <path d="M0 900V600C230 660 430 790 660 900Z" fill="url(#wave-green)" />
-        {/* Abajo a la derecha: azul */}
-        <path d="M1600 900H880C1140 760 1370 610 1600 360Z" fill="url(#wave-blue)" />
-        <path d="M1600 900H1180C1350 800 1490 690 1600 560Z" fill="url(#wave-blue)" />
-        {/* Arriba a la derecha: celeste suave */}
-        <path d="M1600 0H1150C1320 90 1470 200 1600 340Z" fill="url(#wave-sky)" />
+        {/* Ondas orgánicas: dejan el centro despejado y enmarcan el contenido. */}
+        <path d="M0 0H560C395 96 178 252 0 560Z" fill="url(#wave-lime)" />
+        <path d="M0 0H365C254 74 112 202 0 410Z" fill="url(#wave-lime)" opacity="0.84" />
+        <path d="M0 900V606C186 647 420 788 700 900Z" fill="url(#wave-green)" />
+        <path d="M0 900V690C158 692 334 778 520 900Z" fill="url(#wave-green)" opacity="0.78" />
 
-        {/* Líneas de luz que siguen las ondas */}
+        <path d="M1600 900H842C1090 778 1370 572 1600 334Z" fill="url(#wave-blue)" />
+        <path d="M1600 900H1060C1242 816 1450 657 1600 502Z" fill="url(#wave-blue)" opacity="0.86" />
+        <path d="M1600 0H1230C1372 72 1504 183 1600 338Z" fill="url(#wave-sky)" opacity="0.62" />
+
+        {/* Trazos de luz: aportan profundidad sin competir con el contenido. */}
         <g fill="none" strokeLinecap="round" style={{ stroke: "var(--wave-streak)" }}>
-          <path d="M0 470C200 300 380 160 520 0" strokeWidth="3" vectorEffect="non-scaling-stroke" />
-          <path d="M0 400C170 260 320 140 450 0" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
-          <path d="M0 680C240 720 460 820 600 900" strokeWidth="2" vectorEffect="non-scaling-stroke" />
-          <path d="M920 900C1170 770 1390 620 1600 420" strokeWidth="3" vectorEffect="non-scaling-stroke" />
-          <path d="M1060 900C1280 790 1460 660 1600 500" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+          <path d="M0 500C122 300 307 111 506 0" strokeWidth="3" vectorEffect="non-scaling-stroke" />
+          <path d="M0 430C116 264 268 112 430 0" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+          <path d="M0 648C226 660 466 793 680 900" strokeWidth="2.5" vectorEffect="non-scaling-stroke" />
+          <path d="M0 721C185 716 391 808 548 900" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
+          <path d="M878 900C1156 782 1410 570 1600 388" strokeWidth="3" vectorEffect="non-scaling-stroke" />
+          <path d="M1024 900C1288 816 1474 646 1600 486" strokeWidth="1.5" vectorEffect="non-scaling-stroke" />
         </g>
       </svg>
     </div>

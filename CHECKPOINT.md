@@ -93,3 +93,21 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 ## Referencias (solo lectura, no modificar)
 - v2 (solo referencia visual y de contenido): `C:\ProgramandoconClaude\Proyectos\enProceso\ipec_v2_clean`
 - Demo funcional: `C:\ProgramandoconClaude\Proyectos\enProceso\IPEC\demo.suplenitud.com` → https://demo.suplenitud.com
+
+## Publicación 2026-10-22 — acceso del panel (login, recuperar y nueva contraseña)
+- [x] Login con logo recortado (`public/assets/logo-white-login.png`), formulario a la altura de la línea roja (14vh), sin "Panel administrativo", tarjeta opaca con degradado de las ondas.
+- [x] Recuperar contraseña (`/admin/forgot`) y nueva contraseña (`/admin/reset/[token]`), enlace de un solo uso que vence en 1 h (tabla `PasswordReset`, migración `20261022040000_password_reset`).
+- [x] Mostrar/ocultar contraseña (ícono de ojo).
+- [x] Espacio entre logo y formulario reducido (logo recortado + margen 24 px).
+- [x] Idioma en las pantallas de acceso: selector EN/ES en la esquina de la tarjeta; inglés por defecto; la preferencia se guarda en `ipec_admin_lang` y se comparte con el panel.
+- [x] Revisado en escritorio (1920×1040) y celular (390×844): sin desplazamiento horizontal.
+- [x] `tsc --noEmit` sin errores.
+- [ ] Commit + push a Gitea (`gitea/main`), NO GitHub.
+- [ ] Imagen Docker `git.sistemasass.online/jscothserver/ipec-v3:latest` construida y subida.
+- [ ] Despliegue en VPS Iglesia (`179.236.255.48`), recreando solo el servicio `app` (BD y Traefik intactos).
+- [ ] Verificación en https://v3.suplenitud.com (login EN por defecto, ES, recuperación).
+- [ ] Limpieza de datos de prueba en producción (pendiente; pedir lista exacta a Juan).
+
+### Deuda conocida (lint, no bloquea build)
+- `react-hooks/set-state-in-effect` en AdminLangContext, AdminSidebar, AdminTopbar, ContentEditor, MailsPanel, PrayerTable, ProtectedShell (hidratación de localStorage). Ya existía; no tocar sin pedirlo.
+- Warnings de `no-unused-vars` en logout, export-quelea, users route y ContentEditor; `incompatible-library` de TanStack Table en UsersPanel.

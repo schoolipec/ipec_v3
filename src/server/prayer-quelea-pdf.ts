@@ -81,10 +81,7 @@ export async function buildPrayerQueleaPdf(items: QueleaPdfItem[]): Promise<Uint
   const pdf = await PDFDocument.create();
   const font = await pdf.embedFont(StandardFonts.Helvetica);
   const bold = await pdf.embedFont(StandardFonts.HelveticaBold);
-  const topBand = await pdf.embedJpg(loadPublic("assets/brand/quelea-banda-superior.jpg"));
-  const bottomBand = await pdf.embedJpg(loadPublic("assets/brand/quelea-banda-inferior.jpg"));
-  const topHeight = (PAGE_WIDTH * 220) / 1600;
-  const bottomHeight = (PAGE_WIDTH * 210) / 1600;
+  const background = await pdf.embedJpg(loadPublic("assets/brand/fondo-quelea.jpg"));
   const logo: PDFImage = await pdf.embedPng(loadPublic("assets/logo-transparent.png"));
   const logoHeight = 230;
   const logoWidth = logo.width * (logoHeight / logo.height);
@@ -92,9 +89,7 @@ export async function buildPrayerQueleaPdf(items: QueleaPdfItem[]): Promise<Uint
   const textWidth = TEXT_BOX.width - TEXT_PADDING * 2;
   for (const item of items) {
     const page = pdf.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
-    page.drawRectangle({ x: 0, y: 0, width: PAGE_WIDTH, height: PAGE_HEIGHT, color: rgb(0.969, 0.988, 0.992) });
-    page.drawImage(topBand, { x: 0, y: PAGE_HEIGHT - topHeight, width: PAGE_WIDTH, height: topHeight });
-    page.drawImage(bottomBand, { x: 0, y: 0, width: PAGE_WIDTH, height: bottomHeight });
+    page.drawImage(background, { x: 0, y: 0, width: PAGE_WIDTH, height: PAGE_HEIGHT });
 
     const name = fitBlock(item.name, bold, textWidth, 170, NAME_START, NAME_MIN);
     const nameTop = TEXT_BOX.y + TEXT_BOX.height - TEXT_PADDING;
@@ -123,7 +118,15 @@ export async function buildPrayerQueleaPdf(items: QueleaPdfItem[]): Promise<Uint
     const date = formatReceivedDate(item.createdAt);
     const dateSize = 34;
     const dateWidth = font.widthOfTextAtSize(date, dateSize);
-    page.drawText(date, { x: PAGE_WIDTH - 120 - dateWidth, y: FOOTER_Y + logoHeight / 2 - dateSize / 2, size: dateSize, font, color: NAVY });
+    const dateX = PAGE_WIDTH - 120 - dateWidth;
+    const dateY = FOOTER_Y + logoHeight / 2 - dateSize / 2;
+    for (let dx = -3; dx <= 3; dx += 1.5) {
+      for (let dy = -3; dy <= 3; dy += 1.5) {
+        if (dx === 0 && dy === 0) continue;
+        page.drawText(date, { x: dateX + dx, y: dateY + dy, size: dateSize, font, color: rgb(1, 1, 1) });
+      }
+    }
+    page.drawText(date, { x: dateX, y: dateY, size: dateSize, font, color: NAVY });
   }
   return pdf.save();
 }

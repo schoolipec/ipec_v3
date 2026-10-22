@@ -29,13 +29,13 @@ function interpolate(str: string, vars?: Record<string, string | number>): strin
   return str.replace(/\{\{(\w+)\}\}/g, (_, k) => String(vars[k] ?? `{{${k}}}`));
 }
 
-// Preferencia explícita del usuario (selector); si no existe, se detecta el idioma del navegador
+// Preferencia explícita del usuario (selector); si nunca se eligió, inglés por defecto
 function readLang(): Lang {
   try {
     const v = localStorage.getItem(STORAGE_KEY);
     if (v === 'en' || v === 'es') return v;
   } catch { /* almacenamiento bloqueado */ }
-  return navigator.language?.toLowerCase().startsWith('es') ? 'es' : 'en';
+  return 'en';
 }
 
 export function AdminLangProvider({ children }: { children: ReactNode }) {

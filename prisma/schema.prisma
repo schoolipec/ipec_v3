@@ -115,6 +115,7 @@ model User {
   updatedAt    DateTime @updatedAt
 
   sessions    Session[]
+  passwordResets PasswordReset[]
   invitedBy   User?       @relation("InvitedBy", fields: [invitedById], references: [id])
   invitedById String?
   invited     User[]      @relation("InvitedBy")
@@ -147,4 +148,17 @@ model Invitation {
   createdAt DateTime  @default(now())
 
   @@index([token])
+}
+
+// Enlace de un solo uso para recuperar la contraseña (vence en 1 hora)
+model PasswordReset {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String    @unique @db.VarChar(128)
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
 }
