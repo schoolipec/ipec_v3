@@ -34,6 +34,8 @@ export default function PrayerTable() {
   const [search, setSearch] = useState('');
   const [expanded, setExpanded] = useState<string | null>(null);
   const [savingId, setSavingId] = useState<string | null>(null);
+  const [exporting, setExporting] = useState(false);
+  const [exportMsg, setExportMsg] = useState('');
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -55,6 +57,34 @@ export default function PrayerTable() {
     const id = setTimeout(() => { setPage(1); setQ(search.trim()); }, 300);
     return () => clearTimeout(id);
   }, [search]);
+
+  async function exportQuelea() {
+    setExporting(true);
+    setExportMsg('');
+    try {
+      const res = await fetch('/api/admin/prayer/export-quelea', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status, q }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        setExportMsg(err.error === 'no_results' ? t('prayer.exportNoResults') : t('prayer.exportError'));
+        return;
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'peticiones-quelea.pdf';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } finally {
+      setExporting(false);
+    }
+  }
 
   async function changeStatus(id: string, next: PrayerStatus) {
     setSavingId(id);
@@ -110,10 +140,18 @@ export default function PrayerTable() {
           <input value={search} onChange={(e) => setSearch(e.target.value)}
                  placeholder={t('prayer.searchName')} className="admin-input w-full pl-9" />
         </div>
-        <span className="shrink-0 text-sm" style={{ color: 'var(--admin-text-muted)' }}>
-          {data?.total ?? 0} {t('prayer.results')}
-        </span>
+        <div className="flex shrink-0 items-center gap-3">
+          <span className="text-sm" style={{ color: 'var(--admin-text-muted)' }}>
+            {data?.total ?? 0} {t('prayer.results')}
+          </span>
+          <button onClick={exportQuelea} disabled={exporting || !data || data.total === 0} className="admin-btn text-xs py-1.5 px-3">
+            {exporting ? t('prayer.exporting') : t('prayer.exportQuelea')}
+          </button>
+        </div>
       </div>
+      {exportMsg && (
+        <p className="rounded-lg px-4 py-2.5 text-sm" style={{ background: 'var(--admin-danger-bg)', color: 'var(--admin-danger)' }}>{exportMsg}</p>
+      )}
 
       <div className="admin-table-wrap">
         <table className="admin-table">

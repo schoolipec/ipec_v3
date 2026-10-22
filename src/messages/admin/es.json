@@ -99,7 +99,11 @@
     "changeStatus": "Cambiar estado",
     "page": "Página",
     "of": "de",
-    "updated": "Estado actualizado."
+    "updated": "Estado actualizado.",
+    "exportQuelea": "Exportar PDF para Quelea",
+    "exporting": "Generando…",
+    "exportNoResults": "No hay peticiones con el filtro actual.",
+    "exportError": "No se pudo generar el PDF."
   },
   "profile": {
     "title": "Mi perfil",

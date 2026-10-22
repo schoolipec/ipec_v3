@@ -99,7 +99,11 @@
     "changeStatus": "Change status",
     "page": "Page",
     "of": "of",
-    "updated": "Status updated."
+    "updated": "Status updated.",
+    "exportQuelea": "Export PDF for Quelea",
+    "exporting": "Generating…",
+    "exportNoResults": "No requests match the current filter.",
+    "exportError": "Could not generate the PDF."
   },
   "profile": {
     "title": "My profile",

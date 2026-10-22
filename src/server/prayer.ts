@@ -55,20 +55,45 @@ export async function savePrayerRequest(input: PrayerInput) {
   return saved;
 }
 
-async function notifyN8n(saved: { id: string; name: string; request: string; locale: string; createdAt: Date }) {
-  const url = process.env.N8N_PRAYER_WEBHOOK_URL;
-  if (!url) return;
-  await fetch(url, {
+type PrayerAlertPayload = {
+  id: string; name: string; request: string; createdAt: Date;
+};
+
+// Mismos destinatarios que la demo: solo ADMIN y SUPERADMIN que activaron cada aviso
+async function alertRecipients() {
+  const users = await prisma.user.findMany({
+    where: { role: { in: ['ADMIN', 'SUPERADMIN'] }, OR: [{ notifyTelegram: true }, { notifyEmail: true }] },
+    select: { email: true, telegramChatId: true, notifyTelegram: true, notifyEmail: true },
+  });
+  const telegramChatIds = [...new Set(
+    users
+      .filter((u) => u.notifyTelegram && u.telegramChatId && /^-?\d+$/.test(u.telegramChatId.trim()))
+      .map((u) => u.telegramChatId!.trim()),
+  )];
+  const emailCopyRecipients = [...new Set(users.filter((u) => u.notifyEmail).map((u) => u.email.toLowerCase()))];
+  return { telegramChatIds, emailCopyRecipients };
+}
+
+async function notifyN8n(saved: PrayerAlertPayload) {
+  const url = process.env.PRAYER_NOTIFICATION_WEBHOOK_URL;
+  const secret = process.env.PRAYER_NOTIFICATION_WEBHOOK_SECRET;
+  if (!url || !secret) return;
+  const recipients = await alertRecipients();
+  const appUrl = process.env.APP_PUBLIC_URL?.replace(/\/$/, '');
+  const res = await fetch(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'content-type': 'application/json', 'x-ipec-prayer-secret': secret },
     body: JSON.stringify({
       id: saved.id,
       name: saved.name,
-      request: saved.request,
-      locale: saved.locale,
-      timestamp: saved.createdAt.toISOString(),
-      source: 'ipec-website',
+      message: saved.request,
+      createdAt: saved.createdAt.toISOString(),
+      telegramChatIds: recipients.telegramChatIds,
+      telegramChatId: recipients.telegramChatIds[0] ?? null,
+      emailCopyRecipients: recipients.emailCopyRecipients,
+      adminUrl: appUrl ? `${appUrl}/admin/prayer` : null,
     }),
     signal: AbortSignal.timeout(8000),
   });
+  if (!res.ok) throw new Error(`webhook respondió ${res.status}`);
 }
