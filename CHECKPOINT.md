@@ -102,10 +102,12 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 - [x] Idioma en las pantallas de acceso: selector EN/ES en la esquina de la tarjeta; inglés por defecto; la preferencia se guarda en `ipec_admin_lang` y se comparte con el panel.
 - [x] Revisado en escritorio (1920×1040) y celular (390×844): sin desplazamiento horizontal.
 - [x] `tsc --noEmit` sin errores.
-- [ ] Commit + push a Gitea (`gitea/main`), NO GitHub.
-- [ ] Imagen Docker `git.sistemasass.online/jscothserver/ipec-v3:latest` construida y subida.
-- [ ] Despliegue en VPS Iglesia (`179.236.255.48`), recreando solo el servicio `app` (BD y Traefik intactos).
-- [ ] Verificación en https://v3.suplenitud.com (login EN por defecto, ES, recuperación).
+- [x] Commit `cbcd80e` + push a Gitea (`gitea/main`), NO GitHub.
+- [x] Imagen Docker `git.sistemasass.online/jscothserver/ipec-v3:latest` construida y subida (digest `sha256:e60c8f0c…`).
+- [x] Despliegue en VPS Iglesia (`179.236.255.48`) 2026-10-22: respaldo previo en `BackupsProyectosIPEC_v3ipec-2026-10-22-pre-deploy.sql`; imagen enviada por SSH (`docker save | docker load`), app recreada; migración `password_reset` aplicada.
+- [x] Verificación HTTP: /api/health OK; /admin/login 200 (EN); /admin/forgot 200; /admin/reset/x 200; /es 200.
+- [ ] Pruebas funcionales de Juan: correo de invitación, cambio de contraseña, peticiones de oración, PDF.
+- [ ] Pendiente técnico: `EACCES` al escribir `/app/.next/cache` (la imagen corre como `nextjs` y la carpeta es de root). No rompe la app; solo impide cachear imágenes. Corregir en Dockerfile.prod con chown y republicar.
 - [ ] Limpieza de datos de prueba en producción (pendiente; pedir lista exacta a Juan).
 
 ### Deuda conocida (lint, no bloquea build)
