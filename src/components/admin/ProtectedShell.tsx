@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import AdminTopbar from '@/components/admin/AdminTopbar';
+import ScrollToTop from '@/components/ScrollToTop';
 import { useAdminLang } from '@/components/admin/AdminLangContext';
 import type { Role } from '@prisma/client';
 
@@ -59,7 +60,8 @@ export default function ProtectedShell({ name, email, role, children }: Props) {
           pageTitle={pageTitle}
           onOpenMobile={() => setMobileOpen(true)}
         />
-        <main className="flex-1 overflow-y-auto p-6">{children}</main>
+        <main data-scroll-root className="flex-1 overflow-y-auto p-6">{children}</main>
+        <ScrollToTop />
       </div>
     </div>
   );

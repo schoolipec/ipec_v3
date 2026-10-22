@@ -2,5 +2,127 @@
   "Skeleton": {
     "title": "Admin panel",
     "subtitle": "Separate layout and styles from the public site. Built in phase 5."
+  },
+  "contentLabels": {
+    "hero": {
+      "tagline": "Small subtitle · phrase on the cover",
+      "title": "Main title · large cover phrase",
+      "description": "Description text · paragraph under the title",
+      "prayerAction": "Button · request prayer"
+    },
+    "about": {
+      "label": "Small label · above the title",
+      "title": "Title · About section",
+      "text": "Paragraph · About section",
+      "meetPastors": "Link · go to the pastors section"
+    },
+    "groups": {
+      "label": "Small label · above the title",
+      "title": "Title · Groups section",
+      "smallTitle": "Card 1 · title (Small groups)",
+      "smallText": "Card 1 · text (Small groups)",
+      "trainingTitle": "Card 2 · title (Training)",
+      "trainingText": "Card 2 · text (Training)",
+      "plenitudeTitle": "Card 3 · title (Fullness groups)",
+      "plenitudeText": "Card 3 · text (Fullness groups)"
+    },
+    "pastors": {
+      "story": "Title · pastoral story section",
+      "heroTitle": "Main heading · pastors page",
+      "heroText": "Paragraph · under the pastors heading",
+      "marioName": "Name · Pastor Mario",
+      "marioSubtitle": "Subtitle · Pastor Mario",
+      "marioBio1": "Biography · Pastor Mario (paragraph 1)",
+      "marioBio2": "Biography · Pastor Mario (paragraph 2)",
+      "ghtiLink": "Link · Global Harvest (Mario)",
+      "journeyLabel": "Small label · journey section",
+      "journeyTitle": "Title · journey section",
+      "milestone1Title": "Milestone 1 · title",
+      "milestone1Text": "Milestone 1 · text",
+      "milestone2Title": "Milestone 2 · title",
+      "milestone2Text": "Milestone 2 · text",
+      "milestone3Title": "Milestone 3 · title",
+      "milestone3Text": "Milestone 3 · text",
+      "milestone4Title": "Milestone 4 · title",
+      "milestone4Text": "Milestone 4 · text",
+      "adrianaName": "Name · Pastor Adriana",
+      "adrianaSubtitle": "Subtitle · Pastor Adriana",
+      "adrianaBio1": "Biography · Pastor Adriana (paragraph 1)",
+      "adrianaBio2": "Biography · Pastor Adriana (paragraph 2)",
+      "valuesLabel": "Label · ministry values list",
+      "value1": "Value 1 · phrase",
+      "value2": "Value 2 · phrase",
+      "value3": "Value 3 · phrase",
+      "value4": "Value 4 · phrase",
+      "ghtiLabel": "Label · Global Harvest online block",
+      "ghtiTitle": "Title · Global Harvest online block",
+      "ghtiText": "Text · Global Harvest online block",
+      "visitInstagram": "Button · visit Instagram"
+    },
+    "contact": {
+      "label": "Small label · above the contact title",
+      "title": "Title · Contact us section",
+      "directions": "Button · directions (map)",
+      "prayerTitle": "Title · prayer form",
+      "prayerDescription": "Text · under the form title",
+      "contactChannel": "Question · choose a contact channel",
+      "errorSending": "Message · error sending the form",
+      "name": "Field · name in the form",
+      "request": "Field · prayer request",
+      "send": "Button · send form",
+      "unavailableNotice": "Notice · prayer requests unavailable",
+      "callUs": "Button · Call us",
+      "contactWhatsApp": "Button · contact via WhatsApp",
+      "contactTelegram": "Button · contact via Telegram",
+      "whatsappText": "Pre-filled message · WhatsApp",
+      "telegramText": "Pre-filled message · Telegram",
+      "successTitle": "Success message · title",
+      "successText": "Success message · text",
+      "close": "Button · close window",
+      "remaining": "Counter · characters left ({count})",
+      "tooMany": "Message · too many submissions"
+    },
+    "live": {
+      "status": "Label · Live indicator",
+      "title": "Title · Live section",
+      "text": "Text · Live section",
+      "schedule": "Schedule · when services are",
+      "noLiveText": "Message · when there is no stream",
+      "watchOn": "Label · where to watch",
+      "watchYoutube": "Button · watch on YouTube",
+      "watchFacebook": "Button · watch on Facebook"
+    },
+    "offering": {
+      "label": "Small label · above the giving title",
+      "title": "Title · Giving section",
+      "text": "Text · Giving section",
+      "notice": "Notice · redirect to Square",
+      "action": "Button · give"
+    },
+    "social": {
+      "label": "Small label · above the social title",
+      "title": "Title · Social media section",
+      "text": "Text · Social media section",
+      "action": "Button · open Instagram"
+    },
+    "site": {
+      "address": "Full address · footer",
+      "addressStreet": "Address · street (Contact section, large)",
+      "addressCity": "Address · city and ZIP code (Contact section)",
+      "email": "Contact email",
+      "facebook": "Link · Facebook",
+      "ghti": "Link · Global Harvest",
+      "heroImage": "Image · cover (Hero)",
+      "groupsImage": "Image · Groups section",
+      "aboutImage": "Image · About section",
+      "pastorsImage": "Image · Pastors section",
+      "instagram": "Link · Instagram",
+      "mapsDirections": "Link · directions in Google Maps (uses the address)",
+      "mapsEmbed": "Embedded map · Google Maps (uses the address)",
+      "phone": "Phone (text shown)",
+      "phoneHref": "Phone (for the call button, +1... format)",
+      "square": "Link · giving on Square",
+      "youtube": "Link · YouTube"
+    }
   }
 }

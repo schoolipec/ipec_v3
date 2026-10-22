@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import ScrollToTop from '@/components/ScrollToTop';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
@@ -46,6 +47,7 @@ export default async function SiteLayout({ children, params }: Props) {
           <WaveBackground />
           <Header />
           <main className="flex-1">{children}</main>
+          <ScrollToTop />
           <Footer />
           <BibleModal />
         </NextIntlClientProvider>
