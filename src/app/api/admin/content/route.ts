@@ -3,6 +3,8 @@ import { revalidateTag } from 'next/cache';
 import { getSession, canEdit } from '@/server/auth';
 import { prisma } from '@/server/db';
 import type { SiteSection } from '@/server/auth';
+import { RICH_KEYS } from '@/lib/rich-text-keys';
+import { sanitizeRichText } from '@/server/rich-text';
 
 const CONTENT_TAG = 'site-content';
 
@@ -41,19 +43,21 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: 'forbidden' }, { status: 403 });
   }
 
+  const finalValue = RICH_KEYS.has(`${entry.section}.${entry.key}`) ? sanitizeRichText(String(value)) : String(value);
+
   // Guardar = publicado de inmediato + historial
   await prisma.$transaction([
     prisma.contentRevision.create({
       data: {
         entryId: entry.id,
         oldValue: entry.value,
-        newValue: String(value),
+        newValue: finalValue,
         changedBy: actor.email,
       },
     }),
     prisma.contentEntry.update({
       where: { id: entry.id },
-      data: { value: String(value), updatedBy: actor.email },
+      data: { value: finalValue, updatedBy: actor.email },
     }),
   ]);
 

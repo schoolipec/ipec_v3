@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { getSiteInfo } from '../siteInfo';
+import {mapsDirectionsUrl, mapsEmbedUrl} from '@/lib/maps';
 import PrayerForm from './PrayerForm';
 import { SectionLabel } from './ui';
 
@@ -37,12 +38,12 @@ export default async function ContactSection() {
             <div>
               <p className="mb-1 text-2xl font-bold text-primary">{site.addressStreet}</p>
               <p className="text-secondary">{site.addressCity}</p>
-              <a href={site.mapsDirections} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-blue hover:underline dark:text-sky-400">
+              <a href={mapsDirectionsUrl(site.address)} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-blue hover:underline dark:text-sky-400">
                 {t('directions')}
               </a>
             </div>
             <div className="h-56 overflow-hidden rounded-xl border border-line">
-              <iframe title={site.address} src={site.mapsEmbed} className="h-full w-full border-0" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+              <iframe title={site.address} src={mapsEmbedUrl(site.address)} className="h-full w-full border-0" loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
             </div>
             <div className="flex flex-col gap-3 text-sm text-secondary">
               <a href={`tel:${site.phoneHref}`} className="group flex items-center gap-2.5 transition-colors hover:text-[#7CB342]">

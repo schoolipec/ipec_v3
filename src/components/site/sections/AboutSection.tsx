@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import RichText from '@/components/RichText';
 import { getTranslations } from 'next-intl/server';
 import { getSiteInfo } from '../siteInfo';
 import { Link } from '@/i18n/navigation';
@@ -17,8 +18,8 @@ export default async function AboutSection({ asPage = false }: { asPage?: boolea
       </div>
       <div className="flex items-center px-8 py-16 md:px-16 lg:px-32">
         <div className="max-w-xl">
-          <Title className="mb-4 text-3xl font-bold text-white md:text-4xl">{t('title')}</Title>
-          <p className="mb-6 text-lg leading-relaxed text-white/85">{t('text')}</p>
+          <Title className="mb-4 text-3xl font-bold text-white md:text-4xl"><RichText html={t('title')} /></Title>
+          <p className="mb-6 text-lg leading-relaxed text-white/85"><RichText html={t('text')} /></p>
           <Link href="/pastors" className="font-bold text-white transition-colors hover:text-lime">
             {t('meetPastors')}
           </Link>

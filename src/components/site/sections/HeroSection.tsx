@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server';
+import RichText from '@/components/RichText';
 import { getSiteInfo } from '../siteInfo';
 import { Link } from '@/i18n/navigation';
 import { BRAND_BUTTON } from './ui';
@@ -22,10 +23,10 @@ export default async function HeroSection() {
 
       <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
         <p className="mb-5 bg-[linear-gradient(90deg,#4fc3f7_0%,#81c784_100%)] bg-clip-text text-sm font-semibold tracking-widest text-transparent uppercase">
-          {t('tagline')}
+          <RichText html={t('tagline')} />
         </p>
-        <h1 className="mb-6 text-4xl leading-tight font-bold text-white drop-shadow-lg md:text-6xl">{t('title')}</h1>
-        <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-white/85 drop-shadow">{t('description')}</p>
+        <h1 className="mb-6 text-4xl leading-tight font-bold text-white drop-shadow-lg md:text-6xl"><RichText html={t('title')} /></h1>
+        <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-white/85 drop-shadow"><RichText html={t('description')} /></p>
         <Link href="/contact" className={BRAND_BUTTON}>
           {t('prayerAction')}
         </Link>

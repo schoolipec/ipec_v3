@@ -2,6 +2,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { Role } from '@prisma/client';
 import type { SiteSection } from '@/server/auth';
+import { useAdminLang } from '@/components/admin/AdminLangContext';
+import RichTextField from '@/components/admin/RichTextField';
+import { RICH_KEYS } from '@/lib/rich-text-keys';
+import enMessages from '@/messages/admin/en.json';
+import esMessages from '@/messages/admin/es.json';
 
 type Entry = { id: string; section: string; key: string; locale: string; value: string; updatedAt: string; updatedBy: string | null };
 
@@ -31,6 +36,9 @@ export default function ContentEditor({
   userPermissions: Record<string, boolean>;
   sections: string[];
 }) {
+  const { lang } = useAdminLang();
+  const labels: Record<string, Record<string, string>> = lang === 'es' ? esMessages.contentLabels : enMessages.contentLabels;
+  const labelFor = (section: string, key: string) => labels[section]?.[key] ?? null;
   const canEditSection = (s: string) =>
     userRole === 'SUPERADMIN' || userRole === 'ADMIN' || userPermissions[s] === true;
 
@@ -130,7 +138,7 @@ export default function ContentEditor({
         {entries.length === 0 && !loadError && (
           <p className="text-sm text-slate-500">No hay entradas para esta sección e idioma.</p>
         )}
-        {entries.map(entry => {
+        {entries.filter(e => !DERIVED_KEYS.has(`${e.section}.${e.key}`)).map(entry => {
           const current = edits[entry.id] ?? entry.value;
           const dirty = edits[entry.id] !== undefined && edits[entry.id] !== entry.value;
           const isLong = entry.value.length > 80;
@@ -138,7 +146,10 @@ export default function ContentEditor({
           return (
             <div key={entry.id} className="rounded-xl border border-slate-800 bg-slate-900 p-4">
               <div className="mb-2 flex items-center justify-between gap-2">
-                <code className="text-xs text-slate-500">{entry.section}.{entry.key}</code>
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium text-slate-200">{labelFor(entry.section, entry.key) ?? entry.key}</span>
+                  <code className="text-xs text-slate-500">{entry.section}.{entry.key}</code>
+                </div>
                 {entry.updatedBy && (
                   <span className="text-xs text-slate-600">
                     Editado por {entry.updatedBy}
@@ -155,6 +166,12 @@ export default function ContentEditor({
                     setTimeout(() => setSaved(s => s === entry.id ? null : s), 2000);
                   }}
                   entryId={entry.id}
+                />
+              ) : RICH_KEYS.has(`${entry.section}.${entry.key}`) ? (
+                <RichTextField
+                  value={entry.value}
+                  disabled={saving === entry.id}
+                  onChange={(html) => setEdits(prev => ({ ...prev, [entry.id]: html }))}
                 />
               ) : isLong ? (
                 <textarea
@@ -195,6 +212,9 @@ export default function ContentEditor({
     </div>
   );
 }
+
+// Se derivan de site.address; no se editan a mano
+const DERIVED_KEYS = new Set(['site.mapsDirections', 'site.mapsEmbed']);
 
 const IMAGE_ACCEPT = 'image/png,image/jpeg,image/webp';
 
