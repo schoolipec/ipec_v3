@@ -82,7 +82,8 @@
     "inviteNotSentFailed": "No se pudo enviar el correo. Copia el enlace y envíalo tú mismo.",
     "mailLanguage": "Idioma del correo",
     "mailLangEnglish": "Inglés",
-    "mailLangSpanish": "Español"
+    "mailLangSpanish": "Español",
+    "invalidEmail": "Escribe un correo válido en el campo Correo (no el nombre)."
   },
   "prayer": {
     "title": "Pedidos de oración",

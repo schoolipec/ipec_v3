@@ -70,7 +70,7 @@ export default function UsersPanel({ currentRole, currentId }: { currentRole: Ro
         body: JSON.stringify({ email: invEmail, name: invName, role: invRole, locale: invMailLang }),
       });
       const data = await res.json();
-      if (!res.ok) { setInvError(data.error ?? 'Error'); return; }
+      if (!res.ok) { setInvError(data.error === 'invalid_email' ? t('users.invalidEmail') : (data.error ?? 'Error')); return; }
       setInviteLink(data.link);
       setInviteNotice(data.emailSent ? t('users.inviteSent') : t(data.emailReason === 'smtp_not_configured' ? 'users.inviteNotSentSmtp' : 'users.inviteNotSentFailed'));
       setInvEmail(''); setInvName(''); setInvRole('USER');

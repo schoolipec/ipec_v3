@@ -25,6 +25,10 @@ export async function POST(req: NextRequest) {
   const lang: MailLocale = locale === 'es' ? 'es' : 'en';
   const cleanEmail = String(email).toLowerCase().trim();
   const cleanName = String(name).trim();
+  // Antes de crear nada: un correo mal escrito (o en el campo de nombre) no debe generar una invitación
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
+    return NextResponse.json({ error: 'invalid_email' }, { status: 400 });
+  }
 
   const token = await createInvitation(cleanEmail, cleanName, role as Role, actor.email);
 

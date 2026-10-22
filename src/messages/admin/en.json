@@ -82,7 +82,8 @@
     "inviteNotSentFailed": "The email could not be sent. Copy the link and send it yourself.",
     "mailLanguage": "Email language",
     "mailLangEnglish": "English",
-    "mailLangSpanish": "Spanish"
+    "mailLangSpanish": "Spanish",
+    "invalidEmail": "Enter a valid email in the Email field (not the name)."
   },
   "prayer": {
     "title": "Prayer requests",
