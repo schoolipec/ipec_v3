@@ -77,6 +77,15 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 - Pendiente: ruta **Mails** (Mailcow, peticiones@suplenitud.com). Credenciales IMAP/SMTP NO están en la carpeta IPEC (solo VPS-Iglesia.md).
 - Deuda: reglas `react-hooks/set-state-in-effect` (lint) en hidratación de localStorage; mismo patrón ya existía en ProtectedShell/ContentEditor.
 
+## Estado final del panel v3 (2026-10-22)
+- Desplegado en v3.suplenitud.com con imagen de Gitea. Migraciones aplicadas (MediaAsset, estados Recibida/Descargada, datos de contacto, PageVisit).
+- Correo de invitación: enviado con SMTP (variables SMTP_* copiadas de la demo). Probado en producción.
+- Correo de peticiones: HTML con el diseño del PDF, por n8n (flujo v2 activo, un solo envío a peticiones@ con copia oculta a administradores).
+- Ruta Correo (ADMIN y SUPERADMIN): recibidos y enviados, leer, responder, redactar, eliminar y adjuntos. Usa MAIL_HOST/MAIL_USER/MAIL_PASS.
+- Pendiente recomendado: cambiar MAIL_PASS por una contraseña de aplicación de Mailcow (la actual es la contraseña principal del buzón).
+- Pendiente: limpiar datos de prueba de producción (pedidos "Prueba", invitación de prueba eliminada, correos de prueba en Enviados) al pasar a suplenitud.com.
+- Deuda: reglas set-state-in-effect del lint (hidratación de localStorage).
+
 ## Avisos para la próxima sesión
 - E: es un SSD USB: si Docker muestra la carpeta vacía, reiniciar Docker Desktop (ver 04-FASE1 → Problemas).
 - Commits: `git -c user.name="IPEC Development" -c user.email="jscothserver@gmail.com" commit ...` (el equipo no tiene identidad global).

@@ -181,12 +181,14 @@ export async function sendMail(mail: OutgoingMail) {
   }
   const options = { from: cfg.user, to: mail.to, subject: mail.subject, text: mail.text, headers };
 
+  // El nombre se valida contra el certificado; la conexión puede ir a una IP fija (MAIL_SMTP_HOST) si el DNS interno no resuelve bien
   const transporter = nodemailer.createTransport({
-    host: cfg.host,
+    host: process.env.MAIL_SMTP_HOST?.trim() || cfg.host,
     port: 587,
     secure: false,
     requireTLS: true,
     auth: { user: cfg.user, pass: cfg.pass },
+    tls: { servername: cfg.host },
   });
   await transporter.sendMail(options);
 

@@ -53,8 +53,11 @@ services:
       MAIL_HOST: ${MAIL_HOST:-}
       MAIL_USER: ${MAIL_USER:-}
       MAIL_PASS: ${MAIL_PASS:-}
+      MAIL_SMTP_HOST: ${MAIL_SMTP_HOST:-}
       PRAYER_NOTIFICATION_WEBHOOK_URL: ${PRAYER_NOTIFICATION_WEBHOOK_URL:-}
       PRAYER_NOTIFICATION_WEBHOOK_SECRET: ${PRAYER_NOTIFICATION_WEBHOOK_SECRET:-}
+    extra_hosts:
+      - "mail.suplenitud.com:179.236.255.48"
     networks:
       - ipec-v3-net
       - n8n-internal
