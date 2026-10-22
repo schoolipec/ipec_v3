@@ -58,6 +58,16 @@ model PrayerRequest {
   @@index([status, createdAt(sort: Desc)])
 }
 
+// Imagen subida desde el panel (se sirve desde /api/media/[id]; la BD es el almacenamiento para que sobreviva a los despliegues)
+model MediaAsset {
+  id        String   @id @default(cuid())
+  mimeType  String   @db.VarChar(30)
+  size      Int
+  data      Bytes
+  createdBy String?  @db.VarChar(120)
+  createdAt DateTime @default(now())
+}
+
 // Visita a una página pública. No guarda IP: el visitante se distingue con un hash diario.
 model PageVisit {
   id          String   @id @default(cuid())

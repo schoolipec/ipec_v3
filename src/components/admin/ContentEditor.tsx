@@ -145,7 +145,18 @@ export default function ContentEditor({
                   </span>
                 )}
               </div>
-              {isLong ? (
+              {/image$/i.test(entry.key) ? (
+                <ImageField
+                  currentSrc={entry.value}
+                  disabled={saving === entry.id}
+                  onUploaded={(value) => {
+                    setEntries(prev => prev.map(e => e.id === entry.id ? { ...e, value } : e));
+                    setSaved(entry.id);
+                    setTimeout(() => setSaved(s => s === entry.id ? null : s), 2000);
+                  }}
+                  entryId={entry.id}
+                />
+              ) : isLong ? (
                 <textarea
                   rows={3}
                   value={current}
@@ -161,6 +172,7 @@ export default function ContentEditor({
                 />
               )}
               <div className="mt-2 flex items-center gap-3">
+                {!/image$/i.test(entry.key) && (
                 <button
                   onClick={() => saveEntry(entry.id)}
                   disabled={!dirty || saving === entry.id}
@@ -168,6 +180,7 @@ export default function ContentEditor({
                 >
                   {saving === entry.id ? 'Guardando…' : 'Guardar'}
                 </button>
+                )}
                 {saved === entry.id && (
                   <span className="text-xs text-green-400">✓ Publicado</span>
                 )}
@@ -179,6 +192,86 @@ export default function ContentEditor({
           );
         })}
       </div>
+    </div>
+  );
+}
+
+const IMAGE_ACCEPT = 'image/png,image/jpeg,image/webp';
+
+function ImageField({ entryId, currentSrc, disabled, onUploaded }: {
+  entryId: string;
+  currentSrc: string;
+  disabled: boolean;
+  onUploaded: (value: string) => void;
+}) {
+  const [over, setOver] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState('');
+  const [preview, setPreview] = useState<string | null>(null);
+
+  async function upload(file: File) {
+    setError('');
+    if (!IMAGE_ACCEPT.split(',').includes(file.type)) {
+      setError('Formato no permitido. Usa PNG, JPG o WebP.');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setError('La imagen supera 5 MB.');
+      return;
+    }
+    setUploading(true);
+    setPreview(URL.createObjectURL(file));
+    try {
+      const body = new FormData();
+      body.append('file', file);
+      body.append('entryId', entryId);
+      const res = await fetch('/api/admin/media', { method: 'POST', body });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setError(data.error === 'forbidden' ? 'No tienes permiso para esta sección.' : 'No se pudo subir la imagen.');
+        return;
+      }
+      onUploaded(data.value);
+      setPreview(null);
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  function onDrop(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault();
+    setOver(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file && !disabled && !uploading) upload(file);
+  }
+
+  return (
+    <div className="flex flex-col gap-3 md:flex-row md:items-start">
+      <div className="h-32 w-full overflow-hidden rounded-lg border border-slate-700 bg-slate-800 md:w-56 shrink-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={preview ?? currentSrc} alt="" className="h-full w-full object-cover" />
+      </div>
+      <div
+        onDragOver={(e) => { e.preventDefault(); setOver(true); }}
+        onDragLeave={() => setOver(false)}
+        onDrop={onDrop}
+        onClick={() => { if (!uploading) document.getElementById(`file-${entryId}`)?.click(); }}
+        className={`flex flex-1 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed px-4 py-6 text-center text-sm transition ${
+          over ? 'border-green-500 bg-green-500/10 text-green-300' : 'border-slate-700 text-slate-400 hover:border-slate-500'
+        }`}
+      >
+        <span>{uploading ? 'Subiendo imagen…' : 'Arrastra una imagen aquí o haz clic para elegirla'}</span>
+        <span className="text-xs text-slate-500">PNG, JPG o WebP · máximo 5 MB</span>
+        <input
+          id={`file-${entryId}`}
+          type="file"
+          accept={IMAGE_ACCEPT}
+          className="hidden"
+          disabled={disabled || uploading}
+          onChange={(e) => { const f = e.target.files?.[0]; if (f) upload(f); e.target.value = ''; }}
+        />
+      </div>
+      {error && <p className="text-xs text-red-400 md:self-center">{error}</p>}
     </div>
   );
 }
