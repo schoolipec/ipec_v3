@@ -8,7 +8,8 @@
     "security": "Security",
     "viewSite": "View Site",
     "collapse": "Collapse sidebar",
-    "expand": "Expand sidebar"
+    "expand": "Expand sidebar",
+    "mails": "Mail"
   },
   "topbar": {
     "panel": "Panel",
@@ -75,7 +76,10 @@
     "emailTaken": "That email is already in use.",
     "saved": "User updated.",
     "save": "Save changes",
-    "permissionsTitle": "Section permissions"
+    "permissionsTitle": "Section permissions",
+    "inviteSent": "Invitation sent by email. You can also copy the link below.",
+    "inviteNotSentSmtp": "The email was not sent because the server has no email settings yet. Copy the link and send it yourself.",
+    "inviteNotSentFailed": "The email could not be sent. Copy the link and send it yourself."
   },
   "prayer": {
     "title": "Prayer requests",
@@ -291,5 +295,25 @@
       "square": "Link · giving on Square",
       "youtube": "Link · YouTube"
     }
+  },
+  "mails": {
+    "inbox": "Inbox",
+    "sentFolder": "Sent",
+    "refresh": "Refresh",
+    "compose": "Compose",
+    "reply": "Reply",
+    "delete": "Delete",
+    "send": "Send",
+    "to": "To",
+    "from": "From",
+    "subject": "Subject",
+    "body": "Message",
+    "empty": "No messages in this folder.",
+    "pickOne": "Select a message to read it.",
+    "confirmDelete": "Move this message to the trash?",
+    "sent": "Message sent.",
+    "sendError": "The message could not be sent.",
+    "serverError": "Could not connect to the mailbox. Try again.",
+    "notConfigured": "The mailbox is not configured on the server yet."
   }
 }

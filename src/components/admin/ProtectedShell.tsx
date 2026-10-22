@@ -12,6 +12,7 @@ const PAGE_TITLE_KEYS: Record<string, string> = {
   '/admin/content':  'sidebar.content',
   '/admin/prayer':   'sidebar.prayer',
   '/admin/users':    'sidebar.users',
+  '/admin/mails':    'sidebar.mails',
   '/admin/profile':  'sidebar.profile',
   '/admin/security': 'sidebar.security',
 };

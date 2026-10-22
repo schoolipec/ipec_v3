@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import {
   LayoutDashboard, FileText, HandHeart, Users, UserCircle,
-  Shield, ExternalLink, PanelLeftClose, PanelLeftOpen, X,
+  Shield, ExternalLink, PanelLeftClose, PanelLeftOpen, X, Mail,
 } from 'lucide-react';
 import { useAdminLang } from '@/components/admin/AdminLangContext';
 import type { Role } from '@prisma/client';
@@ -22,6 +22,7 @@ const NAV: NavItem[] = [
   { href: '/admin',          labelKey: 'sidebar.dashboard', icon: LayoutDashboard },
   { href: '/admin/content',  labelKey: 'sidebar.content',   icon: FileText },
   { href: '/admin/prayer',   labelKey: 'sidebar.prayer',    icon: HandHeart },
+  { href: '/admin/mails',    labelKey: 'sidebar.mails',     icon: Mail, roles: ['SUPERADMIN', 'ADMIN'] },
   { href: '/admin/users',    labelKey: 'sidebar.users',     icon: Users, roles: ['SUPERADMIN', 'ADMIN'] },
   { href: '/admin/profile',  labelKey: 'sidebar.profile',   icon: UserCircle },
   { href: '/admin/security', labelKey: 'sidebar.security',  icon: Shield },

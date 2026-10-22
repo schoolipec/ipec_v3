@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession, createInvitation } from '@/server/auth';
 import type { Role } from '@prisma/client';
+import { invitationMail } from '@/server/mail/templates';
+import { sendMail } from '@/server/mail/send';
+
+const ROLE_LABEL: Record<Role, string> = { SUPERADMIN: 'Super administrador', ADMIN: 'Administrador', USER: 'Usuario' };
 
 export async function POST(req: NextRequest) {
   const actor = await getSession();
@@ -26,8 +30,14 @@ export async function POST(req: NextRequest) {
     actor.email,
   );
 
-  // En producción, esto se enviará por correo. Por ahora devuelve el enlace.
-  const base = req.nextUrl.origin;
+  const base = (process.env.APP_PUBLIC_URL ?? req.nextUrl.origin).replace(/\/$/, '');
   const link = `${base}/admin/invite/${token}`;
-  return NextResponse.json({ ok: true, link });
+  const mail = invitationMail({
+    name: String(name).trim(),
+    inviterName: actor.name,
+    roleLabel: ROLE_LABEL[role as Role],
+    acceptUrl: link,
+  });
+  const result = await sendMail(String(email).toLowerCase().trim(), mail);
+  return NextResponse.json({ ok: true, link, emailSent: result.sent, emailReason: result.reason });
 }

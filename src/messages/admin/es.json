@@ -8,7 +8,8 @@
     "security": "Seguridad",
     "viewSite": "Ver sitio",
     "collapse": "Colapsar sidebar",
-    "expand": "Expandir sidebar"
+    "expand": "Expandir sidebar",
+    "mails": "Correo"
   },
   "topbar": {
     "panel": "Panel",
@@ -75,7 +76,10 @@
     "emailTaken": "Ese correo ya está en uso.",
     "saved": "Usuario actualizado.",
     "save": "Guardar cambios",
-    "permissionsTitle": "Permisos por sección"
+    "permissionsTitle": "Permisos por sección",
+    "inviteSent": "Invitación enviada por correo. También puedes copiar el enlace de abajo.",
+    "inviteNotSentSmtp": "El correo no se envió porque el servidor aún no tiene la configuración de correo. Copia el enlace y envíalo tú mismo.",
+    "inviteNotSentFailed": "No se pudo enviar el correo. Copia el enlace y envíalo tú mismo."
   },
   "prayer": {
     "title": "Pedidos de oración",
@@ -291,5 +295,25 @@
       "square": "Enlace · ofrendas en Square",
       "youtube": "Enlace · YouTube"
     }
+  },
+  "mails": {
+    "inbox": "Recibidos",
+    "sentFolder": "Enviados",
+    "refresh": "Actualizar",
+    "compose": "Redactar",
+    "reply": "Responder",
+    "delete": "Eliminar",
+    "send": "Enviar",
+    "to": "Para",
+    "from": "De",
+    "subject": "Asunto",
+    "body": "Mensaje",
+    "empty": "No hay mensajes en esta carpeta.",
+    "pickOne": "Selecciona un mensaje para leerlo.",
+    "confirmDelete": "¿Mover este mensaje a la papelera?",
+    "sent": "Mensaje enviado.",
+    "sendError": "No se pudo enviar el mensaje.",
+    "serverError": "No se pudo conectar con el buzón. Intenta de nuevo.",
+    "notConfigured": "El buzón de correo aún no está configurado en el servidor."
   }
 }

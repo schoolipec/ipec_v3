@@ -1,6 +1,7 @@
 import 'server-only';
 import type { PrayerStatus } from '@prisma/client';
 import { prisma } from './db';
+import { prayerEmailHtml } from './prayer-email';
 
 export const PRAYER_MAX_CHARS = 500;
 export const PRAYER_NAME_MAX = 100;
@@ -92,6 +93,7 @@ async function notifyN8n(saved: PrayerAlertPayload) {
       telegramChatId: recipients.telegramChatIds[0] ?? null,
       emailCopyRecipients: recipients.emailCopyRecipients,
       adminUrl: appUrl ? `${appUrl}/admin/prayer` : null,
+      emailHtml: prayerEmailHtml({ name: saved.name, message: saved.request, createdAt: saved.createdAt.toISOString() }),
     }),
     signal: AbortSignal.timeout(8000),
   });

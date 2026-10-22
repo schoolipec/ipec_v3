@@ -47,6 +47,7 @@ export default function UsersPanel({ currentRole, currentId }: { currentRole: Ro
   const [invError, setInvError] = useState('');
   const [invLoading, setInvLoading] = useState(false);
   const [notice, setNotice] = useState('');
+  const [inviteNotice, setInviteNotice] = useState('');
 
   const loadUsers = useCallback(async () => {
     setLoading(true);
@@ -69,6 +70,7 @@ export default function UsersPanel({ currentRole, currentId }: { currentRole: Ro
       const data = await res.json();
       if (!res.ok) { setInvError(data.error ?? 'Error'); return; }
       setInviteLink(data.link);
+      setInviteNotice(data.emailSent ? t('users.inviteSent') : t(data.emailReason === 'smtp_not_configured' ? 'users.inviteNotSentSmtp' : 'users.inviteNotSentFailed'));
       setInvEmail(''); setInvName(''); setInvRole('USER');
     } finally { setInvLoading(false); }
   }
@@ -232,6 +234,7 @@ export default function UsersPanel({ currentRole, currentId }: { currentRole: Ro
             </div>
           </div>
           {invError && <p className="mt-2 text-sm" style={{ color: 'var(--admin-danger, #f87171)' }}>{invError}</p>}
+          {inviteNotice && <p className="mt-3 text-sm" style={{ color: 'var(--admin-text)' }}>{inviteNotice}</p>}
           {inviteLink && (
             <div className="mt-3 rounded-lg p-3" style={{ background: 'var(--admin-surface-2)', border: '1px solid var(--admin-border)' }}>
               <p className="mb-1 text-xs" style={{ color: 'var(--admin-text-muted)' }}>{t('users.inviteLink72h')}</p>
