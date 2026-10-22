@@ -9,7 +9,7 @@ export async function GET(_req: NextRequest) {
   if (actor.role !== 'SUPERADMIN' && actor.role !== 'ADMIN') {
     return NextResponse.json({ error: 'forbidden' }, { status: 403 });
   }
-  const users = await listUsers();
+  const users = await listUsers(actor.role);
   return NextResponse.json(users);
 }
 

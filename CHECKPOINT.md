@@ -69,7 +69,12 @@ Reconstrucción desde cero del sitio y el panel admin de Iglesia Plenitud en Cri
 - Usuarios: diálogo de edición (nombre, correo, rol, teléfono, WhatsApp, Telegram chat ID, avisos). ADMIN no edita SUPERADMIN.
 - Perfil: rediseñado en secciones; campos de contacto y Telegram; avisos por Telegram / correo.
 - Migración local: `20261021230000_admin_v2_visitas_contacto_estado` (aplicada en BD local; NO en VPS).
-- Pendiente: ruta **Mails** (Mailcow, peticiones@suplenitud.com) — falta IMAP/SMTP y decidir alcance.
+- Idioma: si nunca se eligió, detecta el idioma del navegador al entrar; el selector de la topbar guarda la preferencia.
+- Usuarios: ADMIN no ve SUPERADMIN (lista y edición).
+- `adminLocale` se CONSERVA (obsoleto) para poder revertir; se quita en una publicación posterior.
+- País: IP del visitante -> geoip-lite (solo búsqueda, la IP no se guarda). `cf-ipcountry` tiene prioridad si hay CDN.
+- n8n: endpoint `/api/internal/prayer-recipients` (header `x-internal-token` = `N8N_INTERNAL_TOKEN`). Falta conectar el flujo v2 (instancia de la iglesia, no accesible desde el MCP actual).
+- Pendiente: ruta **Mails** (Mailcow, peticiones@suplenitud.com). Credenciales IMAP/SMTP NO están en la carpeta IPEC (solo VPS-Iglesia.md).
 - Deuda: reglas `react-hooks/set-state-in-effect` (lint) en hidratación de localStorage; mismo patrón ya existía en ProtectedShell/ContentEditor.
 
 ## Avisos para la próxima sesión

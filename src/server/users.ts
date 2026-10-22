@@ -51,8 +51,9 @@ export async function updateUserByAdmin(
   return prisma.user.update({ where: { id: userId }, data });
 }
 
-export async function listUsers() {
+export async function listUsers(viewerRole: Role) {
   return prisma.user.findMany({
+    where: viewerRole === 'SUPERADMIN' ? {} : { role: { not: 'SUPERADMIN' } },
     select: {
       id: true,
       email: true,

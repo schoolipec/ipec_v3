@@ -87,6 +87,8 @@ model User {
   name         String   @db.VarChar(100)
   passwordHash String   @db.VarChar(256)
   role         Role     @default(USER)
+  // Obsoleto: el idioma del panel vive en localStorage. Se conserva para poder volver a la versión anterior; quitar en una publicación posterior
+  adminLocale  String   @default("en") @db.VarChar(5)
   // Contacto para avisos de pedidos de oración
   phone          String? @db.VarChar(30)
   whatsapp       String? @db.VarChar(30)

@@ -1,5 +1,6 @@
 import 'server-only';
 import { createHash } from 'crypto';
+import geoip from 'geoip-lite';
 import { Prisma } from '@prisma/client';
 import { prisma } from './db';
 
@@ -20,17 +21,21 @@ function deviceOf(ua: string) {
   return 'desktop';
 }
 
+function clientIp(headers: Headers) {
+  return (headers.get('x-forwarded-for') ?? headers.get('x-real-ip') ?? '').split(',')[0].trim();
+}
+
+// La IP solo sirve para buscar el país y nunca se guarda
 function countryOf(req: { headers: Headers }) {
   const fromCdn = req.headers.get('cf-ipcountry') ?? req.headers.get('x-vercel-ip-country');
   if (fromCdn && /^[A-Z]{2}$/.test(fromCdn) && fromCdn !== 'XX') return fromCdn;
-  // Sin CDN delante no hay país confiable: se usa la región del idioma del navegador (ej. es-MX → MX)
-  const region = (req.headers.get('accept-language') ?? '').split(',')[0].split('-')[1];
-  return region && /^[A-Za-z]{2}$/.test(region) ? region.toUpperCase() : null;
+  const ip = clientIp(req.headers);
+  return geoip.lookup(ip)?.country ?? null;
 }
 
 export async function recordVisit(req: { nextUrl: { pathname: string }; headers: Headers }) {
   const ua = req.headers.get('user-agent') ?? '';
-  const ip = (req.headers.get('x-forwarded-for') ?? '').split(',')[0].trim();
+  const ip = clientIp(req.headers);
   const day = new Date().toISOString().slice(0, 10);
   const visitorHash = createHash('sha256')
     .update(`${ip}|${ua}|${day}|${process.env.SESSION_SECRET ?? ''}`)

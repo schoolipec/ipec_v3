@@ -142,6 +142,7 @@ export default function DashboardHome({ stats }: { stats: VisitStats }) {
               </li>
             ))}
           </ul>
+          <p className="text-xs" style={{ color: 'var(--admin-text-faint)' }}>Ubicación por IP: GeoLite2 © MaxMind</p>
         </Card>
 
         <Card title={t('dashboard.byLanguage')}>

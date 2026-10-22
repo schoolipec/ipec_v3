@@ -5,8 +5,7 @@ CREATE TYPE "PrayerStatus" AS ENUM ('NEW', 'PRAYING', 'ANSWERED', 'ARCHIVED');
 ALTER TABLE "PrayerRequest" ADD COLUMN     "status" "PrayerStatus" NOT NULL DEFAULT 'NEW';
 
 -- AlterTable
-ALTER TABLE "User" DROP COLUMN "adminLocale",
-ADD COLUMN     "phone" VARCHAR(30),
+ALTER TABLE "User" ADD COLUMN     "phone" VARCHAR(30),
 ADD COLUMN     "telegramChatId" VARCHAR(40),
 ADD COLUMN     "whatsapp" VARCHAR(30);
 
