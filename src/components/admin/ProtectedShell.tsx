@@ -21,10 +21,12 @@ interface Props {
   name: string;
   email: string;
   role: Role;
+  /** Minutos de inactividad antes de cerrar la sesión (0 = sin timeout de cliente) */
+  sessionTimeout: number;
   children: React.ReactNode;
 }
 
-export default function ProtectedShell({ name, email, role, children }: Props) {
+export default function ProtectedShell({ name, email, role, sessionTimeout, children }: Props) {
   const pathname = usePathname();
   const { t } = useAdminLang();
   const [collapsed, setCollapsed] = useState(false);
@@ -34,6 +36,34 @@ export default function ProtectedShell({ name, email, role, children }: Props) {
     const saved = localStorage.getItem('adminSidebarCollapsed');
     if (saved === 'true') setCollapsed(true);
   }, []);
+
+  // Idle timer: detecta inactividad del usuario en el cliente y cierra la sesión
+  useEffect(() => {
+    if (sessionTimeout <= 0) return;
+
+    const timeoutMs = sessionTimeout * 60_000;
+    let timer: ReturnType<typeof setTimeout>;
+
+    async function handleIdle() {
+      try { await fetch('/api/admin/logout', { method: 'POST' }); } catch { /* ignorar */ }
+      window.location.assign('/admin/login');
+    }
+
+    function resetTimer() {
+      clearTimeout(timer);
+      timer = setTimeout(handleIdle, timeoutMs);
+    }
+
+    // Cualquier interacción del usuario reinicia el contador
+    const EVENTS = ['mousemove', 'mousedown', 'keydown', 'touchstart', 'scroll', 'click'] as const;
+    EVENTS.forEach(e => window.addEventListener(e, resetTimer, { passive: true }));
+    resetTimer(); // arrancar el contador desde que se monta el shell
+
+    return () => {
+      clearTimeout(timer);
+      EVENTS.forEach(e => window.removeEventListener(e, resetTimer));
+    };
+  }, [sessionTimeout]);
 
   function toggleCollapse() {
     const next = !collapsed;

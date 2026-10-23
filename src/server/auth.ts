@@ -1,4 +1,5 @@
 import 'server-only';
+import { cache } from 'react';
 import { cookies } from 'next/headers';
 import { randomBytes } from 'crypto';
 import bcrypt from 'bcryptjs';
@@ -65,7 +66,9 @@ export async function clearSessionCookie() {
   jar.delete(SESSION_COOKIE);
 }
 
-export async function getSession(): Promise<(User & { sessionId: string }) | null> {
+// cache() = una sola consulta por petición. Layout y páginas se renderizan en paralelo;
+// sin esto, cada uno intentaba borrar la sesión expirada a la vez y uno fallaba (P2025).
+export const getSession = cache(async (): Promise<(User & { sessionId: string }) | null> => {
   const jar = await cookies();
   const token = jar.get(SESSION_COOKIE)?.value;
   if (!token) return null;
@@ -76,7 +79,8 @@ export async function getSession(): Promise<(User & { sessionId: string }) | nul
   });
 
   if (!session || session.expiresAt < new Date()) {
-    if (session) await prisma.session.delete({ where: { id: session.id } });
+    // deleteMany: no lanza error si la fila ya fue borrada por otra petición
+    if (session) await prisma.session.deleteMany({ where: { id: session.id } });
     return null;
   }
 
@@ -85,7 +89,7 @@ export async function getSession(): Promise<(User & { sessionId: string }) | nul
   if (sessionTimeout > 0) {
     const inactiveMs = Date.now() - session.lastActivityAt.getTime();
     if (inactiveMs > sessionTimeout * 60_000) {
-      await prisma.session.delete({ where: { id: session.id } });
+      await prisma.session.deleteMany({ where: { id: session.id } });
       return null;
     }
   }
@@ -97,7 +101,7 @@ export async function getSession(): Promise<(User & { sessionId: string }) | nul
   }).catch(() => {});
 
   return { ...session.user, sessionId: session.id };
-}
+});
 
 export async function deleteSession(token: string) {
   await prisma.session.deleteMany({ where: { token } });

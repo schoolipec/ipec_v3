@@ -1,7 +1,6 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import {
   Sun, Moon, Globe, UserCircle, Shield, LogOut, ChevronDown, Menu,
@@ -30,7 +29,6 @@ function getInitials(name: string) {
 }
 
 export default function AdminTopbar({ name, email, role, pageTitle, onOpenMobile }: Props) {
-  const router = useRouter();
   const { theme, setTheme } = useTheme();
   const { lang, setLang, t } = useAdminLang();
   const [open, setOpen] = useState(false);
@@ -53,8 +51,7 @@ export default function AdminTopbar({ name, email, role, pageTitle, onOpenMobile
   async function handleLogout() {
     setOpen(false);
     await fetch('/api/admin/logout', { method: 'POST' });
-    router.push('/admin/login');
-    router.refresh();
+    window.location.assign("/");
   }
 
   const isDark = mounted ? theme === 'dark' : true;

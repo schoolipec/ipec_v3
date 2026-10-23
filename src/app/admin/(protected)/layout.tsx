@@ -11,6 +11,7 @@ export default async function ProtectedLayout({ children }: { children: React.Re
       name={user.name}
       email={user.email}
       role={user.role}
+      sessionTimeout={user.sessionTimeout}
     >
       {children}
     </ProtectedShell>
