@@ -1,10 +1,11 @@
 import { getTranslations } from 'next-intl/server';
 import { getSiteInfo } from '../siteInfo';
+import { getLiveVideo } from '@/server/youtube-live';
 
-// Igual que v2: no detecta transmisión real; muestra horarios y enlaces a YouTube y Facebook
 export default async function LiveSection({ asPage = false }: { asPage?: boolean }) {
   const t = await getTranslations('live');
   const site = await getSiteInfo();
+  const live = await getLiveVideo();
   const Title = asPage ? 'h1' : 'h2';
 
   return (
@@ -12,29 +13,72 @@ export default async function LiveSection({ asPage = false }: { asPage?: boolean
       <div className="mx-auto max-w-3xl px-6 text-center">
         <div className="mb-5 flex items-center justify-center gap-2">
           <span className="relative flex h-3 w-3" aria-hidden="true">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
-            <span className="relative inline-flex h-3 w-3 rounded-full bg-red-500" />
+            <span className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-75 ${live ? 'bg-red-400' : 'bg-white/30'}`} />
+            <span className={`relative inline-flex h-3 w-3 rounded-full ${live ? 'bg-red-500' : 'bg-white/30'}`} />
           </span>
-          <span className="text-sm font-semibold tracking-widest text-red-400 uppercase">{t('status')}</span>
+          <span className="text-sm font-semibold tracking-widest text-red-400 uppercase">
+            {live ? t('statusLive') : t('status')}
+          </span>
         </div>
 
         <Title className="mb-3 text-2xl font-bold text-white md:text-3xl">{t('title')}</Title>
         <p className="mx-auto mb-4 max-w-xl text-white/60">{t('text')}</p>
         <p className="mb-10 text-sm text-white/40">{t('schedule')}</p>
 
-        <div className="mb-8 rounded-2xl border border-white/10 bg-white/5 p-10">
-          <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-white/10">
-            <svg className="h-8 w-8 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.362a1 1 0 01-1.447.894L15 14M3 8a1 1 0 011-1h8a1 1 0 011 1v8a1 1 0 01-1 1H4a1 1 0 01-1-1V8z" />
-            </svg>
+        {/* ── Transmisión activa ── */}
+        {live ? (
+          <a
+            href={`https://www.youtube.com/watch?v=${live.videoId}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative mb-8 block overflow-hidden rounded-2xl border border-red-500/40 bg-black shadow-lg shadow-red-900/20 transition-transform duration-200 hover:scale-[1.01]"
+            aria-label={live.title}
+          >
+            {/* Miniatura */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={live.thumbnail}
+              alt={live.title}
+              className="w-full object-cover"
+              style={{ aspectRatio: '16/9' }}
+            />
+            {/* Overlay oscuro al hover */}
+            <div className="absolute inset-0 bg-black/20 transition-opacity duration-200 group-hover:bg-black/40" />
+            {/* Badge EN VIVO */}
+            <span className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full bg-red-600 px-3 py-1 text-xs font-bold text-white shadow">
+              <span className="h-1.5 w-1.5 animate-ping rounded-full bg-white" />
+              {t('statusLive')}
+            </span>
+            {/* Botón play central */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-600/90 shadow-lg transition-transform duration-200 group-hover:scale-110">
+                <svg className="h-7 w-7 translate-x-0.5 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+            {/* Título del video */}
+            <div className="absolute right-0 bottom-0 left-0 bg-gradient-to-t from-black/80 to-transparent px-4 pb-4 pt-8">
+              <p className="truncate text-sm font-semibold text-white">{live.title}</p>
+            </div>
+          </a>
+        ) : (
+          /* ── Sin transmisión ── */
+          <div className="mb-8 rounded-2xl border border-white/10 bg-white/5 p-10">
+            <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-white/10">
+              <svg className="h-8 w-8 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.362a1 1 0 01-1.447.894L15 14M3 8a1 1 0 011-1h8a1 1 0 011 1v8a1 1 0 01-1 1H4a1 1 0 01-1-1V8z" />
+              </svg>
+            </div>
+            <p className="text-sm text-white/60">{t('noLiveText')}</p>
           </div>
-          <p className="text-sm text-white/60">{t('noLiveText')}</p>
-        </div>
+        )}
 
-        <p className="mb-5 text-sm text-white/50">{t('watchOn')}</p>
+        {/* ── Botones ── */}
+        <p className="mb-5 text-sm text-white/50">{live ? t('watchLiveOn') : t('watchOn')}</p>
         <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <a
-            href={site.youtube}
+            href={live ? `https://www.youtube.com/watch?v=${live.videoId}` : site.youtube}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-3 rounded-full border border-white/20 px-8 py-3.5 text-sm font-bold text-white transition-all duration-200 hover:border-red-500 hover:bg-red-500/10"
@@ -42,7 +86,7 @@ export default async function LiveSection({ asPage = false }: { asPage?: boolean
             <svg className="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
             </svg>
-            {t('watchYoutube')}
+            {live ? t('watchYoutubeLive') : t('watchYoutube')}
           </a>
           <a
             href={site.facebook}

@@ -31,7 +31,10 @@
     "noLiveText": "No hay transmisión en este momento.",
     "watchOn": "Encuéntranos en:",
     "watchYoutube": "Ver en YouTube",
-    "watchFacebook": "Ver en Facebook"
+    "watchFacebook": "Ver en Facebook",
+    "statusLive": "En vivo ahora",
+    "watchLiveOn": "Mira la transmisión en:",
+    "watchYoutubeLive": "Ver en vivo en YouTube"
   },
   "groups": {
     "label": "Nuestra comunidad",
