@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import {
-  Shield, ShieldCheck, ShieldOff, Clock, CheckCircle2, AlertTriangle,
+  Shield, ShieldCheck, ShieldOff, Clock, CheckCircle2, AlertTriangle, Save,
 } from 'lucide-react';
 import { useAdminLang } from '@/components/admin/AdminLangContext';
 
@@ -24,6 +24,8 @@ export default function SecurityPanel({ twoFactorEnabled: initial2FA, sessionTim
   const { t } = useAdminLang();
   const [twoFactorEnabled, setTwoFactorEnabled] = useState(initial2FA);
   const [sessionTimeout, setSessionTimeout] = useState(initialTimeout);
+  const [customMinutes, setCustomMinutes] = useState('');
+  const [customSaved, setCustomSaved] = useState(false);
 
   // 2FA setup flow
   const [setupStep, setSetupStep] = useState<'idle' | 'scan' | 'verify' | 'done'>('idle');
@@ -79,6 +81,15 @@ export default function SecurityPanel({ twoFactorEnabled: initial2FA, sessionTim
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ sessionTimeout: val }),
     });
+  }
+
+  async function saveCustomTimeout() {
+    const val = parseInt(customMinutes, 10);
+    if (isNaN(val) || val < 0) return;
+    await saveSessionTimeout(val);
+    setCustomMinutes('');
+    setCustomSaved(true);
+    setTimeout(() => setCustomSaved(false), 2000);
   }
 
   // QR code como imagen (usando la URL otpauth:// directamente con qrcode.react si disponible,
@@ -215,6 +226,42 @@ export default function SecurityPanel({ twoFactorEnabled: initial2FA, sessionTim
                 </button>
               ))}
             </div>
+
+            {/* Tiempo personalizado */}
+            <div className="mt-4 flex items-center gap-2">
+              <input
+                type="number"
+                min="1"
+                max="9999"
+                value={customMinutes}
+                onChange={e => setCustomMinutes(e.target.value.replace(/[^0-9]/g, ''))}
+                onKeyDown={e => e.key === 'Enter' && saveCustomTimeout()}
+                placeholder={t('security.customMinutesPlaceholder') ?? 'Minutos (ej. 1, 45...)'}
+                className="admin-input w-44 text-sm"
+                style={{ minWidth: '10rem' }}
+              />
+              <button
+                onClick={saveCustomTimeout}
+                disabled={!customMinutes || parseInt(customMinutes, 10) < 0}
+                className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium transition"
+                style={customSaved ? {
+                  background: 'rgba(34,197,94,0.15)',
+                  color: '#22c55e',
+                  border: '1px solid rgba(34,197,94,0.3)',
+                } : {
+                  background: 'var(--admin-accent)',
+                  color: '#fff',
+                  border: '1px solid var(--admin-accent)',
+                  opacity: !customMinutes ? 0.5 : 1,
+                }}
+              >
+                {customSaved
+                  ? <><CheckCircle2 size={14} /> {t('common.saved') ?? 'Guardado'}</>
+                  : <><Save size={14} /> {t('security.applyCustom') ?? 'Aplicar'}</>
+                }
+              </button>
+            </div>
+
             <p className="mt-3 text-xs" style={{ color: 'var(--admin-text-muted)' }}>
               {sessionTimeout === 0
                 ? t('security.neverExpires')
