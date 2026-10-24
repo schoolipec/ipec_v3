@@ -32,9 +32,11 @@
     "watchOn": "Encuéntranos en:",
     "watchYoutube": "Ver en YouTube",
     "watchFacebook": "Ver en Facebook",
+    "watchInstagram": "Ver en Instagram",
     "statusLive": "En vivo ahora",
     "watchLiveOn": "Mira la transmisión en:",
-    "watchYoutubeLive": "Ver en vivo en YouTube"
+    "watchYoutubeLive": "Ver en vivo en YouTube",
+    "scheduleLabel": "Horarios de servicio"
   },
   "groups": {
     "label": "Nuestra comunidad",

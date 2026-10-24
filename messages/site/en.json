@@ -32,9 +32,11 @@
     "watchOn": "Watch us on:",
     "watchYoutube": "Watch on YouTube",
     "watchFacebook": "Watch on Facebook",
+    "watchInstagram": "Watch on Instagram",
     "statusLive": "Live now",
     "watchLiveOn": "Watch the stream on:",
-    "watchYoutubeLive": "Watch live on YouTube"
+    "watchYoutubeLive": "Watch live on YouTube",
+    "scheduleLabel": "Service schedule"
   },
   "groups": {
     "label": "Our community",

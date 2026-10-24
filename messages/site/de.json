@@ -32,9 +32,11 @@
     "watchOn": "Sieh uns hier:",
     "watchYoutube": "Auf YouTube ansehen",
     "watchFacebook": "Auf Facebook ansehen",
+    "watchInstagram": "Auf Instagram ansehen",
     "statusLive": "Jetzt live",
     "watchLiveOn": "Schau den Stream auf:",
-    "watchYoutubeLive": "Live auf YouTube ansehen"
+    "watchYoutubeLive": "Live auf YouTube ansehen",
+    "scheduleLabel": "Gottesdienstzeiten"
   },
   "groups": {
     "label": "Unsere Gemeinschaft",

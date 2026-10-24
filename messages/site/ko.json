@@ -32,9 +32,11 @@
     "watchOn": "여기서 시청하세요:",
     "watchYoutube": "YouTube에서 시청",
     "watchFacebook": "Facebook에서 시청",
+    "watchInstagram": "Instagram에서 시청",
     "statusLive": "지금 라이브",
     "watchLiveOn": "다음에서 스트림 시청:",
-    "watchYoutubeLive": "YouTube에서 라이브 시청"
+    "watchYoutubeLive": "YouTube에서 라이브 시청",
+    "scheduleLabel": "예배 일정"
   },
   "groups": {
     "label": "우리 공동체",
