@@ -69,27 +69,17 @@ export default async function LiveSection({ asPage = false }: { asPage?: boolean
             </div>
           </a>
         ) : (
-          /* ── Sin transmisión: placeholder visual ── */
+          /* ── Sin transmisión: imagen de fondo ── */
           <div className="relative mb-8 overflow-hidden rounded-2xl border border-white/10" style={{ aspectRatio: '16/9' }}>
-            {/* Fondo con gradiente animado */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#0a1a2e] via-[#061828] to-[#030e1a]" />
-            {/* Círculos decorativos de señal */}
-            <div className="absolute inset-0 flex items-center justify-center" aria-hidden="true">
-              <div className="absolute h-64 w-64 rounded-full border border-white/5" />
-              <div className="absolute h-44 w-44 rounded-full border border-white/5" />
-              <div className="absolute h-28 w-28 rounded-full border border-white/10" />
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/assets/placeholder-no-live.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" aria-hidden="true" />
+            <div className="absolute inset-0 bg-black/40" />
             {/* Contenido central */}
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20">
-                <svg className="h-8 w-8 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.362a1 1 0 01-1.447.894L15 14M3 8a1 1 0 011-1h8a1 1 0 011 1v8a1 1 0 01-1 1H4a1 1 0 01-1-1V8z" />
-                </svg>
-              </div>
-              <p className="text-sm font-medium text-white/60">{t('noLiveText')}</p>
-              <div className="flex flex-wrap justify-center gap-2 mt-1">
+              <p className="text-sm font-semibold text-white drop-shadow">{t('noLiveText')}</p>
+              <div className="flex flex-wrap justify-center gap-2">
                 {scheduleChips.map((chip, i) => (
-                  <span key={i} className="rounded-full bg-white/10 px-3 py-1 text-xs text-white/40">{chip}</span>
+                  <span key={i} className="rounded-full bg-black/40 px-3 py-1 text-xs text-white/80 backdrop-blur-sm">{chip}</span>
                 ))}
               </div>
             </div>
